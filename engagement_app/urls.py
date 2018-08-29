@@ -26,5 +26,5 @@ urlpatterns = [
     path('<int:pk>/count/',views.CountLandingView.as_view(),name='count_landing'),
     #controls app URLS
     path('controls/',include('controls_app.urls',namespace='controls_app')),
-    path('<int:pk>/control/',views.controlLandingView.as_view(),name='control_landing'),
+    path('<int:pk>/control/',views.ControlLandingView.as_view(),name='control_landing'),
 ]

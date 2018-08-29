@@ -11,10 +11,6 @@ from django.views.generic import (View,TemplateView,
                                 UpdateView)
 from . import models
 from engagement_app.models import Engagement
-from engagement_app.models import LocationNames
-from .models import MainLocation
-from .models import MainLocationInfo
-from .models import SubOneLocation
 from django.shortcuts import get_object_or_404
 from django.forms import ModelForm
 # Create your views here.

@@ -78,3 +78,13 @@ class EngagementInventoryClassDetailView(DetailView):
 class InventoryLandingView(DetailView):
     model = models.Engagement
     template_name = 'inventory_app/inventory_landing.html'
+
+#count views
+class CountLandingView(DetailView):
+    model = models.Engagement
+    template_name = 'count_app/count_landing.html'
+
+#control views
+class ControlLandingView(DetailView):
+    model = models.Engagement
+    template_name = 'controls_app/control_landing.html'
