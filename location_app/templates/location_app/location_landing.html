@@ -1,0 +1,39 @@
+{% extends "engagement_app/base.html" %}
+
+{% block left_block %}
+
+<h3>Location:</h3>
+  <p><a type="button" class='btn btn-block btn-dark' id="create" href="#">Create {{engagement.locationnames.mainlocation_name}}</a></p>
+  <p><a type="button" class='btn btn-block btn-dark' id="create" href="#">Create Location Type</a></p>
+  <p></p>
+  <p></p>
+{% endblock %}
+
+{% block breadcrumblink_block %}
+  <li class="breadcrumb-item"><a href="{% url 'engagement_app:engagement_landing' pk=engagement.id %}">{{engagement.name}}</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Location Options</li>
+{% endblock %}
+
+{% block body_block %}
+  <div class="container">
+      <h1>Location Options for {{engagement.name}}:</h1>
+      <h4>Lists:</h4>
+      <div class="engagement_list">
+        <ul>
+          <li>
+            <a class="btn btn-dark" id="engagement_list" href=" {% url 'engagement_app:engagement_mainlocation_detail' pk=engagement.id %} ">{{engagement.locationnames.mainlocation_name}}s</a>
+          </li>
+          <li>
+            <a class="btn btn-dark" id="engagement_list" href=" {% url 'engagement_app:engagement_typelocation_detail' pk=engagement.id %} ">Location Types</a>
+          </li>
+        </ul>
+      </div>
+
+
+
+  </div>
+  <div class="container">
+
+  </div>
+
+{% endblock %}

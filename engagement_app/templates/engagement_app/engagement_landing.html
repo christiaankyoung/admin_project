@@ -1,0 +1,107 @@
+{% extends "engagement_app/base.html" %}
+
+
+
+{% block left_block %}
+{% if engagement.locationnames %}
+<h3>{{engagement.name}}:</h3>
+  <!-- Button trigger modal -->
+  <a type="button" class="btn btn-block btn-light" id="create" href="#" data-toggle="modal" data-target="#exampleModal">
+    Detail
+  </a>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Details: {{engagement.name}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="jumbotron">
+
+
+            <p><span class="bold">Engagement ID:</span> {{engagement.id}}</p>
+            <p><span class="bold">Engagement Partner:</span> {{engagement.partner}}</p>
+            <p><span class="bold">Engagement Location:</span> {{engagement.location}}</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <p><a type="button" class='btn btn-block btn-light' id="create" href="{% url 'engagement_app:engagement_update' pk=engagement.pk %}">Update</a></p>
+  <p><a type="button" class='btn btn-block btn-danger' id="create" href="{% url 'engagement_app:engagement_delete' pk=engagement.pk %}">Delete</a></p>
+  <p> </p>
+  <p> </p>
+<h3>Location:</h3>
+  <p><a type="button" class='btn btn-block btn-dark' id="create" href=" {% url 'engagement_app:locationtree_update' pk=engagement.id  %} ">Location Name Tree</a></p>
+  <p><a type="button" class='btn btn-block btn-dark' id="create" href=" {% url 'engagement_app:location_app:mainlocation_create' pk=engagement.id %} ">Create {{engagement.locationnames.mainlocation_name}}</a></p>
+  <p></p>
+  <p><a type="button" class='btn btn-block btn-dark' id="create" href="{% url 'location_app:typelocation_create' pk=engagement.id %}">Create Location Type</a></p>
+  <p></p>
+<h3>Inventory:</h3>
+  <p><a type="button" class='btn btn-block btn-dark' id="create" href=" {% url 'inventory_app:inventoryclass_create' pk=engagement.id %} ">Create Inventory Class</a></p>
+  <p></p>
+  <p></p>
+<h3>Controls:</h3>
+  <p><a type="button" class='btn btn-block btn-dark' id="create" href="#">Create Control</a></p>
+  <p></p>
+  <p></p>
+<h3>Count:</h3>
+  <p><a type="button" class='btn btn-block btn-dark' id="create" href="#">Create Count</a></p>
+  <p> </p>
+  <p> </p>
+  {% else %}
+  {% endif %}
+{% endblock %}
+
+{% block breadcrumblink_block %}
+  <li class="breadcrumb-item active" aria-current="page">{{engagement.name}}</li>
+{% endblock %}
+
+{% block body_block %}
+{% if engagement.locationnames %}
+  <div class="container">
+    <h1>{{engagement.name}}</h1>
+
+      <h2>List of Locations:</h2>
+      <div class="engagement_list">
+        <ul>
+          <li>
+            <a class="btn btn-dark" id="engagement_list" href=" {% url 'engagement_app:engagement_mainlocation_detail' pk=engagement.id %} ">{{engagement.locationnames.mainlocation_name}}s</a>
+          </li>
+          <li>
+            <a class="btn btn-dark" id="engagement_list" href=" {% url 'engagement_app:engagement_typelocation_detail' pk=engagement.id %} ">Location Type</a>
+          </li>
+        </ul>
+      </div>
+
+      <h2>List of Inventory:</h2>
+      <div class="engagement_list">
+
+        <ul>
+          <li>
+            <a class="btn btn-dark" id="engagement_list" href=" {% url 'engagement_app:engagement_inventoryclass_detail' pk=engagement.id %} ">Inventory Class</a>
+          </li>
+        </ul>
+      </div>
+
+
+  </div>
+  <div class="container">
+
+  </div>
+
+  {% else %}
+  <h3>Please Set Up Location Tree</h3>
+  <p><a type="button" class='btn btn-block btn-dark' id="create" href=" {% url 'engagement_app:locationtree_create' pk=engagement.id %} ">Create Location Tree</a></p>
+  {% endif %}
+{% endblock %}

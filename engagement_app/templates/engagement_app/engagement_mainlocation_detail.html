@@ -1,0 +1,102 @@
+{% extends "engagement_app/base.html" %}
+{% load static %}
+{% block title_block %}
+mainlocation detail
+{% endblock%}
+{% block left_block %}
+  <div class="left_block">
+  <p><a type="button" class='btn btn-block btn-dark' id="create" href="{% url 'engagement_app:location_app:mainlocation_create' pk=engagement.id %}">Create {{engagement.locationnames.mainlocation_name}}</a></p>
+  <p><a type="button" class='btn btn-block btn-dark' id="create" href="{% url 'location_app:typelocation_create' pk=engagement.id %}">Create Location Type</a></p>
+
+</div>
+{% endblock %}
+
+{% block breadcrumblink_block %}
+  <li class="breadcrumb-item"><a href="{% url 'engagement_app:engagement_landing' pk=engagement.id %}">{{engagement.name}}</a></li>
+  <li class="breadcrumb-item active" aria-current="page">{{engagement.locationnames.mainlocation_name}}</li>
+{% endblock %}
+
+{% block body_block %}
+  <div class="container">
+    <p>
+      <div class="header_list">
+        <span class="list_header">
+            {{engagement.locationnames.mainlocation_name}}s for {{engagement.name}}:
+          </span>
+          </div>
+            <button id="show_btn" class="btn btn-dark" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="">Show All</button>
+            <a id="show_btn" class="btn btn-dark" href="{% url 'engagement_app:engagement_mainlocation_detail' pk=engagement.id %}">Hide All</a>
+
+    </p>
+{% if engagement.mainlocation.all %}
+
+<!-- Main location for-->
+      {% for mainlocation in engagement.mainlocation.all %}
+      <ul>
+        <li>
+          <a class='btn btn-light' data-toggle="collapse" id="list_btn" href="#mainlocation{{forloop.counter}}" role="button" aria-expanded="false" aria-controls="collapse">{{mainlocation.name}}</a>
+          <a class='dashboard' href="{% url 'engagement_app:location_app:mainlocation_detail' pk=mainlocation.id %}">
+            <img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail">
+            </a>
+<!-- Sub One location for-->
+          <div class="collapse multi-collapse" id="mainlocation{{forloop.counter}}">
+            {% for subonelocation in  mainlocation.subonelocation.all %}
+              <ul>
+                <li>
+                  <a class='btn btn-light' data-toggle="collapse" id="list_btn" href="#subone{{subonelocation.id}}" role="button" aria-expanded="false" aria-controls="collapse">{{subonelocation.name}}</a>
+                  <a class='dashboard' href="{% url 'engagement_app:location_app:subonelocation_detail' ml_pk=subonelocation.mainlocation.id pk=subonelocation.id %}">
+                    <img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail">
+                    </a>
+<!-- Sub Two location for-->
+                  <div class="collapse multi-collapse" id="subone{{subonelocation.id}}">
+                    {% for subtwolocation in  subonelocation.subtwolocation.all %}
+                      <ul>
+                        <li>
+                          <a class='btn btn-light' data-toggle="collapse" id="list_btn" href="#subtwo{{subtwolocation.id}}" role="button" aria-expanded="false" aria-controls="collapse">{{subtwolocation.name}}</a>
+                          <a class='dashboard' href="#">
+                            <img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail">
+                            </a>
+<!-- Sub Three location for-->
+                          <div class="collapse multi-collapse" id="subtwo{{subtwolocation.id}}">
+                            {% for subthreelocation in  subtwolocation.subthreelocation.all %}
+                              <ul>
+                                <li>
+                                  <a class='btn btn-light' id="list_btn" href="#">{{subthreelocation.name}}</a>
+                                  <a class='dashboard' href="#">
+                                    <img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail">
+                                    </a>
+                                </li>
+                              </ul>
+                            {% endfor %}
+                          </div>
+                        </li>
+                      </ul>
+                    {% endfor %}
+                  </div>
+                </li>
+              </ul>
+            {% endfor %}
+          </div>
+        </li>
+      </ul>
+      {% endfor %}
+
+
+  </div>
+  {% else %}
+  <div class="container">
+    <div class="jumbotron">
+
+      <span class="bold">
+        <p>No Main Locations for {{engagement.name}}</p>
+      </span>
+      <p>To Create Main Location:</p>
+
+      <div class="container">
+        <p><a type="button" class='btn btn-dark' href="{% url 'engagement_app:location_app:mainlocation_create' pk=engagement.id %}">Create Main Location</a></p>
+      </div>
+  </div>
+</div>
+  {% endif %}
+
+{% endblock %}

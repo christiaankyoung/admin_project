@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+<h1>Delete {{typelocation.type }}?</h1>
+
+<p></p>
+<span class='bold'>This will delete all associations with the location type {{typelocation.type}}! </span>
+<p></p>
+
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" class="btn btn-danger" value="Delete">
+  <a class="btn btn-light" href="{% url 'location_app:typelocation_detail' pk=typelocation.pk%} ">Cancel</a>
+
+</form>
+
+{% endblock %}

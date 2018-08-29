@@ -1,0 +1,183 @@
+{% extends "location_app/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block left_block %}
+<h3>{{mainlocation.name}}</h3>
+  <a class='btn btn-light btn-block' id="create" href="{% url 'location_app:mainlocation_update' pk=mainlocation.pk %}">Update</a>
+  <a class='btn btn-danger btn-block' id="create" href="{% url 'location_app:mainlocation_delete' pk=mainlocation.pk %}">Delete</a>
+  <p></p>
+<h4>Location Actions:</h4>
+  <a class="btn btn-light btn-block" id="create" href="{% url 'location_app:main-type_associate' pk=mainlocation.id %}">Associate Location Type(s)</a>
+  <a class='btn btn-light btn-block' id="create" href=" {% url 'location_app:subonelocation_create' pk=mainlocation.id %} ">Create {{mainlocation.engagement.locationnames.subonelocation_name}}</a>
+  <p></p>
+<h4>Inventory Actions:</h4>
+  <a class="btn btn-light btn-block" id="create" href="{% url 'inventory_app:inventory_maintype_associate' pk=mainlocation.id %}">Associate Inventory Type</a>
+
+
+{% endblock %}
+{% block breadcrumblink_block %}
+
+  <li class="breadcrumb-item"><a href="{% url 'engagement_app:engagement_mainlocation_detail' pk=mainlocation.engagement.id %} ">{{mainlocation.engagement.locationnames.mainlocation_name}}</a></li>
+  <li class="breadcrumb-item active" aria-current="page">{{mainlocation.name}}</li>
+{% endblock %}
+
+
+{% block body_block %}
+
+  <div class="container">
+    <h1>Details for Location:</h1>
+
+    <div class="container">
+        <div class="detail_header">
+          <p>{{mainlocation.name}}</p>
+        </div>
+      </div>
+
+      <div class="container" id="detail_box">
+
+            <h3>Details:</h3>
+            <div class="container" id="detail_box_detail">
+              <p>
+
+                  <span class="bold">Name:</span>
+                  {{mainlocation.name}}
+              </p>
+            </div>
+      </div>
+        <div class="container">
+          <ul>
+            <li>
+              <div class="locationtypes">
+                <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#locationtype" role="button" aria-expanded="false" aria-controls="collapse">Location Types:</a>
+                  <div class="collapse multi-collapse" id="locationtype">
+                    {% if mainlocation.mainlocationinfo.all %}
+                        <div class="detail_list">
+                          {% for  mainlocationinfo in mainlocation.mainlocationinfo.all  %}
+                            <ul>
+                              <li>
+                                  <a class='btn btn-secondary' id="detail_btn" href=" {% url 'location_app:typelocation_detail' pk=mainlocationinfo.type.id  %} ">{{mainlocationinfo.type}}</a>
+                                  <a class='unassociate' href=" {% url 'location_app:main-type_unassociate' pk=mainlocationinfo.id %} ">
+                                    <img id="unassociate" src="{% static "images/folder_delete_color.png" %}"  alt="Unassociate">
+                                    </a>
+                                </li>
+                              </ul>
+                          {% endfor %}
+                        </div>
+                    {% else %}
+                      <div class="container">
+                        <p></p>
+                        <div class="jumbotron">
+                          <h3>No Location Type Associated with {{mainlocation.name}}</h3>
+                          <p>To Associate Location Type:</p>
+                          <a class="btn btn-dark" href="{% url 'location_app:main-type_associate' pk=mainlocation.id %}">Associate Location Type(s)</a>
+                        </div>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="locationsubs">
+                <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#locationsub" role="button" aria-expanded="false" aria-controls="collapse">{{mainlocation.engagement.locationnames.subonelocation_name}}(s):</a>
+                  <div class="collapse multi-collapse" id="locationsub">
+                    {% if mainlocation.subonelocation.all %}
+                        <div class="detail_list">
+                          {% for  subonelocation in mainlocation.subonelocation.all  %}
+                            <ul>
+                              <li>
+                                <a class='btn btn-secondary' id="detail_btn" href=" {% url 'location_app:subonelocation_detail' ml_pk=subonelocation.mainlocation.id pk=subonelocation.id %} ">{{subonelocation.name}}</a>
+                              </li>
+                            </ul>
+                          {% endfor %}
+                        </div>
+                    {% else %}
+                      <div class="container">
+                        <p></p>
+                        <div class="jumbotron">
+                          <h3>No {{mainlocation.engagement.locationnames.subonelocation_name}}(s) under {{mainlocation.name}}</h3>
+                          <p>To Add a {{mainlocation.engagement.locationnames.subonelocation_name}}:</p>
+                          <a class='btn btn-dark' href=" {% url 'location_app:subonelocation_create' pk=mainlocation.id %} ">Create {{mainlocation.engagement.locationnames.subonelocation_name}}</a>
+                        </div>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </li>
+              <li>
+<!--Inventory at Location-->
+                <div class="inventoryclass">
+                  <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#inventoryclass" role="button" aria-expanded="false" aria-controls="collapse">Inventory On-Site:</a>
+                    <div class="collapse multi-collapse" id="inventoryclass">
+                      {% if mainlocation.inventorytypemainlocation.all %}
+                        <div class="detail_list">
+                          <span class="note" >All inventory phyiscally held at the {{mainlocation.name}} {{mainlocation.engagement.locationnames.mainlocation_name}}</span>
+                          {% for cls,inventorytypes in mainlocation.get_inventory_types_by_class.items %}
+                            <ul>
+                              <li><a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#inventorytype{{forloop.counter}}" role="button" aria-expanded="false" aria-controls="collapse">{{cls}}</a>
+                                  <div class="collapse multi-collapse" id="inventorytype{{forloop.counter}}">
+                                    {% for  inventorytypemainlocation in inventorytypes  %}
+                                    <ul>
+                                      <li>
+                                          <a class='btn btn-secondary' id="detail_btn" href="{% url 'inventory_app:inventorytype_detail' pk=inventorytypemainlocation.type.pk %}">{{inventorytypemainlocation.type}}</a>
+                                          <span class="btn btn-primary" id="money_btn" > {{inventorytypemainlocation.balance |intcomma}}</span>
+                                          <a class='unassociate' href=" {% url 'inventory_app:inventory_maintype_unassociate' pk=inventorytypemainlocation.id %} ">
+                                            <img id="unassociate" src="{% static "images/folder_delete_color.png" %}"  alt="Unassociate">
+                                            </a>
+                                      </li>
+                                    </ul>
+                                    {% endfor %}
+                                  </div>
+                                </li>
+                                </ul>
+                          {% endfor %}
+
+                        </div>
+                      {% else %}
+                        <div class="container">
+                          <p></p>
+                          <div class="jumbotron">
+                            <h3>No Inventory Types Associated With {{mainlocation.name}}</h3>
+                            <p>To Associate an Inventory Type:</p>
+                            <a class="btn btn-dark" href="{% url 'inventory_app:inventory_maintype_associate' pk=mainlocation.id %}">Associate Inventory Type</a>
+                          </div>
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="inventoryaggregate">
+                    <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#inventoryaggregate" role="button" aria-expanded="false" aria-controls="collapse">Inventory Aggregate:</a>
+                      <div class="collapse multi-collapse" id="inventoryaggregate">
+<!---->
+                          <div class="detail_list">
+                            <span class="note" >All inventory under and at the {{mainlocation.name}} {{mainlocation.engagement.locationnames.mainlocation_name}}</span>
+                                      {% for  inventorytype,balance in mainlocation.get_aggregate_inventory_balance.items  %}
+                                        <ul>
+                                          <li>
+                                              <a class='btn btn-secondary' id="detail_btn" href="#">{{inventorytype}}</a>
+                                              <span class="btn btn-primary" id="money_btn" > {{balance |intcomma}}</span>
+
+                                          </li>
+                                        </ul>
+                                      {% endfor %}
+
+
+
+
+
+
+
+
+
+                          </div>
+
+
+                      </div>
+                    </div>
+                  </li>
+            </ul>
+          </div>
+        </div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+ 
+{% block body_block %}
+<h1>Delete {{mainlocation.engagement.locationnames.mainlocation_name}}: {{mainlocation.name}}?</h1>
+
+<span class="bold">This will delete all {{mainlocation.engagement.locationnames.subonelocation_name}}(s) and other locations under {{mainlocation.name}}!</span>
+<p></p>
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" class="btn btn-danger" value="Delete">
+  <a class="btn btn-light" href="{% url 'location_app:mainlocation_detail' pk=mainlocation.pk%} ">Cancel</a>
+
+</form>
+
+{% endblock %}

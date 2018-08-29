@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+<h1>Delete {{inventoryclass.classification}}?</h1>
+
+<span class="bold">This will delete all Inventory Types and related associations under {{inventoryclass.classification}}!</span>
+<p></p>
+
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" class="btn btn-danger" value="Delete">
+  <a class="btn btn-light" href="{% url 'inventory_app:inventoryclass_detail' pk=inventoryclass.pk%} ">Cancel</a>
+
+</form>
+
+{% endblock %}

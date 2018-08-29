@@ -1,0 +1,145 @@
+{% extends "location_app/subone/base.html" %}
+{% load humanize %}
+{% load static %}
+{% block left_block %}
+<h3>{{subonelocation.name}}</h3>
+  <a class='btn btn-light btn-block' id="create" href="{% url 'location_app:subonelocation_update' pk=subonelocation.pk %}">Update</a>
+  <a class='btn btn-danger btn-block' id="create" href="{% url 'location_app:subonelocation_delete' pk=subonelocation.pk %}">Delete</a>
+<h4>Location Actions:</h4>
+  <a class="btn btn-light btn-block" id="create" href="{% url 'location_app:subone-type_associate' pk=subonelocation.id %}">Associate Location Type(s)</a>
+  <a class='btn btn-light btn-block' id="create" href=" {% url 'location_app:subtwolocation_create' pk=subonelocation.id %} ">Create {{subonelocation.mainlocation.engagement.locationnames.subtwolocation_name}}</a>
+<h4>Inventory Actions:</h4>
+  <a class="btn btn-light btn-block" id="create" href="{% url 'inventory_app:inventory_subonetype_associate' pk=subonelocation.id %}">Associate Inventory Type</a>
+
+
+{% endblock %}
+
+{% block body_block %}
+
+  <div class="container">
+    <h1>Details for Location:</h1>
+
+    <div class="container">
+        <div class="detail_header">
+          <p>{{subonelocation.name}}</p>
+        </div>
+      </div>
+
+      <div class="container" id="detail_box">
+
+            <h3>Details:</h3>
+            <div class="container" id="detail_box_detail">
+              <p>
+
+                  <span class="bold">Name:</span>
+
+                  {{subonelocation.name}}
+              </p>
+            </div>
+      </div>
+        <div class="container">
+          <div class="locationtypes">
+            <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#locationtype" role="button" aria-expanded="false" aria-controls="collapse">Location Types:</a>
+              <div class="collapse multi-collapse" id="locationtype">
+                <div class="detail_list">
+                  {% for  subonelocationinfo in subonelocation.subonelocationinfo.all  %}
+                    <ul>
+                      <li>
+                          <a class='btn btn-secondary' id="detail_btn" href="#">{{subonelocationinfo.type}}</a>
+                        </li>
+                      </ul>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div class="locationsubs">
+              <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#locationsub" role="button" aria-expanded="false" aria-controls="collapse">Location Subs:</a>
+              <div class="collapse multi-collapse" id="locationsub">
+                <div class="detail_list">
+                  {% for  subtwolocation in subonelocation.subtwolocation.all  %}
+                    <ul>
+                      <li>
+                          <a class='btn btn-secondary' id="detail_btn" href="#">{{subtwolocation.name}}</a>
+                      </li>
+                    </ul>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <!--Inventory at Location-->
+              <div class="inventoryclass">
+                <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#inventoryclass" role="button" aria-expanded="false" aria-controls="collapse">Inventory On-Site:</a>
+                  <div class="collapse multi-collapse" id="inventoryclass">
+                    {% if subonelocation.inventorytypesubonelocation.all %}
+                      <div class="detail_list">
+                        <span class="note" >All inventory phyiscally held at the {{subonelocation.name}} {{mainlocation.engagement.locationnames.subonelocation_name}}</span>
+                        {% for cls,inventorytypes in subonelocation.get_inventory_types_by_class.items %}
+                          <ul>
+                            <li><a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#inventorytype{{forloop.counter}}" role="button" aria-expanded="false" aria-controls="collapse">{{cls}}</a>
+                                <div class="collapse multi-collapse" id="inventorytype{{forloop.counter}}">
+                                  {% for  inventorytypesubonelocation in inventorytypes  %}
+                                  <ul>
+                                    <li>
+                                        <a class='btn btn-secondary' id="detail_btn" href="#">{{inventorytypesubonelocation.type}}</a>
+                                        <span class="btn btn-primary" id="money_btn" > {{inventorytypesubonelocation.balance |intcomma}}</span>
+                                        <a class='unassociate' href="#">
+                                          <img id="unassociate" src="{% static "images/folder_delete_color.png" %}"  alt="Unassociate">
+                                          </a>
+                                    </li>
+                                  </ul>
+                                  {% endfor %}
+                                </div>
+                              </li>
+                              </ul>
+                        {% endfor %}
+
+                      </div>
+                    {% else %}
+                      <div class="container">
+                        <p></p>
+                        <div class="jumbotron">
+                          <h3>No Inventory Types Associated With {{subonelocation.name}}</h3>
+                          <p>To Associate an Inventory Type:</p>
+                          <a class="btn btn-dark" href="{% url 'inventory_app:inventory_subonetype_associate' pk=subonelocation.id %}">Associate Inventory Type</a>
+                        </div>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="inventoryaggregate">
+                  <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#inventoryaggregate" role="button" aria-expanded="false" aria-controls="collapse">Inventory Aggregate:</a>
+                    <div class="collapse multi-collapse" id="inventoryaggregate">
+<!---->
+                        <div class="detail_list">
+                          <span class="note" >This data to come soon!</span>
+                                    {% for  inventorytype,balance in mainlocation.get_aggregate_inventory_balance.items  %}
+                                      <ul>
+                                        <li>
+                                            <a class='btn btn-secondary' id="detail_btn" href="#">{{inventorytype}}</a>
+                                            <span class="btn btn-primary" id="money_btn" > {{balance |intcomma}}</span>
+
+                                        </li>
+                                      </ul>
+                                    {% endfor %}
+
+
+
+
+
+
+
+
+
+                        </div>
+
+
+                    </div>
+                  </div>
+                </li>
+</div>
+
+</div>
+
+{% endblock %}

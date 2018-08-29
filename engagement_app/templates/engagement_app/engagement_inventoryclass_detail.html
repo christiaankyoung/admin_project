@@ -1,0 +1,93 @@
+{% extends "engagement_app/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title_block %}
+Inventory Class detail
+{% endblock%}
+{% block left_block %}
+  <div class="left_block">
+  <p><a type="button" class='btn btn-block btn-dark' id="create" href="{% url 'engagement_app:inventory_app:inventoryclass_create' pk=engagement.id %}">Create Inventory Class</a></p>
+
+
+</div>
+{% endblock %}
+
+{% block breadcrumblink_block %}
+  <li class="breadcrumb-item"><a href="{% url 'engagement_app:engagement_landing' pk=engagement.id %}">{{engagement.name}}</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Inventory Class</li>
+{% endblock %}
+
+{% block body_block %}
+  <div class="container">
+    <p>
+      <div class="header_list">
+        <span class="list_header">
+            Inventory Classifications for {{engagement.name}}:
+          </span>
+          </div>
+            <button id="show_btn" class="btn btn-dark" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="">Show All</button>
+            <a id="show_btn" class="btn btn-dark" href=" {% url 'engagement_app:engagement_inventoryclass_detail' pk=engagement.id %} ">Hide All</a>
+
+    </p>
+
+{% if engagement.inventoryclass.all %}
+<!-- inventory class for-->
+      {% for inventoryclass in engagement.inventoryclass.all %}
+      <ul>
+        <li>
+          <a class='btn btn-light' data-toggle="collapse" id="list_btn" href="#inventoryclass{{forloop.counter}}" role="button" aria-expanded="false" aria-controls="collapse">{{inventoryclass.classification}}</a>
+
+
+          <a class='dashboard' href="{% url 'engagement_app:inventory_app:inventoryclass_detail' pk=inventoryclass.id %}">
+            <img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail">
+            </a>
+<!-- inventory type for-->
+          <div class="collapse multi-collapse" id="inventoryclass{{forloop.counter}}">
+            {% for inventorytype in  inventoryclass.inventorytype.all %}
+              <ul>
+                <li>
+                  <a class='btn btn-light' data-toggle="collapse" id="list_btn" href="#type{{inventorytype.id}}" role="button" aria-expanded="false" aria-controls="collapse">{{inventorytype.name}}</a>
+                  
+                  <a class='dashboard' href="#">
+                    <img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail">
+                    </a>
+<!--  Inventory sub type for-->
+                  <div class="collapse multi-collapse" id="type{{inventorytype.id}}">
+                    {% for inventorysubtype in  inventorytype.inventorysubtype.all %}
+                      <ul>
+                        <li>
+                          <a class='btn btn-light' id="list_btn" href="#">{{inventorysubtype.name}}</a>
+
+                          <a class='dashboard' href="#">
+                            <img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail">
+                            </a>
+                                </li>
+                              </ul>
+                              {% endfor %}
+                          </div>
+                        </li>
+                      </ul>
+                      {% endfor %}
+                  </div>
+                </li>
+              </ul>
+              {% endfor %}
+
+
+      {% else %}
+      <div class="container">
+        <div class="jumbotron">
+
+          <span class="bold">
+            <p>No Inventory Classes for {{engagement.name}}</p>
+          </span>
+          <p>To Create a Inventory Class:</p>
+
+          <div class="container">
+            <p><a type="button" class='btn btn-dark' href="{% url 'engagement_app:inventory_app:inventoryclass_create' pk=engagement.id %}">Create Inventory Class</a></p>
+          </div>
+      </div>
+      </div>
+      {% endif %}
+
+{% endblock %}

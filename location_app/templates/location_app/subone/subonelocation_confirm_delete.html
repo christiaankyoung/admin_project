@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+
+<h1>Delete {{subonelocation.mainlocation.engagement.locationnames.mainlocation_name}}: {{subonelocation.mainlocation.name}}?</h1>
+<p></p>
+<span class="bold">This will delete all {{subonelocation.mainlocation.engagement.locationnames.subtwolocation_name}}(s) and other associations under {{subonelocation.name}}!</span>
+<p></p>
+<form class="delete" method="post">
+  {% csrf_token %}
+  <input type="submit" class="btn btn-danger" value="Delete">
+  <a class="btn btn-light" id="cancel-delete" href="{% url 'location_app:subonelocation_detail' ml_pk=subonelocation.mainlocation.id pk=subonelocation.pk %} ">Cancel</a>
+
+</form>
+{% endblock %}

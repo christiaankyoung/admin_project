@@ -1,0 +1,10 @@
+#id_mainlocation,label[for="id_mainlocation"]{
+  display: none;
+}
+#id_subonelocation,label[for="id_subonelocation"]{
+  display: none;
+}
+#id_classification,label[for="id_classification"] {
+  display: none;
+
+}

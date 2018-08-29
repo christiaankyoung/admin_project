@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block breadcrumb_block %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href=" {% url 'engagement_app:engagement_landing' pk=typelocation.engagement.id %} ">{{typelocation.engagement.name}}</a></li>
+    {% block breadcrumblink_block %}
+
+    {% endblock %}
+  </ol>
+</nav>
+{% endblock %}
+
+{% block body_block %}
+
+{% endblock %}
+
+{% block right_block %}
+<p></p>
+<li class="nav-item">
+  <a class="btn btn-dark" id="left_block_item" href="#">Locations</a>
+</li>
+<p></p>
+<li class="nav-item">
+  <a class="btn btn-dark" id="left_block_item" href="#">Inventory</a>
+</li>
+<p></p>
+<li class="nav-item">
+  <a class="btn btn-dark" id="left_block_item" href="#">Controls</a>
+</li>
+<p></p>
+<li class="nav-item">
+  <a class="btn btn-dark" id="left_block_item" href="#">Counts</a>
+</li>
+
+{% endblock %}

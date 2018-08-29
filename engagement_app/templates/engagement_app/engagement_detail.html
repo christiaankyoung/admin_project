@@ -1,0 +1,33 @@
+{% extends "engagement_app/base.html" %}
+
+{% block left_block %}
+  <a class="btn btn-warning" href="{% url 'engagement_app:engagement_detail' %}">Detail</a>
+{% endblock %}
+
+{% block breadcrumblink_block %}
+  <li class="breadcrumb-item active" aria-current="page">{{engagement.name}}</li>
+{% endblock %}
+
+{% block body_block %}
+  <div class="container">
+    <h1>Welcome to the Engagement Detail Page</h1>
+    <h2>Engagement Details:</h2>
+    <p>Id_num: {{engagement.id}}</p>
+    <p>Name: {{engagement.name}}</p>
+    <p>Principal Partner:  {{engagement.partner}}</p>
+    <p>Location: {{engagement.location}}</p>
+    <h3>Main Locations:</h3>
+
+      {% for mainlocation in engagement.mainlocation.all %}
+        <p>{{mainlocation.name}}</p>
+      {% endfor %}
+
+  </div>
+  <div class="container">
+    <p><a class='btn btn-warning' href="{% url 'engagement_app:engagement_update' pk=engagement.pk %}">Update</a>
+        <a class='btn btn-danger' href="{% url 'engagement_app:engagement_delete' pk=engagement.pk %}">Delete</a>
+    </p>
+
+  </div>
+
+{% endblock %}

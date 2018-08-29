@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title_block %}
+Home
+{% endblock %}
+{% block right_block %}
+
+{% endblock %}
+
+  {% block body_block %}
+    <h1>Welcome to the Inventory Adminstrative App</h1>
+
+    <div class="container">
+      <p>Glad that you stopped by to check out my inventory adminstrative application. </p>
+    </div>
+  {% endblock %}
+
+
+  {% block content %}
+  <h2>Please Log In</h2>
+    <div class="container">
+        <a class="btn btn-dark "href=" {% url 'accounts:login' %} ">Log In</a>
+    </div>
+
+    {% endblock %}

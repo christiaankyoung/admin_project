@@ -1,0 +1,78 @@
+{% extends "location_app/typelocation/base.html" %}
+{% load static %}
+{% block left_block %}
+<h3>{{typelocation.type}}</h3>
+  <a class='btn btn-light btn-block' id="create" href="{% url 'location_app:typelocation_update' pk=typelocation.pk %}">Update</a>
+  <a class='btn btn-danger btn-block' id="create" href="{% url 'location_app:typelocation_delete' pk=typelocation.pk %}">Delete</a>
+<h3>Location Actions:</h3>
+  <a class="btn btn-light btn-block" id="create" href="#">Associate Location Type(s)</a>
+
+{% endblock %}
+{% block breadcrumblink_block %}
+
+  <li class="breadcrumb-item"><a href="{% url 'engagement_app:engagement_typelocation_detail' pk=typelocation.engagement.id %} ">Location Types</a></li>
+  <li class="breadcrumb-item active" aria-current="page">{{typelocation.type}}</li>
+{% endblock %}
+
+
+{% block body_block %}
+
+  <div class="container">
+    <h1>Details for Location Type:</h1>
+
+    <div class="container">
+        <div class="detail_header">
+          <p>{{typelocation.type}}</p>
+        </div>
+      </div>
+
+      <div class="container" id="detail_box">
+
+            <h3>Details:</h3>
+            <div class="container" id="detail_box_detail">
+              <p>
+
+                  <span class="bold">Name:</span>
+
+                  {{typelocation.type}}
+              </p>
+            </div>
+      </div>
+        <div class="container">
+          <ul>
+            <li>
+              <div class="locationtypes">
+                <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#locations" role="button" aria-expanded="false" aria-controls="collapse">{{typelocation.engagement.locationnames.mainlocation_name}}(s):</a>
+                  <div class="collapse multi-collapse" id="locations">
+                    <div class="detail_list">
+                      {% if typelocation.mainlocationinfo %}
+                            {% for  mainlocationinfo in typelocation.mainlocationinfo.all  %}
+                              <ul>
+                                <li>
+                                    <a class='btn btn-secondary' id="detail_btn" href="#">{{mainlocationinfo.type}}</a>
+                                    <a class='unassociate' href=" {% url 'location_app:main-type_unassociate' pk=mainlocationinfo.id %} ">
+                                      <img id="unassociate" src="{% static "images/folder_delete_color.png" %}"  alt="Unassociate">
+                                      </a>
+                                  </li>
+                                </ul>
+                            {% endfor %}
+                            {% else %}
+                            <div class="container">
+                              <div class="jumbotron">
+
+                                <span class="bold">
+                                  <p>No Locations for {{typelocation.type}}</p>
+                                </span>
+                            </div>
+                            </div>
+                            {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+
+{% endblock %}

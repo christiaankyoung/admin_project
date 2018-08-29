@@ -1,0 +1,71 @@
+{% extends "inventory_app/base.html" %}
+{% load static %}
+{% block left_block %}
+
+
+  <h3>{{inventoryclass.classification}}</h3>
+    <a class='btn btn-light btn-block' id="create" href="{% url 'inventory_app:inventoryclass_update' pk=inventoryclass.pk %}">Update</a>
+    <a class='btn btn-danger btn-block' id="create" href=" {% url 'inventory_app:inventoryclass_delete' pk=inventoryclass.pk %} ">Delete</a>
+    <a class="btn btn-light btn-block" id="create" href=" {% url 'inventory_app:inventorytype_create' pk=inventoryclass.pk %} ">Create Inventory Type</a>
+
+{% endblock %}
+{% block breadcrumblink_block %}
+
+  <li class="breadcrumb-item"><a href="{% url 'engagement_app:engagement_inventoryclass_detail' pk=inventoryclass.engagement.id %} ">Inventory Class</a></li>
+  <li class="breadcrumb-item active" aria-current="page">{{inventoryclass.classification}}</li>
+{% endblock %}
+
+{% block body_block %}
+
+  <div class="container">
+    <h1>Details for Inventory Class:</h1>
+
+    <div class="container">
+        <div class="detail_header">
+          <p>{{inventoryclass.classification}}</p>
+        </div>
+      </div>
+
+      <div class="container" id="detail_box">
+
+            <h3>Details:</h3>
+            <div class="container" id="detail_box_detail">
+              <p>
+
+                  <span class="bold">Class:</span>
+
+                  {{inventoryclass.classification}}
+              </p>
+            </div>
+      </div>
+        <div class="container">
+          <div class="locationtypes">
+            <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#locationtype" role="button" aria-expanded="false" aria-controls="collapse">Inventory Types:</a>
+              <div class="collapse multi-collapse" id="locationtype">
+                {% if inventoryclass.inventorytype.all %}
+                    <div class="detail_list">
+                      {% for  inventorytype in inventoryclass.inventorytype.all %}
+                        <ul>
+                          <li>
+                              <a class='btn btn-secondary' id="detail_btn" href=" {% url 'inventory_app:inventorytype_detail' pk=inventorytype.pk %} ">{{inventorytype.name}}</a>
+                            </li>
+                          </ul>
+                      {% endfor %}
+                    </div>
+                {% else %}
+                <div class="container">
+                  <p></p>
+                  <div class="jumbotron">
+                    <h3>No Inventory Types Under {{inventoryclass.classification}}</h3>
+                    <p>To Create an Inventory Type:</p>
+                    <a class="btn btn-dark" href="{% url 'inventory_app:inventorytype_create' pk=inventoryclass.pk %}">Create Inventory Type</a>
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+  </div>
+
+{% endblock %}

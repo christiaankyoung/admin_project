@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body_block %}
+  <div class="container">
+
+    <h1>List of Main Locations</h1>
+        {% for mainlocation in mainlocation_list %}
+        <ul>
+
+          <li><a href="{{mainlocation.id}}/">{{mainlocation.name}} </a></li>
+        </ul>
+        {% endfor %}
+
+  </div>
+
+
+{% endblock %}

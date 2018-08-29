@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block left_block %}
+  <div class="left_bar">
+    <a class="btn btn-warning" id="create" href="{% url 'engagement_app:engagement_create' %}">CREATE ENGAGEMENT</a>
+  </div>
+{% endblock %}
+{% block body_block %}
+
+
+
+  <div class="container">
+
+
+  <h1>List of Engagements</h1>
+</div>
+    <div class="list-btns">
+      <ul>
+        {% for engagement in engagement_list %}
+          <p>
+
+            <a class="btn btn-block btn-dark" id='engagement_btn' href="{% url 'engagement_app:engagement_landing' pk=engagement.id %}">{{engagement.name}}</a>
+          </p>
+        {% endfor %}
+      </ul>
+    </div>
+
+
+
+{% endblock %}

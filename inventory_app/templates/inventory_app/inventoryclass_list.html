@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body_block %}
+  <div class="container">
+
+    <h1>List of Types Locations</h1>
+    <a class="button" href="{% url 'location_app:mainlocation_create' %}">create mainlocation</a>
+      <ol>
+        {% for typelocation in typelocation_list %}
+          <h2><li><a href="{{typelocation.id}}/">{{typelocation.type}} </a></li></h2>
+        {% endfor %}
+      </ol>
+
+  </div>
+
+
+{% endblock %}

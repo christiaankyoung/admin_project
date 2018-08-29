@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+<h1>Delete Association </h1>
+<h4>Delete association of <span class='bold'>{{mainlocationinfo.type}}</span> with <span class='bold'>{{mainlocationinfo.mainlocation}}</span>?</h4>
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" class="btn btn-danger" value="Delete">
+  <a class="btn btn-light" href="{% url 'location_app:mainlocation_detail' pk=mainlocationinfo.mainlocation.pk%} ">Cancel</a>
+
+</form>
+
+{% endblock %}

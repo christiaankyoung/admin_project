@@ -1,0 +1,73 @@
+{% extends "inventory_app/inventorytype/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block left_block %}
+
+
+  <h3>{{inventorytype.name}}</h3>
+    <a class='btn btn-light btn-block' id="create" href="{% url 'inventory_app:inventorytype_update' pk=inventorytype.pk %}">Update</a>
+    <a class='btn btn-danger btn-block' id="create" href=" {% url 'inventory_app:inventorytype_delete' pk=inventorytype.pk %} ">Delete</a>
+
+{% endblock %}
+{% block breadcrumblink_block %}
+
+  <li class="breadcrumb-item"><a href="{% url 'engagement_app:engagement_inventoryclass_detail' pk=inventorytype.classification.engagement.id %} ">Inventory Class</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'inventory_app:inventoryclass_detail' pk=inventorytype.classification.pk %} ">{{inventorytype.classification}}</a></li>
+  <li class="breadcrumb-item active" aria-current="page">{{inventorytype.name}}</li>
+{% endblock %}
+
+{% block body_block %}
+
+  <div class="container">
+    <h1>Details for Inventory Type:</h1>
+
+    <div class="container">
+        <div class="detail_header">
+          <p>{{inventorytype.name}}</p>
+        </div>
+      </div>
+
+      <div class="container" id="detail_box">
+
+            <h3>Details:</h3>
+            <div class="container" id="detail_box_detail">
+              <p>
+
+                  <span class="bold">Name:</span>
+
+                  {{inventorytype.name}}
+              </p>
+            </div>
+      </div>
+      <div class="container">
+        <div class="locationtypes">
+          <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#locations" role="button" aria-expanded="false" aria-controls="collapse">Locations:</a>
+            <div class="collapse multi-collapse" id="locations">
+              {% if inventorytype.inventorytypemainlocation.all %}
+                  <div class="detail_list">
+                    {% for  inventorytypemainlocation in inventorytype.inventorytypemainlocation.all %}
+                      <ul>
+                        <li>
+                            <a class='btn btn-secondary' id="detail_btn" href=" # ">{{inventorytypemainlocation.mainlocation}}</a>
+                            <span class="btn btn-primary" id="money_btn" > {{inventorytypemainlocation.balance |intcomma}}</span>
+                          </li>
+                        </ul>
+                    {% endfor %}
+                  </div>
+              {% else %}
+              <div class="container">
+                <p></p>
+                <div class="jumbotron">
+                  <h3>No Inventory Types Under {{inventoryclass.classification}}</h3>
+                  <p>To Create an Inventory Type:</p>
+                  <a class="btn btn-dark" href="{% url 'inventory_app:inventorytype_create' pk=inventorytype.classification.pk %}">Create Inventory Type</a>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+  </div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+
+<h2>Delete {{engagement.name }}?</h2>
+<p></p>
+<span class='bold'>This will delete all items associated with {{engagement.name }}! </span>
+<p></p>
+<form class="delete" method="post">
+  {% csrf_token %}
+  <input type="submit" class="btn btn-danger" value="Delete">
+  <a class="btn btn-light" id="cancel-delete" href="{% url 'engagement_app:engagement_landing' pk=engagement.pk%} ">Cancel</a>
+
+</form>
+{% endblock %}
