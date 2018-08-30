@@ -27,6 +27,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/',include('accounts.urls',namespace='accounts')),
     path("thanks/", views.ThanksPage.as_view(), name="thanks"),
-    path('controls/',include('controls_app.urls',namespace='controls_app')),
+    path('controls/',include('controls_app.urls',namespace='control_app')),
     path('count/',include('count_app.urls',namespace='count_app')),
 ]

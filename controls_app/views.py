@@ -29,7 +29,7 @@ class ControlDetailView(DetailView):
 
 class ControlCreateView(CreateView):
     model = models.Control
-    fields = ('name','engagement')
+    fields = ('ref','engagement','frequency','control_type','configurable')
 
     def get_initial(self):
         self.engagement = get_object_or_404(Engagement, id=self.kwargs.get('pk'))
@@ -37,7 +37,6 @@ class ControlCreateView(CreateView):
 
     def get_context_data(self,**kwargs):
         context  = super().get_context_data(**kwargs)
-        context['mainlocation_name'] = self.engagement.locationnames.mainlocation_name
         context['engagement_name'] = self.engagement.name
         context['engagement_id'] = self.engagement.id
         return context

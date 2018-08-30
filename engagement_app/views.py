@@ -25,12 +25,12 @@ class EngagementDetailView(DetailView):
 
 
 class EngagementCreateView(CreateView):
-    fields = ("name","partner","location")
+    fields = ("name","partner","office",'industry')
     model = models.Engagement
 
 
 class EngagementUpdateView(UpdateView):
-    fields = ("name","partner","location")
+    fields = ("name","partner","office",'industry')
     model = models.Engagement
 
 class EngagementDeleteView(DeleteView):

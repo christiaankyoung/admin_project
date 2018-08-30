@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+<h1>
+  {% if not form.instance.pk %}
+  Create Control for {{engagement_name}}
+  {% else %}
+  Update Control for {{engagement_name}}
+  {% endif %}
+
+</h1>
+
+  <form method="POST" id="hideerror_form">
+    {% csrf_token %}
+
+    {% for error in form.errors %}
+      {% if error == "__all__" %}
+      <div class="container">
+          <ul>
+            <li>This Control Reference Already Exsists for {{engagement_name}}</li>
+          </ul>
+      </div>
+      {% endif %}
+    {% endfor %}
+
+
+    {{ form.as_p }}
+    <input type="submit" class='btn btn-primary' value="Submit">
+    <a class="btn btn-light" id="cancel-delete" href="{% url 'engagement_app:engagement_landing' pk=engagement_id %} ">Cancel</a>
+
+  </form>
+
+
+{% endblock %}
