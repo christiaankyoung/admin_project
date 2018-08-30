@@ -8,6 +8,7 @@ from location_app.models import *
 class InventoryClass(models.Model):
     classification = models.CharField(max_length=56)
     engagement = models.ForeignKey(Engagement,related_name='inventoryclass', on_delete=models.CASCADE)
+    description = models.TextField(null=True, blank=False, default='')
 
     class Meta:
         unique_together = ('classification','engagement')
@@ -23,6 +24,7 @@ class InventoryClass(models.Model):
 class InventoryType(models.Model):
     name = models.CharField(max_length=56)
     classification = models.ForeignKey(InventoryClass,related_name='inventorytype', on_delete=models.CASCADE)
+    description = models.TextField(null=True, blank=False, default='')
     balance = models.IntegerField(null=True,blank=True)
 
     class Meta:

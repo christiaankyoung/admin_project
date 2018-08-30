@@ -5,6 +5,7 @@ from engagement_app.models import Engagement
 class TypeLocation(models.Model):
     type = models.CharField(max_length=256)
     engagement = models.ForeignKey(Engagement,related_name='typelocation', on_delete=models.CASCADE)
+    description = models.TextField(null=True, blank=False, default='')
 
     class Meta:
         unique_together = ('type','engagement')
@@ -19,6 +20,8 @@ class TypeLocation(models.Model):
 class MainLocation(models.Model):
     name = models.CharField(max_length=256)
     engagement = models.ForeignKey(Engagement,related_name='mainlocation', on_delete=models.CASCADE)
+    address = models.CharField(max_length=256,null=True, blank=False, default='')
+    description = models.TextField(null=True, blank=False, default='')
 
     class Meta:
         unique_together = ('name','engagement')
@@ -81,6 +84,8 @@ class MainLocationInfo(models.Model):
 class SubOneLocation(models.Model):
     name = models.CharField(max_length=256)
     mainlocation = models.ForeignKey(MainLocation,related_name='subonelocation', on_delete=models.CASCADE)
+    address = models.CharField(max_length=256, null=True, blank=False, default='')
+    description = models.TextField(null=True, blank=False, default='')
 
     class Meta:
         unique_together = ('name','mainlocation')
@@ -98,7 +103,7 @@ class SubOneLocation(models.Model):
             if cls not in result:
                 result[cls]=[]
             result[cls].append(inventorytype)
-        return result 
+        return result
 
 class SubOneLocationInfo(models.Model):
     type = models.ForeignKey(TypeLocation,related_name='subonelocationinfotype', on_delete=models.CASCADE, blank=True)
@@ -118,6 +123,8 @@ class SubOneLocationInfo(models.Model):
 class SubTwoLocation(models.Model):
     name = models.CharField(max_length=256)
     subonelocation = models.ForeignKey(SubOneLocation,related_name='subtwolocation', on_delete=models.CASCADE)
+    address = models.CharField(max_length=256, null=True, blank=False, default='')
+    description = models.TextField(null=True, blank=False, default='')
 
     class Meta:
         unique_together = ('name','subonelocation')

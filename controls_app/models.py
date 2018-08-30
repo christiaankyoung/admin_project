@@ -6,11 +6,11 @@ from location_app.models import SubOneLocation
 from inventory_app.models import InventoryType
 # Create your models here.
 class Control(models.Model):
-    ref = models.CharField(max_length=10)
     engagement = models.ForeignKey(Engagement,related_name='control', on_delete=models.CASCADE)
-    inventorytype = models.ForeignKey(InventoryType,related_name='control', on_delete=models.CASCADE)
-    date = models.DateField(auto_now=False)
-    blindcount= models.BooleanField()
+    ref = models.CharField(max_length=10)
+    frequency = models.CharField(choices=('Yearly','Quarterly','Monthly','Daily','On Occurance','Other'))
+    control_type = models.CharField(choices=('IT APP Control','ITDM Control','Manual Prevent','Manual Detect'))
+
 
 
 

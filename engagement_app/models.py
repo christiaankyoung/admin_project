@@ -2,9 +2,10 @@ from django.db import models
 from django.urls import reverse
 # Create your models here.
 class Engagement(models.Model):
-    name = models.CharField(max_length=256, unique=True)
-    partner = models.CharField(max_length=256)
-    location = models.CharField(max_length=256)
+    name = models.CharField(max_length=56, unique=True)
+    partner = models.CharField(max_length=56)
+    office = models.CharField(max_length=56)
+    industry = models.CharField(max_length=56)
 
     def __str__(self):
         return self.name
