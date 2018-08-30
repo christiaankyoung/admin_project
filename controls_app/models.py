@@ -27,6 +27,7 @@ class Control(models.Model):
 
     class Meta:
         unique_together = ('ref','engagement')
+        ordering = ["ref"]
 
     def __str__(self):
         return self.type

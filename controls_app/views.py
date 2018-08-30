@@ -18,7 +18,7 @@ from django.forms import ModelForm
 
 class ControlDetailView(DetailView):
     model = models.Control
-    template_name = 'control_app/control_detail.html'
+    template_name = 'controls_app/control_detail.html'
 
     #classes = MainLocation.engagement.inventoryclass.all()
 
