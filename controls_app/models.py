@@ -19,6 +19,8 @@ class Control(models.Model):
 
     engagement = models.ForeignKey(Engagement,related_name='control', on_delete=models.CASCADE)
     ref = models.CharField(max_length=10)
+    name = models.CharField(max_length=200)
+    description = models.TextField(null=True, blank=False, default='')
     frequency_choices=((Yearly,'Yearly'),(Quarterly,'Quarterly'),(Monthly,'Monthly'),(Daily,'Daily'),(Occurance,'On Occurance'),(Other,'Other'))
     frequency = models.CharField(choices=frequency_choices,max_length=20, null=True)
     control_type_choices =((IT_APP,'IT APP Control'),(ITDM,'ITDM Control'),(Manual_Prevent,'Manual Prevent'),(Manual_Detect,'Manual Detect'))
@@ -30,7 +32,16 @@ class Control(models.Model):
         ordering = ["ref"]
 
     def __str__(self):
-        return self.type
+        return self.ref
 
     def get_absolute_url(self):
         return reverse("control_app:control_detail",kwargs={'pk':self.pk})
+
+    def get_control_type(self):
+        result = {}
+        for control in self:
+            types=self.objects.all().order_by('control_type').distinct('control_type')
+            if types not in result:
+                result[types]=[]
+            result[types].append(self.ref)
+        return result

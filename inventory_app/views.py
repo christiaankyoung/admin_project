@@ -42,6 +42,17 @@ class InventoryClassUpdateView(UpdateView):
     fields = ("classification","engagement")
     model = models.InventoryClass
 
+    def get_initial(self):
+        self.engagement = get_object_or_404(Engagement, id=self.kwargs.get('pk'))
+        return {'engagement':self.engagement}
+
+    def get_context_data(self,**kwargs):
+        context  = super().get_context_data(**kwargs)
+        context['engagement_name'] = self.engagement.name
+        context['engagement_id'] = self.engagement.id
+        return context
+
+
 class InventoryClassDeleteView(DeleteView):
     model = models.InventoryClass
 
@@ -73,6 +84,17 @@ class InventoryTypeUpdateView(UpdateView):
     fields = ("classification","name")
     model = models.InventoryType
     template_name = 'inventory_app/inventorytype/inventorytype_form.html'
+
+    def get_initial(self):
+        self.classification = get_object_or_404(InventoryClass, id=self.kwargs.get('pk'))
+        return {'classification':self.classification}
+
+    def get_context_data(self,**kwargs):
+        context  = super().get_context_data(**kwargs)
+        context['inventoryclass_name'] = self.classification.classification
+        context['inventoryclass_id'] = self.classification.id
+        return context
+
 
 class InventoryTypeDeleteView(DeleteView):
     model = models.InventoryType

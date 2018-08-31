@@ -29,7 +29,7 @@ class ControlDetailView(DetailView):
 
 class ControlCreateView(CreateView):
     model = models.Control
-    fields = ('ref','engagement','frequency','control_type','configurable')
+    fields = ('ref','name','description','engagement','frequency','control_type','configurable')
 
     def get_initial(self):
         self.engagement = get_object_or_404(Engagement, id=self.kwargs.get('pk'))
@@ -44,8 +44,18 @@ class ControlCreateView(CreateView):
 
 
 class ControlUpdateView(UpdateView):
-    fields = ("name","engagement")
+    fields = ('ref','name','description','engagement','frequency','control_type','configurable')
     model = models.Control
+
+    def get_initial(self):
+        self.engagement = get_object_or_404(Engagement, id=self.kwargs.get('en_pk'))
+        return {'engagement':self.engagement}
+
+    def get_context_data(self,**kwargs):
+        context  = super().get_context_data(**kwargs)
+        context['engagement_name'] = self.engagement.name
+        context['engagement_id'] = self.engagement.id
+        return context
 
 class ControlDeleteView(DeleteView):
     model = models.Control

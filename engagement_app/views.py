@@ -8,6 +8,7 @@ from django.views.generic import (View,TemplateView,
 from . import models
 from .models import LocationNames
 from .models import Engagement
+from controls_app.models import Control
 from django.shortcuts import get_object_or_404
 
 # Create your views here.
@@ -84,7 +85,26 @@ class CountLandingView(DetailView):
     model = models.Engagement
     template_name = 'count_app/count_landing.html'
 
+class EngagementCountDetailView(DetailView):
+    model = models.Engagement
+    template_name = 'engagement_app/engagement_count_detail.html'
+
+
 #control views
 class ControlLandingView(DetailView):
     model = models.Engagement
     template_name = 'controls_app/control_landing.html'
+
+class EngagementControlDetailView(DetailView):
+    model = models.Engagement
+    template_name = 'engagement_app/engagement_control_detail.html'
+
+
+
+
+    def get_context_data(self,**kwargs):
+        context  = super().get_context_data(**kwargs)
+        control_types=Control.objects.all().filter(engagement='2').order_by('control_type').distinct('control_type')
+        context['control_types'] = control_types
+        context['controls_in_controltypes'] = Control.objects.all().filter(control_type='ITDM Control')
+        return context

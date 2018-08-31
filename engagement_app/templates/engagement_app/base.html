@@ -25,11 +25,11 @@
 </li>
 <p></p>
 <li class="nav-item">
-  <a class="btn btn-dark" id="left_block_item" href="#">Controls</a>
+  <a class="btn btn-dark" id="left_block_item" href="{% url 'engagement_app:control_landing' pk=engagement.id %}">Controls</a>
 </li>
 <p></p>
 <li class="nav-item">
-  <a class="btn btn-dark" id="left_block_item" href="#">Counts</a>
+  <a class="btn btn-dark" id="left_block_item" href="{% url 'engagement_app:count_landing' pk=engagement.id %}">Counts</a>
 </li>
 
 {% endblock %}

@@ -33,7 +33,7 @@ class MainLocationDetailView(DetailView):
 
 class MainLocationCreateView(CreateView):
     model = models.MainLocation
-    fields = ('name','engagement')
+    fields = ("name","engagement","address",'description')
 
     def get_initial(self):
         self.engagement = get_object_or_404(Engagement, id=self.kwargs.get('pk'))
@@ -49,8 +49,19 @@ class MainLocationCreateView(CreateView):
 
 
 class MainLocationUpdateView(UpdateView):
-    fields = ("name","engagement")
+    fields = ("name","engagement","address",'description')
     model = models.MainLocation
+
+    def get_initial(self):
+        self.engagement = get_object_or_404(Engagement, id=self.kwargs.get('en_pk'))
+        return {'engagement':self.engagement}
+
+    def get_context_data(self,**kwargs):
+        context  = super().get_context_data(**kwargs)
+        context['engagement_name'] = self.engagement.name
+        context['engagement_id'] = self.engagement.id
+        return context
+
 
 class MainLocationDeleteView(DeleteView):
     model = models.MainLocation
@@ -83,6 +94,17 @@ class TypeLocationUpdateView(UpdateView):
     fields = ("type","engagement")
     model = models.TypeLocation
     template_name = 'location_app/typelocation/typelocation_form.html'
+
+
+    def get_initial(self):
+        self.engagement = get_object_or_404(Engagement, id=self.kwargs.get('en_pk'))
+        return {'engagement':self.engagement}
+
+    def get_context_data(self,**kwargs):
+        context  = super().get_context_data(**kwargs)
+        context['engagement_name'] = self.engagement.name
+        context['engagement_id'] = self.engagement.id
+        return context
 
 class TypeLocationDeleteView(DeleteView):
     model = models.TypeLocation
@@ -167,6 +189,18 @@ class SubOneLocationUpdateView(UpdateView):
     model = models.SubOneLocation
     fields = ("name","mainlocation")
     template_name = 'location_app/subone/subonelocation_form.html'
+
+    def get_initial(self):
+        self.mainlocation = get_object_or_404(models.MainLocation, id=self.kwargs.get('pk'))
+        return {'mainlocation':self.mainlocation}
+
+    def get_context_data(self,**kwargs):
+        context  = super().get_context_data(**kwargs)
+        context['mainlocation_name'] = self.mainlocation.name
+        context['subonelocation_called'] = self.mainlocation.engagement.locationnames.subonelocation_name
+        context['mainlocation_id'] = self.mainlocation.id
+        return context
+
 
 class SubOneLocationDeleteView(DeleteView):
     model = models.SubOneLocation

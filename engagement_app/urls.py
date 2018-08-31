@@ -24,7 +24,9 @@ urlpatterns = [
     #count app URLs
     path('count/',include('count_app.urls',namespace='count_app')),
     path('<int:pk>/count/',views.CountLandingView.as_view(),name='count_landing'),
+    path('counts/<int:pk>/',views.EngagementCountDetailView.as_view(),name='engagement_count_detail'),
     #controls app URLS
     path('controls/',include('controls_app.urls',namespace='controls_app')),
     path('<int:pk>/control/',views.ControlLandingView.as_view(),name='control_landing'),
+    path('controls/<int:pk>/',views.EngagementControlDetailView.as_view(),name='engagement_control_detail'),
 ]

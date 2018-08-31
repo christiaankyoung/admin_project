@@ -3,7 +3,7 @@
 {% load humanize %}
 {% block left_block %}
 <h3>{{control.ref}}</h3>
-  <a class='btn btn-light btn-block' id="create" href="{% url 'control_app:control_update' pk=control.pk %}">Update</a>
+  <a class='btn btn-light btn-block' id="create" href="{% url 'control_app:control_update' en_pk=control.engagement.id pk=control.pk %}">Update</a>
   <a class='btn btn-danger btn-block' id="create" href="{% url 'control_app:control_delete' pk=control.pk %}">Delete</a>
   <p></p>
 <h4>Location Actions:</h4>
@@ -23,7 +23,7 @@
 
 
 {% block body_block %}
-
+{{get_control_type}}
   <div class="container">
     <h1>Details for {{control.ref}}:</h1>
 
@@ -37,11 +37,28 @@
 
             <h3>Details:</h3>
             <div class="container" id="detail_box_detail">
-              <p>
-
-                  <span class="bold">Control Reference:</span>
-                  {{control.ref}}
-              </p>
+              <span class="bold">Control Reference:</span> {{control.ref}}
+              <p></p>
+              <div class="">
+                <span class="bold">Control Name:</span>
+                  <div class="container">
+                    {{control.name}}
+                  </div>
+              </div>
+              <p></p>
+              <div class="">
+                <span class="bold">Control Description:</span>
+                  <div class="container">
+                    {{control.description}}
+                  </div>
+              </div>
+              <p></p>
+              <span class="bold">Control Frequency:</span> {{control.frequency}}
+              <p></p>
+              <span class="bold">Control Type:</span> {{control.control_type}}
+              <p></p>
+              <span class="bold">Configurable?:</span> {% if control.configurable %} Yes {% else %} No {% endif %}
+              <p></p>
             </div>
       </div>
         <div class="container">
