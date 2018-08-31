@@ -1,12 +1,10 @@
 from django.db import models
 from django.urls import reverse
 from engagement_app.models import Engagement
-from location_app.models import MainLocation
-from location_app.models import SubOneLocation
-from inventory_app.models import InventoryType
+
 # Create your models here.
 class Application(models.Model):
-    engagement = models.ForeignKey(Engagement,related_name='control', on_delete=models.CASCADE)
+    engagement = models.ForeignKey(Engagement,related_name='application', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=False, default='')
 
@@ -37,3 +35,32 @@ class Report(models.Model):
 
     def get_absolute_url(self):
         return reverse("it_app:report_detail",kwargs={'pk':self.pk})
+
+class ApplicationControlInfo(models.Model):
+    application = models.ForeignKey(Application,related_name='applicationcontrolinfo', on_delete=models.CASCADE, blank=True)
+    control = models.ForeignKey(Control,related_name='applicationcontrolinfo', on_delete=models.CASCADE, blank=True)
+    description = models.TextField(null=True, blank=False, default='')
+
+    class Meta:
+        unique_together = ('application','control')
+
+    def __str__(self):
+        return '%s (%s)' % (self.application, self.control)
+
+    def get_absolute_url(self):
+        return reverse("it_app:control_detail",kwargs={'pk':self.control.id})
+
+
+class ReportControlInfo(models.Model):
+    report = models.ForeignKey(Report,related_name='reportcontrolinfo', on_delete=models.CASCADE, blank=True)
+    control = models.ForeignKey(Control,related_name='reportcontrolinfo', on_delete=models.CASCADE, blank=True)
+    description = models.TextField(null=True, blank=False, default='')
+
+    class Meta:
+        unique_together = ('report','control')
+
+    def __str__(self):
+        return '%s (%s)' % (self.report, self.control)
+
+    def get_absolute_url(self):
+        return reverse("it_app:control_detail",kwargs={'pk':self.control.id})

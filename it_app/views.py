@@ -27,7 +27,7 @@ class ApplicationDetailView(DetailView):
 
 class ApplicationCreateView(CreateView):
     model = models.Application
-    fields = (__All__)
+    fields = ('engagement','name','description')
 
     def get_initial(self):
         self.engagement = get_object_or_404(Engagement, id=self.kwargs.get('pk'))
@@ -42,7 +42,7 @@ class ApplicationCreateView(CreateView):
 
 
 class ApplicationUpdateView(UpdateView):
-    fields = (__All__)
+    fields = ('engagement','name','description')
     model = models.Application
 
     def get_initial(self):
