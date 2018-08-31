@@ -29,4 +29,5 @@ urlpatterns = [
     path("thanks/", views.ThanksPage.as_view(), name="thanks"),
     path('controls/',include('controls_app.urls',namespace='control_app')),
     path('count/',include('count_app.urls',namespace='count_app')),
+    path('it/',include('it_app.urls',namespace='it_app')),
 ]

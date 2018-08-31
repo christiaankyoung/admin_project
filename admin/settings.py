@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'count_app',
     'controls_app',
+    'it_app'
 ]
 
 MIDDLEWARE = [

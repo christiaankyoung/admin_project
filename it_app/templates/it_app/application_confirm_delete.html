@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+<h1>Delete {{control.ref}}?</h1>
+
+<span class="bold">This will delete all associations with {{control.ref}}!</span>
+<p></p>
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" class="btn btn-danger" value="Delete">
+  <a class="btn btn-light" href="{% url 'control_app:control_detail' pk=control.pk%} ">Cancel</a>
+
+</form>
+
+{% endblock %}
