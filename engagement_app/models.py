@@ -16,10 +16,10 @@ class Engagement(models.Model):
 
 class LocationNames(models.Model):
     engagement=models.OneToOneField(Engagement,related_name='locationnames', on_delete=models.CASCADE,unique=True,primary_key=True)
-    mainlocation_name=models.CharField(max_length=56,default="Main Location", null=True)
-    subonelocation_name=models.CharField(max_length=56,default="Sub One Location", null=True)
-    subtwolocation_name=models.CharField(max_length=56,default="Sub Two Location", null=True)
-    subthreelocation_name=models.CharField(max_length=56,default="Sub Three Location", null=True)
+    mainlocation_name=models.CharField(max_length=56,default="Main Location", null=True, blank=True)
+    subonelocation_name=models.CharField(max_length=56,default="Sub One Location", null=True, blank=True)
+    subtwolocation_name=models.CharField(max_length=56,default="Sub Two Location", null=True, blank=True)
+    subthreelocation_name=models.CharField(max_length=56,default="Sub Three Location", null=True, blank=True)
 
     def __str__(self):
         return '%s (%s) (%s) (%s)' % (self.mainlocation_name, self.subonelocation_name,self.subtwolocation_name,self.subthreelocation_name)

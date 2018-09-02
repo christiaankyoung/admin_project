@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
 
 {% block body_block %}
 <h1>
@@ -20,11 +22,30 @@
       </div>
       {% endif %}
     {% endfor %}
+    <p>
+      {{ form.engagement }}
+      {{ form.engagement.errors }}
+    </p>
+    
+    <p>
+      <span class="bold" > Location Type:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+      <div class="container">
 
-    {{ form.as_p }}
+      {% render_field form.type class="form-control" placeholder=form.type.label %}
+      {{ form.type.errors }}
+    </div>
+    </p>
+    <p>
+      <span class="bold" > Location Type Description:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+        <div class="container">
+          {% render_field form.description rows="2" cols="80" class="form-control" placeholder='Description' %}
+          {{ form.description.errors }}
+        </div>
+      </p>
+    <p>
     <input type="submit" class='btn btn-primary' value="Submit">
     <a class="btn btn-light" id="cancel-delete" href="{% url 'engagement_app:engagement_landing' pk=engagement_id %} ">Cancel</a>
-    
+
   </form>
 
 

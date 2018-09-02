@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'count_app',
     'controls_app',
-    'it_app'
+    'it_app',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

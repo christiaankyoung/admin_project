@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-
+{% load static %}
+{% load widget_tweaks %}
 {% block body_block %}
 <h1>
   {% if not form.instance.pk %}
@@ -23,9 +24,55 @@
       {% endif %}
     {% endfor %}
 
+    <p>
+      {{ form.engagement }}
+      {{ form.engagement.errors }}
+    </p>
+    <p></p>
+    <p>
+      <span class="bold" > Control Reference:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+      <div class="container">
 
-    {{ form.as_p }}
-    <input type="submit" class='btn btn-primary' value="Submit">
+      {% render_field form.ref class="form-control" placeholder=form.ref.label %}
+      {{ form.ref.errors }}
+    </div>
+    </p>
+    <p>
+      <span class="bold" > Control Name:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+    <div class="container">
+      {% render_field form.name class="form-control" placeholder=form.name.label %}
+      {{ form.name.errors }}
+    </div>
+  </p>
+    <p>
+      <span class="bold" > Control Description:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+        <div class="container">
+          {% render_field form.description rows="2" cols="80" class="form-control" %}
+          {{ form.description.errors }}
+        </div>
+      </p>
+    <p>
+      <span class="bold" > Control Frequency:</span><a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+        <div class="container">
+          {% render_field form.frequency class="form-control" %}
+          {{ form.frequency.errors }}
+        </div>
+  </p>
+  <p>
+    <span class="bold" > Control Type:</span><a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+      <div class="container">
+        {% render_field form.control_type class="form-control" %}
+        {{ form.control_type.errors }}
+      </div>
+  </p>
+  <p>
+    <span class="bold" > Configurable?:</span><a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+      <div class="container">
+        {% render_field form.configurable class="form-control" %}
+        {{ form.configurable.errors }}
+      </div>
+  </p>
+  <input type="submit" class='btn btn-primary' value="Submit">
     <a class="btn btn-light" id="cancel-delete" href="{% url 'engagement_app:engagement_landing' pk=engagement_id %} ">Cancel</a>
 
   </form>

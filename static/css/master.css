@@ -268,3 +268,24 @@ li{
   margin-bottom: 1px;
 
 }
+#info_bulb{
+  height: 32px;
+}
+#example{
+  background-color: white;
+  border-radius: 2%;
+}
+
+#example-btn{
+  font-size: .4em;
+}
+
+#example-tron{
+  padding-top: 1%;
+  padding-bottom: 1%;
+
+}
+
+.hidden{
+  display: none;
+}

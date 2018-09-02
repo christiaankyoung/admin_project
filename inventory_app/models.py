@@ -41,6 +41,23 @@ class InventoryTypeMainLocation(models.Model):
     mainlocation = models.ForeignKey(MainLocation,related_name='inventorytypemainlocation', on_delete=models.CASCADE)
     balance = models.IntegerField(null=True,blank=True)
 
+    Yearly='Yearly'
+    Quarterly='Quarterly'
+    Monthly='Monthly'
+    Daily='Daily'
+    Not_counted='Not Counted'
+    Other='Other'
+    Cycle_count = 'Cycle Count'
+    Full_physical = "Full Physical"
+    Reliance = 'Reliance on Third Party'
+    NA = "N/A"
+
+    frequency_choices=((Yearly,'Yearly'),(Quarterly,'Quarterly'),(Monthly,'Monthly'),(Daily,'Daily'),(Not_counted,'Not Counted'),(Other,'Other'))
+    frequency = models.CharField(choices=frequency_choices,max_length=20, null=True)
+    cc_choices = ((Cycle_count,'Cycle Count'),(Full_physical,'Full Physical'),(Reliance,'Reliance on Third Party'),(Other,'Other'),(NA,'N/A'))
+    cc_type = models.CharField(choices=cc_choices,max_length=26, null=True)
+    uom =  models.CharField(max_length=40, null=True)
+
     class Meta:
         unique_together = ('type','mainlocation')
 
@@ -56,6 +73,23 @@ class InventoryTypeSubOneLocation(models.Model):
     type = models.ForeignKey(InventoryType,related_name='inventorytypesubonelocation', on_delete=models.CASCADE)
     subonelocation = models.ForeignKey(SubOneLocation,related_name='inventorytypesubonelocation', on_delete=models.CASCADE)
     balance = models.IntegerField(null=True,blank=True)
+
+    Yearly='Yearly'
+    Quarterly='Quarterly'
+    Monthly='Monthly'
+    Daily='Daily'
+    Not_counted='Not Counted'
+    Other='Other'
+    Cycle_count = 'Cycle Count'
+    Full_physical = "Full Physical"
+    Reliance = 'Reliance on Third Party'
+    NA = "N/A"
+
+    frequency_choices=((Yearly,'Yearly'),(Quarterly,'Quarterly'),(Monthly,'Monthly'),(Daily,'Daily'),(Not_counted,'Not Counted'),(Other,'Other'))
+    frequency = models.CharField(choices=frequency_choices,max_length=20, null=True)
+    cc_choices = ((Cycle_count,'Cycle Count'),(Full_physical,'Full Physical'),(Reliance,'Reliance on Third Party'),(Other,'Other'),(NA,'N/A'))
+    cc_type = models.CharField(choices=cc_choices,max_length=26, null=True)
+    uom =  models.CharField(max_length=40, null=True)
 
     class Meta:
         unique_together = ('type','subonelocation')

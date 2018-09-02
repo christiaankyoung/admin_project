@@ -1,16 +1,80 @@
 {% extends "base.html" %}
-
+{% load static %}
+{% load widget_tweaks %}
 {% block body_block %}
 <h1>
   {% if not form.instance.pk %}
-  Location Tree
+  Set Location Tree
   {% else %}
-  Location Tree
+  Set Location Tree
   {% endif %}
 </h1>
+<div class="jumbotron" id="example-tron">
+  <span class="bold"> Please set a location tree for this engagement:</span>
+  <p></p>
+  <p> <a class='btn btn-dark' id="example_btn" data-toggle="collapse" href="#example" role="button" aria-expanded="false" aria-controls="collapse">Example:</a></p>
+    <div class="collapse multi-collapse" id="example">
+    <ul>
+      <li>Division</li>
+        <ul>
+          <li>Sub Division</li>
+            <ul>
+              <li>Location</li>
+                <ul>
+                  <li>Sub Location</li>
+                </ul>
+            </ul>
+        </ul>
+    </ul>
+  </div>
+    <span class="note">Values can be left blank (default value assigned)</p></span>
+</div>
   <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
+    <p>
+      {{ form.engagement }}
+      {{ form.engagement.errors }}
+    </p>
+    <p>
+      <span class="bold" > Main Location Name:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+      <div class="container">
+
+      {% render_field form.mainlocation_name class="form-control" placeholder=form.mainlocation_name.label %}
+      {{ form.mainlocation_name.errors }}
+    </div>
+    </p>
+    <div class="container">
+      <p>
+        <span class="bold" > Sub One Location Name:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+        <div class="container">
+
+        {% render_field form.subonelocation_name class="form-control" placeholder='Sub One Location' %}
+        {{ form.subonelocation_name.errors }}
+      </div>
+      </p>
+        <div class="container">
+
+        <p>
+          <span class="bold" > Sub Two Location Name:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+          <div class="container">
+
+          {% render_field form.subtwolocation_name class="form-control" placeholder='Sub Two Location' %}
+          {{ form.subtwolocation_name.errors }}
+        </div>
+        </p>
+        <div class="container">
+
+            <p>
+              <span class="bold" > Sub Three Location Name:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+              <div class="container">
+
+              {% render_field form.subthreelocation_name class="form-control" placeholder="Sub Three Location" %}
+              {{ form.subthreelocation_name.errors }}
+            </div>
+            </p>
+        </div>
+      </div>
+  </div>
     <input type="submit" class='btn btn-primary' value="Submit">
 
   </form>

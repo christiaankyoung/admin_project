@@ -26,7 +26,7 @@ class InventoryClassDetailView(DetailView):
 
 class InventoryClassCreateView(CreateView):
     model = models.InventoryClass
-    fields = ('classification','engagement')
+    fields = ('classification','engagement', 'description')
 
     def get_initial(self):
         self.engagement = get_object_or_404(Engagement, id=self.kwargs.get('pk'))
@@ -39,7 +39,7 @@ class InventoryClassCreateView(CreateView):
         return context
 
 class InventoryClassUpdateView(UpdateView):
-    fields = ("classification","engagement")
+    fields = ('classification','engagement', 'description')
     model = models.InventoryClass
 
     def get_initial(self):
@@ -67,7 +67,7 @@ class InventoryTypeDetailView(DetailView):
 
 class InventoryTypeCreateView(CreateView):
     model = models.InventoryType
-    fields = ('classification','name')
+    fields = ('classification','name','description')
     template_name = 'inventory_app/inventorytype/inventorytype_form.html'
 
     def get_initial(self):
@@ -81,7 +81,7 @@ class InventoryTypeCreateView(CreateView):
         return context
 
 class InventoryTypeUpdateView(UpdateView):
-    fields = ("classification","name")
+    fields = ('classification','name','description')
     model = models.InventoryType
     template_name = 'inventory_app/inventorytype/inventorytype_form.html'
 

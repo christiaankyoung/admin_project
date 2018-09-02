@@ -61,5 +61,5 @@ class ControlDeleteView(DeleteView):
     model = models.Control
 
     def get_success_url(self):
-        engagement = get_object_or_404(models.InvCount, id=self.kwargs.get('pk')).engagement
+        engagement = get_object_or_404(models.Control, id=self.kwargs.get('pk')).engagement
         return engagement.get_absolute_url()

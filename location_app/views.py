@@ -72,7 +72,7 @@ class MainLocationDeleteView(DeleteView):
 #TypeLocation Views
 
 class TypeLocationCreateView(CreateView):
-    fields = ("type","engagement")
+    fields = ("type","engagement",'description')
     model = models.TypeLocation
     template_name = 'location_app/typelocation/typelocation_form.html'
 
@@ -91,7 +91,7 @@ class TypeLocationDetailView(DetailView):
 
 
 class TypeLocationUpdateView(UpdateView):
-    fields = ("type","engagement")
+    fields = ("type","engagement",'description')
     model = models.TypeLocation
     template_name = 'location_app/typelocation/typelocation_form.html'
 
@@ -166,8 +166,8 @@ class MainLocationEngagementDetailView(DetailView):
 
 # Sub One Views
 class SubOneLocationCreateView(CreateView):
-    fields = ("name","mainlocation")
     model = models.SubOneLocation
+    fields = ("name","mainlocation",'description','address')
     template_name = 'location_app/subone/subonelocation_form.html'
 
     def get_initial(self):
@@ -187,7 +187,7 @@ class SubOneLocationDetailView(DetailView):
 
 class SubOneLocationUpdateView(UpdateView):
     model = models.SubOneLocation
-    fields = ("name","mainlocation")
+    fields = ("name","mainlocation",'description','address')
     template_name = 'location_app/subone/subonelocation_form.html'
 
     def get_initial(self):

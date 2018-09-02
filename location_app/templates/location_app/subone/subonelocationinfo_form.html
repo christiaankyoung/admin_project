@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
 
 {% block body_block %}
 <h1>
@@ -20,7 +22,20 @@
       </div>
       {% endif %}
     {% endfor %}
-    {{ form.as_p }}
+    <p class="hidden">
+      {{ form.subonelocation }}
+      {{ form.subone.errors }}
+    </p>
+
+    <p>
+      <span class="bold" > Location Type:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+      <div class="container">
+
+      {% render_field form.type class="form-control" placeholder=form.type.label %}
+      {{ form.type.errors }}
+    </div>
+    </p>
+
 
     <input type="submit" class='btn btn-primary' value="Submit">
       <a class="btn btn-light" id="cancel-delete" href="{% url 'location_app:subonelocation_detail' ml_pk=mainlocation_id pk=subonelocation_id %} ">Cancel</a>

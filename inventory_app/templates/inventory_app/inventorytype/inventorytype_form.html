@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
 
 {% block body_block %}
 <h1>
@@ -19,7 +21,27 @@
       </div>
       {% endif %}
     {% endfor %}
-    {{ form.as_p }}
+    <p class="hidden">
+      {{ form.classification }}
+      {{ form.classification.errors }}
+    </p>
+    <p>
+      <span class="bold" >  Name:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+      <div class="container">
+
+      {% render_field form.name class="form-control" placeholder=form.name.label %}
+      {{ form.name.errors }}
+    </div>
+    </p>
+    <p>
+      <span class="bold" > Inventory Type Description:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+        <div class="container">
+          {% render_field form.description rows="2" cols="80" class="form-control" placeholder='Description' %}
+          {{ form.description.errors }}
+        </div>
+      </p>
+    <p>
+
     <input type="submit" class='btn btn-primary' value="Submit">
     <a class="btn btn-light" id="cancel-delete" href="{% url 'inventory_app:inventoryclass_detail' pk=inventoryclass_id %} ">Cancel</a>
   </form>

@@ -1,6 +1,9 @@
 from django.db import models
 from django.urls import reverse
 from engagement_app.models import Engagement
+from controls_app.models import Control
+
+
 
 # Create your models here.
 class Application(models.Model):
