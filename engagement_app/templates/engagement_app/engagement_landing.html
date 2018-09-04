@@ -60,6 +60,10 @@
   <p><a type="button" class='btn btn-block btn-dark' id="create" href="#">Create Count</a></p>
   <p> </p>
   <p> </p>
+<h3>IT Apps:</h3>
+  <p><a type="button" class='btn btn-block btn-dark' id="create" href="#">Create IT App</a></p>
+  <p> </p>
+  <p> </p>
   {% else %}
   {% endif %}
 {% endblock %}
@@ -95,7 +99,35 @@
         </ul>
       </div>
 
+      <h2>List of Controls:</h2>
+      <div class="engagement_list">
 
+        <ul>
+          <li>
+            <a class="btn btn-dark" id="engagement_list" href=" {% url 'engagement_app:engagement_control_detail' pk=engagement.id %} ">Controls</a>
+          </li>
+        </ul>
+      </div>
+
+      <h2>List of Counts:</h2>
+      <div class="engagement_list">
+
+        <ul>
+          <li>
+            <a class="btn btn-dark" id="engagement_list" href="#">Counts</a>
+          </li>
+        </ul>
+      </div>
+
+      <h2>List of IT Applications:</h2>
+      <div class="engagement_list">
+
+        <ul>
+          <li>
+            <a class="btn btn-dark" id="engagement_list" href="#">IT Applications</a>
+          </li>
+        </ul>
+      </div>
   </div>
   <div class="container">
 

@@ -20,19 +20,23 @@
 {% block right_block %}
 <p></p>
 <li class="nav-item">
-  <a class="btn btn-dark" id="left_block_item" href=" {% url 'engagement_app:location_landing'  pk=subonelocation.mainlocation.engagement.id %} ">Locations</a>
+  <a class="btn btn-dark" id="left_block_item" href="{% url 'engagement_app:location_landing' pk=subonelocation.mainlocation.engagement.id %}">Locations</a>
 </li>
 <p></p>
 <li class="nav-item">
-  <a class="btn btn-dark" id="left_block_item" href="{% url 'engagement_app:inventory_landing'  pk=subonelocation.mainlocation.engagement.id %} ">Inventory</a>
+  <a class="btn btn-dark" id="left_block_item" href=" {% url 'engagement_app:inventory_landing' pk=subonelocation.mainlocation.engagement.id %} ">Inventory</a>
 </li>
 <p></p>
 <li class="nav-item">
-  <a class="btn btn-dark" id="left_block_item" href="#">Controls</a>
+  <a class="btn btn-dark" id="left_block_item" href="{% url 'engagement_app:control_landing' pk=subonelocation.mainlocation.engagement.id %}">Controls</a>
 </li>
 <p></p>
 <li class="nav-item">
-  <a class="btn btn-dark" id="left_block_item" href="#">Counts</a>
+  <a class="btn btn-dark" id="left_block_item" href="{% url 'engagement_app:count_landing' pk=subonelocation.mainlocation.engagement.id %}">Counts</a>
+</li>
+<p></p>
+<li class="nav-item">
+  <a class="btn btn-dark" id="left_block_item" href="{% url 'engagement_app:it_app_landing' pk=subonelocation.subonelocation.mainlocation.engagement.id %}">IT Applications</a>
 </li>
 
 {% endblock %}

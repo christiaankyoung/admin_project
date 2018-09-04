@@ -7,7 +7,7 @@ urlpatterns = [
     path('',views.MainLocationListView.as_view(),name='mainlocation_list'),
     path('<int:pk>/',views.MainLocationDetailView.as_view(),name='mainlocation_detail'),
     path('<int:pk>/create/',views.MainLocationCreateView.as_view(),name='mainlocation_create'),
-    path('update/<int:pk>/',views.MainLocationUpdateView.as_view(),name='mainlocation_update'),
+    path('<int:en_pk>/update/<int:pk>/',views.MainLocationUpdateView.as_view(),name='mainlocation_update'),
     path('delete/<int:pk>/',views.MainLocationDeleteView.as_view(),name='mainlocation_delete'),
     #TypeLocation URLS
     path('<int:pk>/createtype/',views.TypeLocationCreateView.as_view(),name='typelocation_create'),

@@ -36,13 +36,14 @@ li{
 }
 
 #left_block_item{
-    width: 120px;
+    width: 130px;
     text-align: left;
     font-style: italic;
 }
 
 .engagement_list{
   font-size: 1.2em;
+  margin-bottom: 2em;
 }
 
 #engagement_list{

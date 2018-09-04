@@ -10,6 +10,7 @@ class InvCount(models.Model):
     ref = models.CharField(max_length=10)
     engagement = models.ForeignKey(Engagement,related_name='invcount', on_delete=models.CASCADE)
     inventorytype = models.ForeignKey(InventoryType,related_name='invcount', on_delete=models.CASCADE)
+    mainlocation = models.ForeignKey(MainLocation,related_name='invcount', on_delete=models.CASCADE)
     date = models.DateField(auto_now=False)
     blindcount= models.BooleanField()
     control = models.ForeignKey(Control,related_name='invcount', on_delete=models.CASCADE, null=True, blank=True )

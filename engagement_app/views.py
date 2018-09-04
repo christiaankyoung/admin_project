@@ -108,3 +108,12 @@ class EngagementControlDetailView(DetailView):
         context['control_types'] = control_types
         context['controls_in_controltypes'] = Control.objects.all().filter(control_type='ITDM Control')
         return context
+
+#control views
+class ITLandingView(DetailView):
+    model = models.Engagement
+    template_name = 'it_app/it_landing.html'
+
+class EngagementITDetailView(DetailView):
+    model = models.Engagement
+    template_name = 'engagement_app/engagement_it_detail.html'

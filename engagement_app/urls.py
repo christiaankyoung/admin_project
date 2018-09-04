@@ -29,4 +29,8 @@ urlpatterns = [
     path('controls/',include('controls_app.urls',namespace='controls_app')),
     path('<int:pk>/control/',views.ControlLandingView.as_view(),name='control_landing'),
     path('controls/<int:pk>/',views.EngagementControlDetailView.as_view(),name='engagement_control_detail'),
+    #it app URLS
+    path('it/',include('it_app.urls',namespace='it_app')),
+    path('<int:pk>/it/',views.ITLandingView.as_view(),name='it_app_landing'),
+    path('it/<int:pk>/',views.EngagementITDetailView.as_view(),name='engagement_it_detail'),
 ]

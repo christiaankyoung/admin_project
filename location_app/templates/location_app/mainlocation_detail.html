@@ -3,7 +3,7 @@
 {% load humanize %}
 {% block left_block %}
 <h3>{{mainlocation.name}}</h3>
-  <a class='btn btn-light btn-block' id="create" href="{% url 'location_app:mainlocation_update' pk=mainlocation.pk %}">Update</a>
+  <a class='btn btn-light btn-block' id="create" href="{% url 'location_app:mainlocation_update' pk=mainlocation.pk en_pk=mainlocation.engagement.id %}">Update</a>
   <a class='btn btn-danger btn-block' id="create" href="{% url 'location_app:mainlocation_delete' pk=mainlocation.pk %}">Delete</a>
   <p></p>
 <h4>Location Actions:</h4>
@@ -15,6 +15,13 @@
 <p></p>
 <h4>Control Actions:</h4>
   <a class="btn btn-light btn-block" id="create" href="{% url 'control_app:mainlocationcontrol_associate' pk=mainlocation.id %}">Associate Control</a>
+<p></p>
+<h4>IT Apps:</h4>
+  <p><a type="button" class='btn btn-light btn-block' id="create" href="#">Associate IT App</a></p>
+  <p> </p>
+  <p> </p>
+
+
 
 {% endblock %}
 {% block breadcrumblink_block %}
@@ -38,18 +45,33 @@
 
             <h3>Details:</h3>
             <div class="container" id="detail_box_detail">
-              <p>
-
+              <div>
                   <span class="bold">Name:</span>
                   {{mainlocation.name}}
-              </p>
+              </div>
+              <p></p>
+              <div>
+
+                  <span class="bold">Address:</span>
+                  {{mainlocation.address}}
+              </div>
+              <p></p>
+              <div>
+                  <span class="bold">Description:</span>
+                  <div class="container">
+
+                  {{mainlocation.description}}
+                </div>
+              </div>
+              <p></p>
             </div>
       </div>
         <div class="container">
           <ul>
+<!--location Types-->
             <li>
               <div class="locationtypes">
-                <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#locationtype" role="button" aria-expanded="false" aria-controls="collapse">Location Types:</a>
+                <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#locationtype" role="button" aria-expanded="false" aria-controls="collapse">Location Type(s):</a>
                   <div class="collapse multi-collapse" id="locationtype">
                     {% if mainlocation.mainlocationinfo.all %}
                         <div class="detail_list">
@@ -77,6 +99,7 @@
                   </div>
                 </div>
               </li>
+<!--location subs-->
               <li>
                 <div class="locationsubs">
                 <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#locationsub" role="button" aria-expanded="false" aria-controls="collapse">{{mainlocation.engagement.locationnames.subonelocation_name}}(s):</a>
@@ -104,8 +127,8 @@
                   </div>
                 </div>
               </li>
-              <li>
 <!--Inventory at Location-->
+              <li>
                 <div class="inventoryclass">
                   <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#inventoryclass" role="button" aria-expanded="false" aria-controls="collapse">Inventory On-Site:</a>
                     <div class="collapse multi-collapse" id="inventoryclass">
@@ -146,11 +169,11 @@
                     </div>
                   </div>
                 </li>
+<!--Aggregate amount of Inventory-->
                 <li>
                   <div class="inventoryaggregate">
                     <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#inventoryaggregate" role="button" aria-expanded="false" aria-controls="collapse">Inventory Aggregate:</a>
                       <div class="collapse multi-collapse" id="inventoryaggregate">
-<!---->
                           <div class="detail_list">
                             <span class="note" >All inventory under and at the {{mainlocation.name}} {{mainlocation.engagement.locationnames.mainlocation_name}}</span>
                                       {% for  inventorytype,balance in mainlocation.get_aggregate_inventory_balance.items  %}
@@ -162,21 +185,98 @@
                                           </li>
                                         </ul>
                                       {% endfor %}
-
-
-
-
-
-
-
-
-
                           </div>
-
-
                       </div>
                     </div>
                   </li>
+<!--Controls-->
+                  <li>
+                    <div class="controls">
+                    <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#controls" role="button" aria-expanded="false" aria-controls="collapse">Control(s):</a>
+                      <div class="collapse multi-collapse" id="controls">
+                        {% if mainlocation.mainlocationcontrol.all %}
+                            <div class="detail_list">
+                              {% for  mainlocationcontrol in mainlocation.mainlocationcontrol.all  %}
+                                <ul>
+                                  <li>
+                                    <a class='btn btn-secondary' id="detail_btn" data-toggle="collapse" href="#control{{forloop.counter}}" role="button" aria-expanded="false" aria-controls="collapse" >{{mainlocationcontrol.control}}</a>
+                                    <a class='dashboard' href=" {% url 'control_app:control_detail' pk=mainlocationcontrol.control.id %} ">
+                                      <img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail">
+                                      </a>
+                                      <div class="collapse multi-collapse" id="control{{forloop.counter}}">
+                                        <div class="container">
+                                          <div class="container" id="control_dis">
+                                            <div class="jumbotron" id="control_dis">
+                                              <p>
+                                                <span class="bold" >Control Name:</span>
+                                                {{mainlocationcontrol.control.name}}
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                  </li>
+                                </ul>
+                              {% endfor %}
+                            </div>
+                        {% else %}
+                          <div class="container">
+                            <p></p>
+                            <div class="jumbotron">
+                              <h3>No Controls Associated With {{mainlocation.name}}</h3>
+                              <p>To associate a control:</p>
+                              <a class='btn btn-dark' href=" {% url 'controls_app:mainlocationcontrol_associate' pk=mainlocation.id %} ">Associate Control</a>
+                            </div>
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </li>
+<!--Counts-->
+                  <li>
+                    <div class="counts">
+                    <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#counts" role="button" aria-expanded="false" aria-controls="collapse">Count(s):</a>
+                      <div class="collapse multi-collapse" id="counts">
+                        {% if mainlocation.invcount.all %}
+                            <div class="detail_list">
+                              {% for  invcount in mainlocation.invcount.all  %}
+                                <ul>
+                                  <li>
+                                    <a class='btn btn-secondary' id="detail_btn" data-toggle="collapse" href="#count{{forloop.counter}}" role="button" aria-expanded="false" aria-controls="collapse" >{{invcount.ref}}</a>
+                                      <div class="collapse multi-collapse" id="count{{forloop.counter}}">
+                                        <div class="container">
+                                          <div class="container" id="control_dis">
+                                            <div class="jumbotron" id="control_dis">
+                                              <p>
+                                                <span class="bold" >Inventory Type:</span>
+                                                {{invcount.inventorytype}}
+                                              </p>
+                                              <p>
+                                                <span class="bold" >Count Date:</span>
+                                                {{invcount.date}}
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                  </li>
+                                </ul>
+                              {% endfor %}
+                            </div>
+                        {% else %}
+                          <div class="container">
+                            <p></p>
+                            <div class="jumbotron">
+                              <h3>No Counts Associated With {{mainlocation.name}}</h3>
+                              <p>To create an inventory count:</p>
+                              <a class='btn btn-dark' href=" {% url 'count_app:count_create' %} ">Create Count</a>
+                            </div>
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </li>
+
             </ul>
           </div>
         </div>
