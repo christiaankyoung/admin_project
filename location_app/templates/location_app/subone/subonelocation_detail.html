@@ -9,6 +9,8 @@
   <a class="btn btn-light btn-block" id="create" href="{% url 'location_app:subone-type_associate' pk=subonelocation.id %}">Associate Location Type(s)</a>
 <h4>Inventory Actions:</h4>
   <a class="btn btn-light btn-block" id="create" href="{% url 'inventory_app:inventory_subonetype_associate' pk=subonelocation.id %}">Associate Inventory Type</a>
+  <h4>Control Actions:</h4>
+    <a class="btn btn-light btn-block" id="create" href="{% url 'control_app:subonelocationcontrol_associate' pk=subonelocation.id %}">Associate Control</a>
 
 
 {% endblock %}
@@ -92,7 +94,7 @@
                   </div>
                 </div>
               </li>
-              
+
                 <div class="inventoryaggregate">
                   <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#inventoryaggregate" role="button" aria-expanded="false" aria-controls="collapse">Inventory Aggregate:</a>
                     <div class="collapse multi-collapse" id="inventoryaggregate">

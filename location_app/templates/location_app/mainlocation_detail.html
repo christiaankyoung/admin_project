@@ -12,7 +12,9 @@
   <p></p>
 <h4>Inventory Actions:</h4>
   <a class="btn btn-light btn-block" id="create" href="{% url 'inventory_app:inventory_maintype_associate' pk=mainlocation.id %}">Associate Inventory Type</a>
-
+<p></p>
+<h4>Control Actions:</h4>
+  <a class="btn btn-light btn-block" id="create" href="{% url 'control_app:mainlocationcontrol_associate' pk=mainlocation.id %}">Associate Control</a>
 
 {% endblock %}
 {% block breadcrumblink_block %}

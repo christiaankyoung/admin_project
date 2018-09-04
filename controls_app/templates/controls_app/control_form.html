@@ -47,7 +47,7 @@
     <p>
       <span class="bold" > Control Description:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
         <div class="container">
-          {% render_field form.description rows="2" cols="80" class="form-control" %}
+          {% render_field form.description rows="2" cols="80" class="form-control" placeholder=form.description.label %}
           {{ form.description.errors }}
         </div>
       </p>

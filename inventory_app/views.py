@@ -108,7 +108,7 @@ class InventoryTypeMainLocationForm(ModelForm):
 
     class Meta:
         model = models.InventoryTypeMainLocation
-        fields = ('mainlocation','type','balance')
+        fields = ('mainlocation','type','balance','frequency','cc_type','uom')
 
     def __init__ (self,*args,**kwargs):
         mainlocation= kwargs.pop('mainlocation')
@@ -154,7 +154,7 @@ class InventoryTypeSubOneLocationForm(ModelForm):
 
     class Meta:
         model = models.InventoryTypeSubOneLocation
-        fields = ('subonelocation','type','balance')
+        fields = ('subonelocation','type','balance','frequency','cc_type','uom')
 
     def __init__ (self,*args,**kwargs):
         subonelocation= kwargs.pop('subonelocation')
@@ -172,11 +172,18 @@ class InventoryTypeSubOneLocationCreateView(CreateView):
     form_class= InventoryTypeSubOneLocationForm
 
     def get_initial(self):
-        subonelocation = get_object_or_404(SubOneLocation, id=self.kwargs.get('pk'))
-        return {'subonelocation':subonelocation}
+        self.subonelocation = get_object_or_404(SubOneLocation, id=self.kwargs.get('pk'))
+        return {'subonelocation':self.subonelocation}
 
     def get_form_kwargs(self):
         kwargs = super(InventoryTypeSubOneLocationCreateView,self).get_form_kwargs()
         subonelocation = get_object_or_404(SubOneLocation, id=self.kwargs.get('pk'))
         kwargs['subonelocation']=subonelocation
         return kwargs
+
+    def get_context_data(self,**kwargs):
+        context  = super().get_context_data(**kwargs)
+        context['subonelocation_name'] = self.subonelocation.name
+        context['subonelocation_id'] = self.subonelocation.id
+        context['mainlocation_id'] = self.subonelocation.mainlocation.id
+        return context

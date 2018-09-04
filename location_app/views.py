@@ -8,6 +8,9 @@ from django.views.generic import (View,TemplateView,
 from . import models
 from engagement_app.models import Engagement
 from engagement_app.models import LocationNames
+from controls_app.models import MainLocationControl
+from controls_app.models import SubOneLocationControl
+from controls_app.models import Control
 from .models import MainLocation
 from .models import MainLocationInfo
 from .models import SubOneLocation
@@ -288,3 +291,80 @@ class SubTwoLocationDeleteView(DeleteView):
     def get_success_url(self):
         subonelocation = get_object_or_404(models.SubTwoLocation, id=self.kwargs.get('pk')).subonelocation
         return subonelocation.get_absolute_url()
+
+#Control Mainlocation views
+
+class ControlMainLocationForm(ModelForm):
+
+    class Meta:
+        model = MainLocationControl
+        fields = ('mainlocation','control','description')
+
+    def __init__ (self,*args,**kwargs):
+        control= kwargs.pop('control')
+        super(ModelForm, self).__init__(*args,**kwargs)
+        mainlocations = control.engagement.mainlocation.all()
+        queryset=models.MainLocation.objects.filter(pk__in=[i.id for i in mainlocations])
+        self.fields['mainlocation'].queryset = queryset
+
+class ControlMainLocationCreateView(CreateView):
+    model = MainLocationControl
+    template_name = 'controls_app\controlmainlocation\controlmainlocation_form.html'
+    form_class= ControlMainLocationForm
+
+    def get_initial(self):
+        self.control = get_object_or_404(Control, id=self.kwargs.get('pk'))
+        return {'control':self.control}
+
+    def get_form_kwargs(self):
+        kwargs = super(ControlMainLocationCreateView,self).get_form_kwargs()
+        control = get_object_or_404(Control, id=self.kwargs.get('pk'))
+        kwargs['control']=control
+        return kwargs
+
+    def get_context_data(self,**kwargs):
+        context  = super().get_context_data(**kwargs)
+        context['mainlocation_called'] = self.control.engagement.locationnames.mainlocation_name
+        context['control_id'] = self.control.id
+        context['control_ref'] = self.control.ref
+        return context
+
+#Control Sub Onelocation views
+
+class ControlSubOneLocationForm(ModelForm):
+
+    class Meta:
+        model = SubOneLocationControl
+        fields = ('subonelocation','control','description')
+
+    def __init__ (self,*args,**kwargs):
+        control= kwargs.pop('control')
+        subonelocations = []
+        super(ModelForm, self).__init__(*args,**kwargs)
+        mainlocations = control.engagement.mainlocation.all()
+        for sub in mainlocations:
+            subonelocations.extend(sub.subonelocation.all())
+        queryset=models.SubOneLocation.objects.filter(pk__in=[i.id for i in subonelocations])
+        self.fields['subonelocation'].queryset = queryset
+
+class ControlSubOneLocationCreateView(CreateView):
+    model = SubOneLocationControl
+    template_name = 'controls_app\controlsubonelocation\controlsubonelocation_form.html'
+    form_class= ControlSubOneLocationForm
+
+    def get_initial(self):
+        self.control = get_object_or_404(Control, id=self.kwargs.get('pk'))
+        return {'control':self.control}
+
+    def get_form_kwargs(self):
+        kwargs = super(ControlSubOneLocationCreateView,self).get_form_kwargs()
+        control = get_object_or_404(Control, id=self.kwargs.get('pk'))
+        kwargs['control']=control
+        return kwargs
+
+    def get_context_data(self,**kwargs):
+        context  = super().get_context_data(**kwargs)
+        context['mainlocation_called'] = self.control.engagement.locationnames.subonelocation_name
+        context['control_id'] = self.control.id
+        context['control_ref'] = self.control.ref
+        return context

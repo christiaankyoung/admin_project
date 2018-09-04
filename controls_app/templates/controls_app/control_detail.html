@@ -7,8 +7,8 @@
   <a class='btn btn-danger btn-block' id="create" href="{% url 'control_app:control_delete' pk=control.pk %}">Delete</a>
   <p></p>
 <h4>Location Actions:</h4>
-  <a class="btn btn-light btn-block" id="create" href="#">Associate to {{control.engagement.locationnames.mainlocation_name}}</a>
-  <a class='btn btn-light btn-block' id="create" href="#">Associate to {{control.engagement.locationnames.subonelocation_name}}</a>
+  <a class="btn btn-light btn-block" id="create" href="{% url 'location_app:controlmainlocation_associate' pk=control.id %}">Associate to {{control.engagement.locationnames.mainlocation_name}}</a>
+  <a class='btn btn-light btn-block' id="create" href="{% url 'location_app:controlsubonelocation_associate' pk=control.id %}">Associate to {{control.engagement.locationnames.subonelocation_name}}</a>
   <p></p>
 <h4>Inventory Actions:</h4>
   <a class="btn btn-light btn-block" id="create" href="#">Associate to Inventory Class</a>

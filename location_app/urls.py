@@ -33,5 +33,8 @@ urlpatterns = [
     path('<int:ml_pk>/<int:so_pk>/<int:pk>',views.SubTwoLocationDetailView.as_view(),name='subtwolocation_detail'),
     path('updatesubtwo/<int:pk>/',views.SubTwoLocationUpdateView.as_view(),name='subtwolocation_update'),
     path('deletesubtwo/<int:pk>/',views.SubTwoLocationDeleteView.as_view(),name='subtwolocation_delete'),
-
+    #Control mainlocaion urls
+    path('<int:pk>/createcontrolmainlocation/',views.ControlMainLocationCreateView.as_view(),name='controlmainlocation_associate'),
+    #Control mainlocaion urls
+    path('<int:pk>/createcontrolsubonelocation/',views.ControlSubOneLocationCreateView.as_view(),name='controlsubonelocation_associate'),
 ]

@@ -75,7 +75,7 @@ class SubOneLocationControl(models.Model):
         return '%s (%s)' % (self.subonelocation, self.control)
 
     def get_absolute_url(self):
-        return reverse("location_app:subonelocation_detail",kwargs={'pk':self.subonelocation.id})
+        return reverse("location_app:subonelocation_detail",kwargs={'pk':self.subonelocation.id,'ml_pk':self.subonelocation.mainlocation.id})
 
 class InventoryClassControl(models.Model):
     control = models.ForeignKey(Control,related_name='inventoryclasscontrol', on_delete=models.CASCADE, blank=True)
