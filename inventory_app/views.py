@@ -10,6 +10,10 @@ from engagement_app.models import Engagement
 from location_app.models import MainLocation
 from location_app.models import SubOneLocation
 from inventory_app.models import InventoryClass
+from inventory_app.models import InventoryType
+from controls_app.models import InventoryClassControl
+from controls_app.models import Control
+from controls_app.models import InventoryTypeControl
 from django.shortcuts import get_object_or_404
 from django.forms import ModelForm
 # Create your views here.
@@ -186,4 +190,78 @@ class InventoryTypeSubOneLocationCreateView(CreateView):
         context['subonelocation_name'] = self.subonelocation.name
         context['subonelocation_id'] = self.subonelocation.id
         context['mainlocation_id'] = self.subonelocation.mainlocation.id
+        return context
+#Control class views
+
+class ControlInventoryClassForm(ModelForm):
+
+    class Meta:
+        model = InventoryClassControl
+        fields = ('inventoryclass','control','description')
+
+    def __init__ (self,*args,**kwargs):
+        control= kwargs.pop('control')
+        super(ModelForm, self).__init__(*args,**kwargs)
+        inventoryclasses = control.engagement.inventoryclass.all()
+        queryset=models.InventoryClass.objects.filter(pk__in=[i.id for i in inventoryclasses])
+        self.fields['inventoryclass'].queryset = queryset
+
+class ControlInventoryClassCreateView(CreateView):
+    model = InventoryClassControl
+    template_name = 'controls_app\controlinventoryclass\controlinventoryclass_form.html'
+    form_class= ControlInventoryClassForm
+
+    def get_initial(self):
+        self.control = get_object_or_404(Control, id=self.kwargs.get('pk'))
+        return {'control':self.control}
+
+    def get_form_kwargs(self):
+        kwargs = super(ControlInventoryClassCreateView,self).get_form_kwargs()
+        control = get_object_or_404(Control, id=self.kwargs.get('pk'))
+        kwargs['control']=control
+        return kwargs
+
+    def get_context_data(self,**kwargs):
+        context  = super().get_context_data(**kwargs)
+        context['control_id'] = self.control.id
+        context['control_ref'] = self.control.ref
+        return context
+
+#Control Inventory Type views
+
+class ControlInventoryTypeForm(ModelForm):
+
+    class Meta:
+        model = InventoryTypeControl
+        fields = ('inventorytype','control','description')
+
+    def __init__ (self,*args,**kwargs):
+        control= kwargs.pop('control')
+        inventorytypes = []
+        super(ModelForm, self).__init__(*args,**kwargs)
+        classes = control.engagement.inventoryclass.all()
+        for sub in classes:
+            inventorytypes.extend(sub.inventorytype.all())
+        queryset=models.InventoryType.objects.filter(pk__in=[i.id for i in inventorytypes])
+        self.fields['inventorytype'].queryset = queryset
+
+class ControlInventoryTypeCreateView(CreateView):
+    model = InventoryTypeControl
+    template_name = 'controls_app\controlinventorytype\controlinventorytype_form.html'
+    form_class= ControlInventoryTypeForm
+
+    def get_initial(self):
+        self.control = get_object_or_404(Control, id=self.kwargs.get('pk'))
+        return {'control':self.control}
+
+    def get_form_kwargs(self):
+        kwargs = super(ControlInventoryTypeCreateView,self).get_form_kwargs()
+        control = get_object_or_404(Control, id=self.kwargs.get('pk'))
+        kwargs['control']=control
+        return kwargs
+
+    def get_context_data(self,**kwargs):
+        context  = super().get_context_data(**kwargs)
+        context['control_id'] = self.control.id
+        context['control_ref'] = self.control.ref
         return context

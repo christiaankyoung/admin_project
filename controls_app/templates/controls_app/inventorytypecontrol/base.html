@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block body_block %}
+{% block reliance_block %}
+
+
+    {% endblock %}
+
+    <p>
+      <span class="bold" > Description:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+        <div class="container">
+          {% render_field form.description rows="2" cols="80" class="form-control" placeholder=form.description.label %}
+          {{ form.description.errors }}
+        </div>
+      </p>
+
+    <input type="submit" class='btn btn-primary' value="Submit">
+{% block cancel_btnblock %}
+
+  {% endblock %}
+  </form>
+
+
+{% endblock %}

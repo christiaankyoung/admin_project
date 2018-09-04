@@ -11,8 +11,8 @@
   <a class='btn btn-light btn-block' id="create" href="{% url 'location_app:controlsubonelocation_associate' pk=control.id %}">Associate to {{control.engagement.locationnames.subonelocation_name}}</a>
   <p></p>
 <h4>Inventory Actions:</h4>
-  <a class="btn btn-light btn-block" id="create" href="#">Associate to Inventory Class</a>
-  <a class="btn btn-light btn-block" id="create" href="#">Associate to Inventory Type</a>
+  <a class="btn btn-light btn-block" id="create" href=" {% url 'inventory_app:controlinventoryclass_associate' pk=control.id %} ">Associate to Inventory Class</a>
+  <a class="btn btn-light btn-block" id="create" href="{% url 'inventory_app:controlinventorytype_associate' pk=control.id %}">Associate to Inventory Type</a>
   <p></p>
 <h4>IT Application:</h4>
   <a class="btn btn-light btn-block" id="create" href="#">Associate to IT Application</a>

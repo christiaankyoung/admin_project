@@ -1,0 +1,41 @@
+{% extends "controls_app\inventoryclasscontrol\base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+    {% block reliance_block %}
+    <h1>
+      {% if not form.instance.pk %}
+      Associate Control With {{control_ref}}
+      {% else %}
+      Update Association of Control With {{control_ref}}
+      {% endif %}
+    </h1>
+      <form method="POST" id="hideerror_form">
+        {% csrf_token %}
+
+        {% for error in form.errors %}
+          {% if error == "__all__" %}
+          <div class="container">
+              <ul>
+                <li>This Control is already associated with this Inventory Class</li>
+              </ul>
+          </div>
+          {% endif %}
+        {% endfor %}
+    <p class="hidden">
+      {{ form.control }}
+    </p>
+    {{ form.control.errors }}
+    <p></p>
+    <p>
+      <span class="bold" > Inventory Class:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+      <div class="container">
+
+      {% render_field form.inventoryclass class="form-control" placeholder=form.inventoryclass.label %}
+      {{ form.inventoryclass.errors }}
+    </div>
+    </p>
+    {% endblock %}
+
+    {% block cancel_btnblock %}
+        <a class="btn btn-light" id="cancel-delete" href="{% url 'control_app:control_detail' pk=control_id %} ">Cancel</a>
+      {% endblock %}

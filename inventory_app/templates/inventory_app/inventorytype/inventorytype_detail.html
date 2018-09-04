@@ -7,6 +7,12 @@
   <h3>{{inventorytype.name}}</h3>
     <a class='btn btn-light btn-block' id="create" href="{% url 'inventory_app:inventorytype_update' pk=inventorytype.pk %}">Update</a>
     <a class='btn btn-danger btn-block' id="create" href=" {% url 'inventory_app:inventorytype_delete' pk=inventorytype.pk %} ">Delete</a>
+    <h4>Location Actions:</h4>
+      <a class="btn btn-light btn-block" id="create" href="#">Associate Location Type(s)</a>
+      <a class='btn btn-light btn-block' id="create" href=" # ">Create {{inventoryclass.engagement.locationnames.subonelocation_name}}</a>
+      <p></p>
+    <h4>Control Actions:</h4>
+      <a class="btn btn-light btn-block" id="create" href="{% url 'controls_app:inventorytypecontrol_associate' pk=inventorytype.id %}">Associate Control</a>
 
 {% endblock %}
 {% block breadcrumblink_block %}

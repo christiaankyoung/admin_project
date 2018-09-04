@@ -16,6 +16,7 @@ from controls_app.models import Control
 from location_app.models import MainLocation
 from location_app.models import SubOneLocation
 from inventory_app.models import InventoryClass
+from inventory_app.models import InventoryType
 from django.shortcuts import get_object_or_404
 from django.forms import ModelForm
 # Create your views here.
@@ -201,3 +202,48 @@ class InventoryClassControlDeleteView(DeleteView):
     def get_success_url(self):
         inventoryclass = get_object_or_404(models.InventoryClassControl, id=self.kwargs.get('pk')).inventoryclass
         return inventoryclass.get_absolute_url()
+
+# Control association with type view
+
+class InventoryTypeControlForm(ModelForm):
+
+    class Meta:
+        model = models.InventoryTypeControl
+        fields = ('inventorytype','control','description')
+
+    def __init__ (self,*args,**kwargs):
+        inventorytype= kwargs.pop('inventorytype')
+        super(ModelForm, self).__init__(*args,**kwargs)
+        controls = inventorytype.classification.engagement.control.all()
+        queryset=models.Control.objects.filter(pk__in=[i.id for i in controls])
+        self.fields['control'].queryset = queryset
+
+class InventoryTypeControlCreateView(CreateView):
+    model = models.InventoryTypeControl
+    template_name = 'controls_app\inventorytypecontrol\inventorytypecontrol_form.html'
+    form_class= InventoryTypeControlForm
+
+    def get_initial(self):
+        self.inventorytype = get_object_or_404(InventoryType, id=self.kwargs.get('pk'))
+        return {'inventorytype':self.inventorytype}
+
+    def get_form_kwargs(self):
+        kwargs = super(InventoryTypeControlCreateView,self).get_form_kwargs()
+        inventorytype = get_object_or_404(InventoryType, id=self.kwargs.get('pk'))
+        kwargs['inventorytype']=inventorytype
+        return kwargs
+
+    def get_context_data(self,**kwargs):
+        context  = super().get_context_data(**kwargs)
+        context['inventorytype_name'] = self.inventorytype.name
+        context['inventorytype_id'] = self.inventorytype.id
+        return context
+
+
+class InventoryTypeControlDeleteView(DeleteView):
+    model = models.InventoryTypeControl
+    template_name = 'control_app/inventorytypecontrol/inventorytypecontrol_confirm_delete.html'
+
+    def get_success_url(self):
+        inventorytype = get_object_or_404(models.InventoryTypeControl, id=self.kwargs.get('pk')).inventorytype
+        return inventorytype.get_absolute_url()
