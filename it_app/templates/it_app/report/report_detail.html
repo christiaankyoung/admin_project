@@ -1,0 +1,75 @@
+{% extends "it_app/report/base.html" %}
+{% load humanize %}
+{% load static %}
+{% block left_block %}
+<h3>{{report.name}}</h3>
+  <a class='btn btn-light btn-block' id="create" href="{% url 'it_app:report_update' en_pk=report.application.pk pk=report.pk %}">Update</a>
+  <a class='btn btn-danger btn-block' id="create" href="{% url 'it_app:report_delete' pk=report.pk %}">Delete</a>
+<h4>Location Actions:</h4>
+  <a class="btn btn-light btn-block" id="create" href="#">Associate {{report.application.engagement.locationnames.mainlocation_name}}</a>
+<p></p>
+<h4>Control Actions:</h4>
+  <a class="btn btn-light btn-block" id="create" href="#">Associate Control</a>
+
+
+{% endblock %}
+
+{% block body_block %}
+
+  <div class="container">
+    <h1>Details for IT Report:</h1>
+
+    <div class="container">
+        <div class="detail_header">
+          <p>{{report.name}}</p>
+        </div>
+      </div>
+
+      <div class="container" id="detail_box">
+
+            <h3>Details:</h3>
+            <div class="container" id="detail_box_detail">
+              <div>
+
+                  <span class="bold">Name:</span>
+
+                  {{report.name}}
+              </div>
+              <p></p>
+              <div class="">
+                <span class="bold">Control Description:</span>
+                  <div class="container">
+                    {{report.description}}
+                  </div>
+              </div>
+              <p></p>
+              <div class="">
+                <span class="bold">IT Risk 1:</span>
+                  <div class="container">
+                    {{report.it_risk_1}}
+                  </div>
+              </div>
+              <p></p>
+              <div class="">
+                <span class="bold">IT Risk 2:</span>
+                  <div class="container">
+                    {{report.it_risk_2}}
+                  </div>
+              </div>
+              <p></p>
+              <div class="">
+                <span class="bold">IT Risk 3:</span>
+                  <div class="container">
+                    {{report.it_risk_3}}
+                  </div>
+              </div>
+              <p></p>
+            </div>
+      </div>
+        <div class="container">
+
+</div>
+
+</div>
+
+{% endblock %}

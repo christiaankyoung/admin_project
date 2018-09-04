@@ -112,8 +112,8 @@ class EngagementControlDetailView(DetailView):
 #control views
 class ITLandingView(DetailView):
     model = models.Engagement
-    template_name = 'it_app/it_landing.html'
+    template_name = 'it_app/application_landing.html'
 
-class EngagementITDetailView(DetailView):
+class EngagementApplicationDetailView(DetailView):
     model = models.Engagement
-    template_name = 'engagement_app/engagement_it_detail.html'
+    template_name = 'engagement_app/engagement_application_detail.html'

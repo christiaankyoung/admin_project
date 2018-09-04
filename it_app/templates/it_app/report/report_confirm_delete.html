@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+
+<h1>Delete IT Report: {{report.name}}?</h1>
+<p></p>
+<span class="bold">This will delete all associations with {{report.name}}!</span>
+<p></p>
+<form class="delete" method="post">
+  {% csrf_token %}
+  <input type="submit" class="btn btn-danger" value="Delete">
+  <a class="btn btn-light" id="cancel-delete" href="{% url 'it_app:report_detail'  pk=report.pk %} ">Cancel</a>
+
+</form>
+{% endblock %}

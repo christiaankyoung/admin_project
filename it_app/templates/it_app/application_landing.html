@@ -3,27 +3,27 @@
 {% block left_block %}
 
 <h3>Controls:</h3>
-  <p><a type="button" class='btn btn-block btn-dark' id="create" href="#">Create Control</a></p>
+  <p><a type="button" class='btn btn-block btn-dark' id="create" href=" {% url 'it_app:application_create' pk=engagement.id %} ">Create IT Application</a></p>
   <p></p>
   <p></p>
 {% endblock %}
 
 {% block breadcrumblink_block %}
   <li class="breadcrumb-item"><a href="{% url 'engagement_app:engagement_landing' pk=engagement.id %}">{{engagement.name}}</a></li>
-  <li class="breadcrumb-item active" aria-current="page">Control Options</li>
+  <li class="breadcrumb-item active" aria-current="page">IT Application Options</li>
 {% endblock %}
 
 {% block body_block %}
   <div class="container">
-      <h1>Control Options for {{engagement.name}}:</h1>
+      <h1>IT Application Options for {{engagement.name}}:</h1>
       <h4>Lists:</h4>
       <div class="engagement_list">
         <ul>
           <li>
-            <a class="btn btn-dark" id="engagement_list" href=" {% url 'engagement_app:engagement_control_detail' pk=engagement.id %} ">All Controls</a>
+            <a class="btn btn-dark" id="engagement_list" href="{% url 'engagement_app:engagement_application_detail' pk=engagement.id %}">All IT Applications</a>
           </li>
           <li>
-            <a class="btn btn-dark" id="engagement_list" href="#">Controls by Location</a>
+            <a class="btn btn-dark" id="engagement_list" href="#">IT Applications by Location</a>
           </li>
         </ul>
       </div>

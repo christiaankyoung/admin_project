@@ -107,7 +107,7 @@ class MainLocationControlCreateView(CreateView):
 
 class MainLocationControlDeleteView(DeleteView):
     model = models.MainLocationControl
-    template_name = 'control_app/mainlocationcontrol/mainlocationcontrol_confirm_delete.html'
+    template_name = 'controls_app/mainlocationcontrol/mainlocationcontrol_confirm_delete.html'
 
     def get_success_url(self):
         mainlocation = get_object_or_404(models.MainLocationControl, id=self.kwargs.get('pk')).mainlocation

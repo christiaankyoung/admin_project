@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block breadcrumb_block %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href=" {% url 'engagement_app:engagement_landing' pk=report.application.engagement.id %} ">{{report.application.engagement.name}}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'engagement_app:engagement_application_detail' pk=report.application.engagement.id %} ">IT Applications</a></li>
+    <li class="breadcrumb-item"><a href=" {% url 'it_app:application_detail' pk=report.application.id %} ">{{report.application.name}}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{report.name}}</li>
+    {% block breadcrumblink_block %}
+
+    {% endblock %}
+  </ol>
+</nav>
+{% endblock %}
+
+{% block body_block %}
+
+{% endblock %}
+
+{% block right_block %}
+<p></p>
+<li class="nav-item">
+  <a class="btn btn-dark" id="left_block_item" href="{% url 'engagement_app:location_landing' pk=report.application.engagement.id %}">Locations</a>
+</li>
+<p></p>
+<li class="nav-item">
+  <a class="btn btn-dark" id="left_block_item" href=" {% url 'engagement_app:inventory_landing' pk=report.application.engagement.id %} ">Inventory</a>
+</li>
+<p></p>
+<li class="nav-item">
+  <a class="btn btn-dark" id="left_block_item" href="{% url 'engagement_app:control_landing' pk=report.application.engagement.id %}">Controls</a>
+</li>
+<p></p>
+<li class="nav-item">
+  <a class="btn btn-dark" id="left_block_item" href="{% url 'engagement_app:count_landing' pk=report.application.engagement.id %}">Counts</a>
+</li>
+<p></p>
+<li class="nav-item">
+  <a class="btn btn-dark" id="left_block_item" href="{% url 'engagement_app:application_landing' pk=report.application.engagement.id %}">IT Applications</a>
+</li>
+
+{% endblock %}

@@ -31,6 +31,6 @@ urlpatterns = [
     path('controls/<int:pk>/',views.EngagementControlDetailView.as_view(),name='engagement_control_detail'),
     #it app URLS
     path('it/',include('it_app.urls',namespace='it_app')),
-    path('<int:pk>/it/',views.ITLandingView.as_view(),name='it_app_landing'),
-    path('it/<int:pk>/',views.EngagementITDetailView.as_view(),name='engagement_it_detail'),
+    path('<int:pk>/it/',views.ITLandingView.as_view(),name='application_landing'),
+    path('application/<int:pk>/',views.EngagementApplicationDetailView.as_view(),name='engagement_application_detail'),
 ]

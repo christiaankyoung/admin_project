@@ -1,11 +1,12 @@
 {% extends "base.html" %}
-
+{% load static %}
+{% load widget_tweaks %}
 {% block body_block %}
 <h1>
   {% if not form.instance.pk %}
-  Create Control for {{engagement_name}}
+  Create IT Applications for {{engagement_name}}
   {% else %}
-  Update Control for {{engagement_name}}
+  Update IT Applications for {{engagement_name}}
   {% endif %}
 
 </h1>
@@ -17,15 +18,34 @@
       {% if error == "__all__" %}
       <div class="container">
           <ul>
-            <li>This Control Reference Already Exsists for {{engagement_name}}</li>
+            <li>This IT Application Already Exsists for {{engagement_name}}</li>
           </ul>
       </div>
       {% endif %}
     {% endfor %}
 
+    <p>
+      {{ form.engagement }}
+      {{ form.engagement.errors }}
+    </p>
+    <p></p>
+    <p>
+      <span class="bold" > IT Application Name:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+      <div class="container">
 
-    {{ form.as_p }}
-    <input type="submit" class='btn btn-primary' value="Submit">
+      {% render_field form.name class="form-control" placeholder=form.name.label %}
+      {{ form.name.errors }}
+    </div>
+    </p>
+    <p>
+      <span class="bold" > Control Description:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+        <div class="container">
+          {% render_field form.description rows="2" cols="80" class="form-control" placeholder=form.description.label %}
+          {{ form.description.errors }}
+        </div>
+      </p>
+    
+  <input type="submit" class='btn btn-primary' value="Submit">
     <a class="btn btn-light" id="cancel-delete" href="{% url 'engagement_app:engagement_landing' pk=engagement_id %} ">Cancel</a>
 
   </form>

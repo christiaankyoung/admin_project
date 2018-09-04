@@ -1,0 +1,75 @@
+{% extends "engagement_app/base.html" %}
+{% load static %}
+{% block title_block %}
+application detail
+{% endblock%}
+{% block left_block %}
+  <div class="left_block">
+  <p><a type="button" class='btn btn-block btn-dark' id="create" href="{% url 'it_app:application_create' pk=engagement.id %}">Create IT Application</a></p>
+
+</div>
+{% endblock %}
+
+{% block breadcrumblink_block %}
+  <li class="breadcrumb-item"><a href="{% url 'engagement_app:engagement_landing' pk=engagement.id %}">{{engagement.name}}</a></li>
+  <li class="breadcrumb-item active" aria-current="page">IT Applications</li>
+{% endblock %}
+
+{% block body_block %}
+  <div class="container">
+    <p>
+      <div class="header_list">
+        <span class="list_header">
+            IT Applications for {{engagement.name}}:
+          </span>
+          </div>
+            <button id="show_btn" class="btn btn-dark" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="">Show All</button>
+            <a id="show_btn" class="btn btn-dark" href="{% url 'engagement_app:engagement_application_detail' pk=engagement.id %}">Hide All</a>
+
+    </p>
+{% if engagement.application.all %}
+
+<!-- Application for-->
+      {% for application in engagement.application.all %}
+      <ul>
+        <li>
+          <a class='btn btn-light' data-toggle="collapse" id="list_btn" href="#application{{forloop.counter}}" role="button" aria-expanded="false" aria-controls="collapse">{{application.name}}</a>
+          <a class='dashboard' href="{% url 'it_app:application_detail' pk=application.id %}">
+            <img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail">
+            </a>
+<!-- Application Report for-->
+          <div class="collapse multi-collapse" id="application{{forloop.counter}}">
+            {% for report in  application.report.all %}
+              <ul>
+                <li>
+                  <a class='btn btn-light' data-toggle="collapse" id="list_btn" href="#report{{report.id}}" role="button" aria-expanded="false" aria-controls="collapse">{{report.name}}</a>
+                  <a class='dashboard' href="#">
+                    <img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail">
+                    </a>
+                </li>
+              </ul>
+            {% endfor %}
+          </div>
+        </li>
+      </ul>
+      {% endfor %}
+
+
+  </div>
+  {% else %}
+  <div class="container">
+    <div class="jumbotron">
+
+      <span class="bold">
+        <p>No {{engagement.locationnames.mainlocation_name}}s for {{engagement.name}}</p>
+      </span>
+      <p>To Create {{engagement.locationnames.mainlocation_name}}:</p>
+
+      <div class="container">
+        <p><a type="button" class='btn btn-dark' href="{% url 'engagement_app:location_app:mainlocation_create' pk=engagement.id %}">Create {{engagement.locationnames.mainlocation_name}}</a></p>
+      </div>
+  </div>
+</div>
+  {% endif %}
+
+{% endblock %}

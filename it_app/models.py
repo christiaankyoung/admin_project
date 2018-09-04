@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from engagement_app.models import Engagement
 from controls_app.models import Control
+from location_app.models import MainLocation
 
 
 
@@ -19,7 +20,7 @@ class Application(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("it_app:control_detail",kwargs={'pk':self.pk})
+        return reverse("it_app:application_detail",kwargs={'pk':self.pk})
 
 class Report(models.Model):
     application = models.ForeignKey(Application,related_name='report', on_delete=models.CASCADE)
@@ -67,3 +68,17 @@ class ReportControlInfo(models.Model):
 
     def get_absolute_url(self):
         return reverse("it_app:control_detail",kwargs={'pk':self.control.id})
+
+class MainLocationApplication(models.Model):
+    application = models.ForeignKey(Application,related_name='mainlocationapplication', on_delete=models.CASCADE, blank=True)
+    mainlocation = models.ForeignKey(MainLocation,related_name='mainlocationapplication', on_delete=models.CASCADE, blank=True)
+    description = models.TextField(null=True, blank=False, default='')
+
+    class Meta:
+        unique_together = ('application','mainlocation')
+
+    def __str__(self):
+        return '%s (%s)' % (self.application, self.mainlocation)
+
+    def get_absolute_url(self):
+        return reverse("it_app:application_detail",kwargs={'pk':self.application.id})

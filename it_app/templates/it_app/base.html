@@ -1,8 +1,12 @@
 {% extends "base.html" %}
+{% block title_block %}
+application detail
+{% endblock%}
+
 {% block breadcrumb_block %}
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href=" {% url 'engagement_app:engagement_landing' pk=control.engagement.id %} ">{{control.engagement.name}}</a></li>
+    <li class="breadcrumb-item"><a href=" {% url 'engagement_app:engagement_landing' pk=application.engagement.id %} ">{{application.engagement.name}}</a></li>
     {% block breadcrumblink_block %}
 
     {% endblock %}

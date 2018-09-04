@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}">
+
+{% block body_block %}
+<h1>
+  {% if not form.instance.pk %}
+  Create IT Report for {{application_name}}
+  {% else %}
+  Update IT Report for {{application_name}}
+  {% endif %}
+</h1>
+  <form method="POST" id="hideerror_form">
+    {% csrf_token %}
+
+    {% for error in form.errors %}
+      {% if error == "__all__" %}
+      <div class="container">
+          <ul>
+            <li>This IT Report Already Exists for {{application_name}}</li>
+          </ul>
+      </div>
+      {% endif %}
+    {% endfor %}
+
+    <p class="hidden">
+      {{ form.application }}
+      {{ form.application.errors }}
+    </p>
+    <p>
+      <span class="bold" > IT Report Name:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+      <div class="container">
+
+      {% render_field form.name class="form-control" placeholder="IT Report Name" %}
+      {{ form.name.errors }}
+    </div>
+    </p>
+    <p>
+      <span class="bold" > IT Report Description:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+        <div class="container">
+          {% render_field form.description rows="2" cols="80" class="form-control" placeholder='Description' %}
+          {{ form.description.errors }}
+        </div>
+      </p>
+
+      <p>
+        <span class="bold" > IT Risk 1:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+          <div class="container">
+            {% render_field form.it_risk_1 rows="2" cols="80" class="form-control" placeholder='IT Risk 1' %}
+            {{ form.it_risk_1.errors }}
+          </div>
+        </p>
+
+        <p>
+          <span class="bold" > IT Risk 2:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+            <div class="container">
+              {% render_field form.it_risk_2 rows="2" cols="80" class="form-control" placeholder='IT Risk 2' %}
+              {{ form.it_risk_2.errors }}
+            </div>
+          </p>
+
+          <p>
+            <span class="bold" > IT Risk 3:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+              <div class="container">
+                {% render_field form.it_risk_3 rows="2" cols="80" class="form-control" placeholder='IT Risk 2' %}
+                {{ form.it_risk_3.errors }}
+              </div>
+            </p>
+    <input type="submit" class='btn btn-primary' value="Submit">
+    <a class="btn btn-light" id="cancel-delete" href="{% url 'it_app:application_detail' pk=application_id %} ">Cancel</a>
+  </form>
+
+
+{% endblock %}

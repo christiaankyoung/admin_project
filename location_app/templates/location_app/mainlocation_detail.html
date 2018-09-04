@@ -17,7 +17,7 @@
   <a class="btn btn-light btn-block" id="create" href="{% url 'control_app:mainlocationcontrol_associate' pk=mainlocation.id %}">Associate Control</a>
 <p></p>
 <h4>IT Apps:</h4>
-  <p><a type="button" class='btn btn-light btn-block' id="create" href="#">Associate IT App</a></p>
+  <p><a type="button" class='btn btn-light btn-block' id="create" href=" {% url 'it_app:mainlocationapplication_associate' pk=mainlocation.id %} ">Associate IT App</a></p>
   <p> </p>
   <p> </p>
 
@@ -79,9 +79,9 @@
                             <ul>
                               <li>
                                   <a class='btn btn-secondary' id="detail_btn" href=" {% url 'location_app:typelocation_detail' pk=mainlocationinfo.type.id  %} ">{{mainlocationinfo.type}}</a>
-                                  <a class='unassociate' href=" {% url 'location_app:main-type_unassociate' pk=mainlocationinfo.id %} ">
-                                    <img id="unassociate" src="{% static "images/folder_delete_color.png" %}"  alt="Unassociate">
-                                    </a>
+                                    <a class='unassociate' href=" {% url 'location_app:main-type_unassociate' pk=mainlocationinfo.id %} ">
+                                      <img id="unassociate" src="{% static "images/folder_delete_color.png" %}"  alt="Unassociate">
+                                      </a>
                                 </li>
                               </ul>
                           {% endfor %}
@@ -203,6 +203,10 @@
                                     <a class='dashboard' href=" {% url 'control_app:control_detail' pk=mainlocationcontrol.control.id %} ">
                                       <img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail">
                                       </a>
+                                      <a class='unassociate' href=" {% url 'controls_app:mainlocationcontrol_unassociate' pk=mainlocationcontrol.id %} ">
+                                        <img id="unassociate" src="{% static "images/folder_delete_color.png" %}"  alt="Unassociate">
+                                        </a>
+
                                       <div class="collapse multi-collapse" id="control{{forloop.counter}}">
                                         <div class="container">
                                           <div class="container" id="control_dis">
@@ -270,6 +274,51 @@
                               <h3>No Counts Associated With {{mainlocation.name}}</h3>
                               <p>To create an inventory count:</p>
                               <a class='btn btn-dark' href=" {% url 'count_app:count_create' %} ">Create Count</a>
+                            </div>
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </li>
+<!--IT Applications-->
+                  <li>
+                    <div class="apps">
+                    <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#apps" role="button" aria-expanded="false" aria-controls="collapse">IT Application(s):</a>
+                      <div class="collapse multi-collapse" id="apps">
+                        {% if mainlocation.mainlocationapplication.all %}
+                            <div class="detail_list">
+                              {% for  mainlocationapplication in mainlocation.mainlocationapplication.all  %}
+                                <ul>
+                                  <li>
+                                    <a class='btn btn-secondary' id="detail_btn" data-toggle="collapse" href="#itapp{{forloop.counter}}" role="button" aria-expanded="false" aria-controls="collapse" >{{mainlocationapplication.application.name}}</a>
+                                    <a id="dashboard" href=" {% url 'it_app:application_detail' pk=mainlocationapplication.application.id %} "><img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail"></a>
+                                    <a class='unassociate' href=" {% url 'it_app:mainlocationapplication_unassociate' pk=mainlocationapplication.id %} ">
+                                      <img id="unassociate" src="{% static "images/folder_delete_color.png" %}"  alt="Unassociate">
+                                      </a>
+
+                                      <div class="collapse multi-collapse" id="itapp{{forloop.counter}}">
+                                        <div class="container">
+                                          <div class="container" id="control_dis">
+                                            <div class="jumbotron" id="control_dis">
+                                              <p>
+                                                <span class="bold" >Description:</span>
+                                                {{mainlocationapplication.description}}
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                  </li>
+                                </ul>
+                              {% endfor %}
+                            </div>
+                        {% else %}
+                          <div class="container">
+                            <p></p>
+                            <div class="jumbotron">
+                              <h3>No IT Applications Associated With {{mainlocation.name}}</h3>
+                              <p>To associate an IT Application:</p>
+                              <a class='btn btn-dark' href="{% url 'it_app:mainlocationapplication_associate' pk=mainlocation.id %}">Associate IT Application</a>
                             </div>
                           </div>
                         {% endif %}
