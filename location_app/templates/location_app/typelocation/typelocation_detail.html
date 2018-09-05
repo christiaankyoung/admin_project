@@ -4,8 +4,13 @@
 <h3>{{typelocation.type}}</h3>
   <a class='btn btn-light btn-block' id="create" href="{% url 'location_app:typelocation_update' pk=typelocation.pk %}">Update</a>
   <a class='btn btn-danger btn-block' id="create" href="{% url 'location_app:typelocation_delete' pk=typelocation.pk %}">Delete</a>
+  <p></p>
 <h3>Location Actions:</h3>
-  <a class="btn btn-light btn-block" id="create" href="#">Associate Location Type(s)</a>
+  <a class="btn btn-light btn-block" id="create" href="{% url 'location_app:type-main_associate' pk=typelocation.pk %}">Associate {{typelocation.engagement.locationnames.mainlocation_name}} </a>
+  <a class="btn btn-light btn-block" id="create" href="#">Associate {{typelocation.engagement.locationnames.subonelocation_name}} </a>
+
+
+
 
 {% endblock %}
 {% block breadcrumblink_block %}
@@ -30,43 +35,70 @@
 
             <h3>Details:</h3>
             <div class="container" id="detail_box_detail">
-              <p>
-
-                  <span class="bold">Name:</span>
-
+              <div>
+                  <span class="bold">Type:</span>
                   {{typelocation.type}}
-              </p>
+              </div>
+              <p></p>
+              <div>
+                  <span class="bold">Description:</span>
+                  <div class="container">
+
+                  {{typelocation.description}}
+                </div>
+              </div>
+              <p></p>
             </div>
       </div>
         <div class="container">
           <ul>
             <li>
               <div class="locationtypes">
-                <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#locations" role="button" aria-expanded="false" aria-controls="collapse">{{typelocation.engagement.locationnames.mainlocation_name}}(s):</a>
-                  <div class="collapse multi-collapse" id="locations">
-                    <div class="detail_list">
-                      {% if typelocation.mainlocationinfo %}
-                            {% for  mainlocationinfo in typelocation.mainlocationinfo.all  %}
-                              <ul>
-                                <li>
-                                    <a class='btn btn-secondary' id="detail_btn" href="#">{{mainlocationinfo.type}}</a>
-                                    <a class='unassociate' href=" {% url 'location_app:main-type_unassociate' pk=mainlocationinfo.id %} ">
-                                      <img id="unassociate" src="{% static "images/folder_delete_color.png" %}"  alt="Unassociate">
-                                      </a>
-                                  </li>
-                                </ul>
-                            {% endfor %}
-                            {% else %}
-                            <div class="container">
-                              <div class="jumbotron">
+                <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#locations" role="button" aria-expanded="false" aria-controls="collapse">Associated Locations:</a>
 
-                                <span class="bold">
-                                  <p>No Locations for {{typelocation.type}}</p>
-                                </span>
-                            </div>
-                            </div>
-                            {% endif %}
-                    </div>
+                  <div class="collapse multi-collapse" id="locations">
+                    <div class="container">
+                        {% if typelocation.mainlocationinfo.all %}
+                          <a class='btn btn-light' id="prt_detail_btn" data-toggle="collapse" href="#mainlocations" role="button" aria-expanded="false" aria-controls="collapse">{{typelocation.engagement.locationnames.mainlocation_name}}(s):</a>
+                            <a href=" {% url 'engagement_app:engagement_mainlocation_detail' pk=typelocation.engagement.pk %} "> <img id="dashboard" src="{% static "images/list_view_black.png" %}"  alt="detail"></a>
+                            <div class="collapse multi-collapse" id="mainlocations">
+                              <div class="detail_list">
+                                      {% for  mainlocationinfo in typelocation.mainlocationinfo.all  %}
+                                        <ul>
+                                          <li>
+                                              <a class='btn btn-secondary' id="detail_btn" href="{% url 'location_app:mainlocation_detail' pk=mainlocationinfo.mainlocation.id %}">{{mainlocationinfo.mainlocation}}</a>
+                                              <a class='unassociate' href=" {% url 'location_app:main-type_unassociate' pk=mainlocationinfo.id %} ">
+                                                <img id="unassociate" src="{% static "images/folder_delete_color.png" %}"  alt="Unassociate">
+                                                </a>
+                                            </li>
+                                          </ul>
+                                      {% endfor %}
+                                </div>
+                              </div>
+                          {% endif %}
+                          <div class="container">
+                            {% if typelocation.subonelocationinfo.all %}
+                              <a class='btn btn-light' id="prt_detail_btn" data-toggle="collapse" href="#subonelocations" role="button" aria-expanded="false" aria-controls="collapse">{{typelocation.engagement.locationnames.subonelocation_name}}(s):</a>
+                              <a href=" {% url 'engagement_app:engagement_mainlocation_detail' pk=typelocation.engagement.pk %} "> <img id="dashboard" src="{% static "images/list_view_black.png" %}"  alt="detail"></a>
+                                <div class="collapse multi-collapse" id="subonelocations">
+                                  <div class="detail_list">
+                                          {% for  subonelocationinfo in typelocation.subonelocationinfo.all  %}
+                                            <ul>
+                                              <li>
+                                                  <a class='btn btn-secondary' id="detail_btn" href="{% url 'location_app:subonelocation_detail' ml_pk=subonelocationinfo.subonelocation.mainlocation.id pk=subonelocationinfo.subonelocation.id %}">{{subonelocationinfo.subonelocation}}</a>
+                                                  <a class='unassociate' href=" {% url 'location_app:subone-type_unassociate' pk=subonelocationinfo.id %} ">
+                                                    <img id="unassociate" src="{% static "images/folder_delete_color.png" %}"  alt="Unassociate">
+                                                    </a>
+                                                </li>
+                                              </ul>
+                                          {% endfor %}
+                                    </div>
+                                  </div>
+                              {% endif %}
+                          </div>
+
+
+                  </div>
                   </div>
                 </div>
               </li>

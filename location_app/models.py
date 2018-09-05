@@ -66,7 +66,7 @@ class MainLocation(models.Model):
 
 
 class MainLocationInfo(models.Model):
-    type = models.ForeignKey(TypeLocation,related_name='mainlocationinfotype', on_delete=models.CASCADE, blank=True)
+    type = models.ForeignKey(TypeLocation,related_name='mainlocationinfo', on_delete=models.CASCADE, blank=True)
     mainlocation = models.ForeignKey(MainLocation,related_name='mainlocationinfo', on_delete=models.CASCADE, blank=True, limit_choices_to={})
     balance =models.IntegerField(null=True)
 
@@ -106,7 +106,7 @@ class SubOneLocation(models.Model):
         return result
 
 class SubOneLocationInfo(models.Model):
-    type = models.ForeignKey(TypeLocation,related_name='subonelocationinfotype', on_delete=models.CASCADE, blank=True)
+    type = models.ForeignKey(TypeLocation,related_name='subonelocationinfo', on_delete=models.CASCADE, blank=True)
     subonelocation = models.ForeignKey(SubOneLocation,related_name='subonelocationinfo', on_delete=models.CASCADE, blank=True)
 
 

@@ -36,14 +36,19 @@ typelocation detail
         <a class='btn btn-light' data-toggle="collapse" id="list_btn" href="#typelocation{{forloop.counter}}" role="button" aria-expanded="false" aria-controls="collapse">{{typelocation.type}}</a>
         <a class='dashboard' href=" {% url 'location_app:typelocation_detail' pk=typelocation.pk %} "><img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail"></a>
           <div class="collapse multi-collapse" id="typelocation{{forloop.counter}}">
+
+
+
 <!-- Main Location Header-->
-            {% if typelocation.mainlocationinfotype.all %}
-              <div class="container">
+<div class="container">
+
+            {% if typelocation.mainlocationinfo.all %}
                   <a class='btn btn-dark' data-toggle="collapse" id="list_btn" href="#mainbtn{{typelocation.id}}" role="button" aria-expanded="false" aria-controls="collapse">{{engagement.locationnames.mainlocation_name}}:</a>
+
                   <a href=" {% url 'engagement_app:engagement_mainlocation_detail' pk=engagement.pk %} "> <img id="dashboard" src="{% static "images/list_view_black.png" %}"  alt="detail"></a>
 <!--Start of the Main location header button-->
                   <div class="collapse multi-collapse" id="mainbtn{{typelocation.id}}">
-                    {% for mainlocationinfo in typelocation.mainlocationinfotype.all %}
+                    {% for mainlocationinfo in typelocation.mainlocationinfo.all %}
                       <ul>
                         <li>
                           <a class='btn btn-light' data-toggle="collapse" id="list_btn" href="#main{{mainlocation.id}}" role="button" aria-expanded="false" aria-controls="collapse">{{mainlocationinfo.mainlocation}}</a>
@@ -56,13 +61,13 @@ typelocation detail
 
 
 <!-- Sub One Location Header-->
-            {% if typelocation.subonelocationinfotype.all %}
-              <div class="container">
+<div class="container">
+            {% if typelocation.subonelocationinfo.all %}
                   <a class='btn btn-dark' data-toggle="collapse" id="list_btn" href="#subonebtn{{typelocation.id}}" role="button" aria-expanded="false" aria-controls="collapse">{{engagement.locationnames.subonelocation_name}}:</a>
                   <a href=" {% url 'engagement_app:engagement_mainlocation_detail' pk=engagement.pk %} "><img id="dashboard" src="{% static "images/list_view_black.png" %}"  alt="detail"></a>
 <!--Start of the Sub One location header button-->
                   <div class="collapse multi-collapse" id="subonebtn{{typelocation.id}}">
-                    {% for subonelocationinfo in typelocation.subonelocationinfotype.all %}
+                    {% for subonelocationinfo in typelocation.subonelocationinfo.all %}
                       <ul>
                         <li>
                           <a class='btn btn-light' data-toggle="collapse" id="list_btn" href="#main{{mainlocation.id}}" role="button" aria-expanded="false" aria-controls="collapse">{{subonelocationinfo.subonelocation}}</a>
@@ -72,46 +77,13 @@ typelocation detail
                     {% endfor %}
                   </div>
             {% endif %}
-            <!-- Sub Two Location Header-->
-                        {% if typelocation.subtwolocationinfotype.all %}
-                          <div class="container">
-                              <a class='btn btn-dark' data-toggle="collapse" id="list_btn" href="#subtwobtn{{typelocation.id}}" role="button" aria-expanded="false" aria-controls="collapse">{{engagement.locationnames.subtwolocation_name}}:</a>
-                              <a href=" {% url 'engagement_app:engagement_mainlocation_detail' pk=engagement.pk %} "><img id="dashboard" src="{% static "images/list_view_black.png" %}"  alt="detail"></a>
-            <!--Start of the Sub Two location header button-->
-                              <div class="collapse multi-collapse" id="subtwobtn{{typelocation.id}}">
-                                {% for subtwolocationinfo in typelocation.subtwolocationinfotype.all %}
-                                  <ul>
-                                    <li>
-                                      <a class='btn btn-light' data-toggle="collapse" id="list_btn" href="#main{{mainlocation.id}}" role="button" aria-expanded="false" aria-controls="collapse">{{subtwolocationinfo.subtwolocation}}</a>
-                                      <a href=" {% url 'engagement_app:engagement_mainlocation_detail' pk=engagement.pk %} "><img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail"></a>
-                                    </li>
-                                  </ul>
-                                {% endfor %}
-                              </div>
-                        {% endif %}
-              <!-- Sub Three Location Header-->
-                          {% if typelocation.subthreelocationinfotype.all %}
-                            <div class="container">
-                                <a class='btn btn-dark' data-toggle="collapse" id="list_btn" href="#subthreebtn{{typelocation.id}}" role="button" aria-expanded="false" aria-controls="collapse">{{engagement.locationnames.subthreelocation_name}}:</a>
-                                <a href=" {% url 'engagement_app:engagement_mainlocation_detail' pk=engagement.pk %} "><img id="dashboard" src="{% static "images/list_view_black.png" %}"  alt="detail"></a>
-              <!--Start of the Sub Three location header button-->
-                                <div class="collapse multi-collapse" id="subthreebtn{{typelocation.id}}">
-                                  {% for subthreelocationinfo in typelocation.subthreelocationinfotype.all %}
-                                    <ul>
-                                      <li>
-                                        <a class='btn btn-light' data-toggle="collapse" id="list_btn" href="#main{{mainlocation.id}}" role="button" aria-expanded="false" aria-controls="collapse">{{subthreelocationinfo.subthreelocation}}</a>
-                                        <img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail">
-                                      </li>
-                                    </ul>
-                                  {% endfor %}
-                                </div>
-                          {% endif %}
 
 
-<!-- End of the mainlocation header button-->
               </div>
+<!-- End of the mainlocation header button-->
+</div>
 <!--ENd of the type location button-->
-          </div>
+</div>
 <!--ENd of type Location for and if loops-->
       </li>
     </ul>
@@ -131,5 +103,6 @@ typelocation detail
   </div>
   </div>
 {% endif %}
+</div>
 
 {% endblock %}

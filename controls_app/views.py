@@ -197,7 +197,7 @@ class InventoryClassControlCreateView(CreateView):
 
 class InventoryClassControlDeleteView(DeleteView):
     model = models.InventoryClassControl
-    template_name = 'control_app/inventoryclasscontrol/inventoryclasscontrol_confirm_delete.html'
+    template_name = 'controls_app/inventoryclasscontrol/inventoryclasscontrol_confirm_delete.html'
 
     def get_success_url(self):
         inventoryclass = get_object_or_404(models.InventoryClassControl, id=self.kwargs.get('pk')).inventoryclass

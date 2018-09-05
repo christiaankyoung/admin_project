@@ -12,6 +12,7 @@ from controls_app.models import MainLocationControl
 from controls_app.models import SubOneLocationControl
 from controls_app.models import Control
 from .models import MainLocation
+from .models import TypeLocation
 from .models import MainLocationInfo
 from .models import SubOneLocation
 from django.shortcuts import get_object_or_404
@@ -27,12 +28,6 @@ class MainLocationDetailView(DetailView):
     model = models.MainLocation
     template_name = 'location_app/mainlocation_detail.html'
 
-    #classes = MainLocation.engagement.inventoryclass.all()
-
-    #def get_context_data(self,**kwargs):
-        #context  = super().get_context_data(**kwargs)
-        #context['classes'] = classes
-        #return context
 
 class MainLocationCreateView(CreateView):
     model = models.MainLocation
@@ -253,6 +248,7 @@ class SubOneTypeCreateView(CreateView):
 
 class SubOneTypeDeleteView(DeleteView):
     model = models.SubOneLocationInfo
+    template_name = 'location_app/subone/subonelocationinfo_confirm_delete.html'
 
     def get_success_url(self):
         subonelocation = get_object_or_404(models.SubOneLocationInfo, id=self.kwargs.get('pk')).subonelocation
@@ -367,4 +363,39 @@ class ControlSubOneLocationCreateView(CreateView):
         context['mainlocation_called'] = self.control.engagement.locationnames.subonelocation_name
         context['control_id'] = self.control.id
         context['control_ref'] = self.control.ref
+        return context
+#type main associate view
+class TypeMainForm(ModelForm):
+
+    class Meta:
+        model = models.MainLocationInfo
+        fields = ('mainlocation','type')
+
+    def __init__ (self,*args,**kwargs):
+        type= kwargs.pop('type')
+        super(ModelForm, self).__init__(*args,**kwargs)
+        mainlocations = type.engagement.mainlocation.all()
+        queryset=models.MainLocation.objects.filter(pk__in=[i.id for i in mainlocations])
+        self.fields['mainlocation'].queryset = queryset
+
+class TypeMainCreateView(CreateView):
+    model = models.MainLocationInfo
+    form_class= TypeMainForm
+    template_name = 'location_app\mainlocationtype_form.html'
+
+    def get_initial(self):
+        self.type = get_object_or_404(models.TypeLocation, id=self.kwargs.get('pk'))
+        return {'type':self.type}
+
+    def get_form_kwargs(self):
+        kwargs = super(TypeMainCreateView,self).get_form_kwargs()
+        type = get_object_or_404(TypeLocation, id=self.kwargs.get('pk'))
+        kwargs['type']=type
+        return kwargs
+
+    def get_context_data(self,**kwargs):
+        context  = super().get_context_data(**kwargs)
+        context['typelocation_name'] = self.type.type
+        context['typelocation_id'] = self.type.id
+        context['mainlocation_called'] = self.type.engagement.locationnames.mainlocation_name
         return context

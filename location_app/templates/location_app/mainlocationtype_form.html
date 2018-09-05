@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block body_block %}
+<h1>
+  {% if not form.instance.pk %}
+  Associate {{mainlocation_called}} with {{typelocation_name}}
+  {% else %}
+  Update Association with {{typelocation_name}}
+  {% endif %}
+</h1>
+
+  <form method="POST" id="hideerror_form">
+    {% csrf_token %}
+
+    {% for error in form.errors %}
+      {% if error == "__all__" %}
+      <div class="container">
+          <ul>
+            <li>This Association Already Exists for {{typelocation_name}}</li>
+          </ul>
+      </div>
+      {% endif %}
+    {% endfor %}
+
+    <p class="hidden">
+      {{ form.type }}
+      {{ form.type.errors }}
+    </p>
+
+    <p>
+      <span class="bold" > {{mainlocation_called}}:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+      <div class="container">
+
+      {% render_field form.mainlocation class="form-control" placeholder=mainlocation_called %}
+      {{ form.mainlocation.errors }}
+    </div>
+    </p>
+
+    <input type="submit" class='btn btn-primary' value="Submit">
+    <a class="btn btn-light" id="cancel-delete" href="{% url 'location_app:typelocation_detail' pk=typelocation_id %} ">Cancel</a>
+  </form>
+
+
+
+{% endblock %}

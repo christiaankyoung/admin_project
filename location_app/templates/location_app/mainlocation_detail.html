@@ -237,49 +237,7 @@
                     </div>
                   </li>
 <!--Counts-->
-                  <li>
-                    <div class="counts">
-                    <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#counts" role="button" aria-expanded="false" aria-controls="collapse">Count(s):</a>
-                      <div class="collapse multi-collapse" id="counts">
-                        {% if mainlocation.invcount.all %}
-                            <div class="detail_list">
-                              {% for  invcount in mainlocation.invcount.all  %}
-                                <ul>
-                                  <li>
-                                    <a class='btn btn-secondary' id="detail_btn" data-toggle="collapse" href="#count{{forloop.counter}}" role="button" aria-expanded="false" aria-controls="collapse" >{{invcount.ref}}</a>
-                                      <div class="collapse multi-collapse" id="count{{forloop.counter}}">
-                                        <div class="container">
-                                          <div class="container" id="control_dis">
-                                            <div class="jumbotron" id="control_dis">
-                                              <p>
-                                                <span class="bold" >Inventory Type:</span>
-                                                {{invcount.inventorytype}}
-                                              </p>
-                                              <p>
-                                                <span class="bold" >Count Date:</span>
-                                                {{invcount.date}}
-                                              </p>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                  </li>
-                                </ul>
-                              {% endfor %}
-                            </div>
-                        {% else %}
-                          <div class="container">
-                            <p></p>
-                            <div class="jumbotron">
-                              <h3>No Counts Associated With {{mainlocation.name}}</h3>
-                              <p>To create an inventory count:</p>
-                              <a class='btn btn-dark' href=" {% url 'count_app:count_create' pk=mainlocation.engagement.id %} ">Create Count</a>
-                            </div>
-                          </div>
-                        {% endif %}
-                      </div>
-                    </div>
-                  </li>
+                  
 <!--IT Applications-->
                   <li>
                     <div class="apps">

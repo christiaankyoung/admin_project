@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+<h1>Delete Association </h1>
+<h4>Delete association of <span class='bold'>{{inventorytypeapplication.application}}</span> with <span class='bold'>{{inventorytypeapplication.inventorytype}}</span>?</h4>
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" class="btn btn-danger" value="Delete">
+  <a class="btn btn-light" href="{% url 'inventory_app:inventorytype_detail' pk=inventorytypeapplication.inventorytype.pk %} ">Cancel</a>
+
+</form>
+
+{% endblock %}

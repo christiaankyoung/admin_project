@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+<h1>Delete Association </h1>
+<h4>Delete association of <span class='bold'>{{subonelocationinfo.type}}</span> with <span class='bold'>{{subonelocationinfo.subonelocation}}</span>?</h4>
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" class="btn btn-danger" value="Delete">
+  <a class="btn btn-light" href="{% url 'location_app:subonelocation_detail' ml_pk=subonelocationinfo.subonelocation.mainlocation.pk  pk=subonelocationinfo.subonelocation.pk%} ">Cancel</a>
+
+</form>
+
+{% endblock %}

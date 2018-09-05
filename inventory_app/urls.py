@@ -8,7 +8,7 @@ urlpatterns = [
     path('',views.InventoryClassListView.as_view(),name='inventoryclass_list'),
     path('<int:pk>/',views.InventoryClassDetailView.as_view(),name='inventoryclass_detail'),
     path('<int:pk>/createclass/',views.InventoryClassCreateView.as_view(),name='inventoryclass_create'),
-    path('updateclass/<int:pk>/',views.InventoryClassUpdateView.as_view(),name='inventoryclass_update'),
+    path('<int:en_pk>/updateclass/<int:pk>/',views.InventoryClassUpdateView.as_view(),name='inventoryclass_update'),
     path('deleteclass/<int:pk>/',views.InventoryClassDeleteView.as_view(),name='inventoryclass_delete'),
     #inventory type
     path('type/<int:pk>/',views.InventoryTypeDetailView.as_view(),name='inventorytype_detail'),
@@ -18,9 +18,10 @@ urlpatterns = [
 
     #inventory location to type
     path('<int:pk>/createinventorymaintype/',views.InventoryTypeMainLocationCreateView.as_view(),name='inventory_maintype_associate'),
+    path('<int:pk>/createmaintypeinventory/',views.MainLocationInventoryTypeCreateView.as_view(),name='maintype_inventory_associate'),
     path('<int:pk>/deleteinventorymaintype/',views.InventoryTypeMainLocationDeleteView.as_view(),name='inventory_maintype_unassociate'),
     path('<int:pk>/createinventorysubonetype/',views.InventoryTypeSubOneLocationCreateView.as_view(),name='inventory_subonetype_associate'),
-
+    path('<int:pk>/createsubonetypeinventory/',views.SubOneLocationInventoryTypeCreateView.as_view(),name='subonetype_inventory_associate'),
     #Control inventory class urls
     path('<int:pk>/createcontrolinventoryclass/',views.ControlInventoryClassCreateView.as_view(),name='controlinventoryclass_associate'),
 

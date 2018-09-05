@@ -3,7 +3,7 @@ from django.urls import reverse
 from engagement_app.models import Engagement
 from controls_app.models import Control
 from location_app.models import MainLocation
-
+from inventory_app.models import InventoryType
 
 
 # Create your models here.
@@ -79,6 +79,20 @@ class MainLocationApplication(models.Model):
 
     def __str__(self):
         return '%s (%s)' % (self.application, self.mainlocation)
+
+    def get_absolute_url(self):
+        return reverse("it_app:application_detail",kwargs={'pk':self.application.id})
+
+class InventoryTypeApplication(models.Model):
+    application = models.ForeignKey(Application,related_name='inventorytypeapplication', on_delete=models.CASCADE, blank=True)
+    inventorytype = models.ForeignKey(InventoryType,related_name='inventorytypeapplication', on_delete=models.CASCADE, blank=True)
+    description = models.TextField(null=True, blank=False, default='')
+
+    class Meta:
+        unique_together = ('application','inventorytype')
+
+    def __str__(self):
+        return '%s (%s)' % (self.application, self.inventorytype)
 
     def get_absolute_url(self):
         return reverse("it_app:application_detail",kwargs={'pk':self.application.id})

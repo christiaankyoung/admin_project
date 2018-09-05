@@ -17,3 +17,6 @@ class HomePage(TemplateView):
 
 class IndexView(TemplateView):
     template_name = 'index.html'
+
+class ConfigurableView(TemplateView):
+    template_name = 'bulblinks/configurable.html'

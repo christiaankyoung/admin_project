@@ -66,7 +66,7 @@
       </div>
   </p>
   <p>
-    <span class="bold" > Configurable?:</span><a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+    <span class="bold" > Configurable?:</span><a href=" {% url 'configurable' %} " target="_blank"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
       <div class="container">
         {% render_field form.configurable class="form-control" %}
         {{ form.configurable.errors }}

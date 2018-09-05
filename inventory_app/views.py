@@ -265,3 +265,77 @@ class ControlInventoryTypeCreateView(CreateView):
         context['control_id'] = self.control.id
         context['control_ref'] = self.control.ref
         return context
+#Inventory Type to Main Location view
+class MainLocationInventoryTypeForm(ModelForm):
+
+    class Meta:
+        model = models.InventoryTypeMainLocation
+        fields = ('mainlocation','type','balance','frequency','cc_type','uom')
+
+    def __init__ (self,*args,**kwargs):
+        type= kwargs.pop('type')
+        super(ModelForm, self).__init__(*args,**kwargs)
+        mainlocations = type.classification.engagement.mainlocation.all()
+        queryset=models.MainLocation.objects.filter(pk__in=[i.id for i in mainlocations])
+        self.fields['mainlocation'].queryset = queryset
+
+class MainLocationInventoryTypeCreateView(CreateView):
+    model = models.InventoryTypeMainLocation
+    template_name = 'inventory_app\mainlocationinventorytype\mainlocationinventorytype_form.html'
+    form_class= MainLocationInventoryTypeForm
+
+    def get_initial(self):
+        self.type = get_object_or_404(InventoryType, id=self.kwargs.get('pk'))
+        return {'type':self.type}
+
+    def get_form_kwargs(self):
+        kwargs = super(MainLocationInventoryTypeCreateView,self).get_form_kwargs()
+        type = get_object_or_404(InventoryType, id=self.kwargs.get('pk'))
+        kwargs['type']=type
+        return kwargs
+
+    def get_context_data(self,**kwargs):
+        context  = super().get_context_data(**kwargs)
+        context['inventorytype_name'] = self.type
+        context['inventorytype_id'] = self.type.id
+        context['mainlocation_called'] = self.type.classification.engagement.locationnames.mainlocation_name
+        return context
+
+#Inventory Type to sub one Location view
+class SubOneLocationInventoryTypeForm(ModelForm):
+
+    class Meta:
+        model = models.InventoryTypeSubOneLocation
+        fields = ('subonelocation','type','balance','frequency','cc_type','uom')
+
+    def __init__ (self,*args,**kwargs):
+        type= kwargs.pop('type')
+        super(ModelForm, self).__init__(*args,**kwargs)
+        mainlocations = type.classification.engagement.mainlocation.all()
+        subs = []
+        for c in mainlocations:
+            subs.extend(c.subonelocation.all())
+        queryset=models.SubOneLocation.objects.filter(pk__in=[i.id for i in subs])
+        self.fields['subonelocation'].queryset = queryset
+
+class SubOneLocationInventoryTypeCreateView(CreateView):
+    model = models.InventoryTypeSubOneLocation
+    template_name = 'inventory_app\subonelocationinventorytype\subonelocationinventorytype_form.html'
+    form_class= SubOneLocationInventoryTypeForm
+
+    def get_initial(self):
+        self.type = get_object_or_404(InventoryType, id=self.kwargs.get('pk'))
+        return {'type':self.type}
+
+    def get_form_kwargs(self):
+        kwargs = super(SubOneLocationInventoryTypeCreateView,self).get_form_kwargs()
+        type = get_object_or_404(InventoryType, id=self.kwargs.get('pk'))
+        kwargs['type']=type
+        return kwargs
+
+    def get_context_data(self,**kwargs):
+        context  = super().get_context_data(**kwargs)
+        context['inventorytype_name'] = self.type
+        context['inventorytype_id'] = self.type.id
+        context['mainlocation_called'] = self.type.classification.engagement.locationnames.subonelocation_name
+        return context

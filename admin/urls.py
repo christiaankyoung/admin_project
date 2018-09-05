@@ -30,4 +30,5 @@ urlpatterns = [
     path('controls/',include('controls_app.urls',namespace='control_app')),
     path('count/',include('count_app.urls',namespace='count_app')),
     path('application/',include('it_app.urls',namespace='it_app')),
+    path('configurable/',views.ConfigurableView.as_view(),name='configurable'),
 ]

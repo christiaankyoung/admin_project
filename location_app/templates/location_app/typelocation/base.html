@@ -17,19 +17,23 @@
 {% block right_block %}
 <p></p>
 <li class="nav-item">
-  <a class="btn btn-dark" id="left_block_item" href="#">Locations</a>
+  <a class="btn btn-dark" id="left_block_item" href="{% url 'engagement_app:location_landing' pk=typelocation.engagement.id %}">Locations</a>
 </li>
 <p></p>
 <li class="nav-item">
-  <a class="btn btn-dark" id="left_block_item" href="#">Inventory</a>
+  <a class="btn btn-dark" id="left_block_item" href=" {% url 'engagement_app:inventory_landing' pk=typelocation.engagement.id %} ">Inventory</a>
 </li>
 <p></p>
 <li class="nav-item">
-  <a class="btn btn-dark" id="left_block_item" href="#">Controls</a>
+  <a class="btn btn-dark" id="left_block_item" href="{% url 'engagement_app:control_landing' pk=typelocation.engagement.id %}">Controls</a>
 </li>
 <p></p>
 <li class="nav-item">
-  <a class="btn btn-dark" id="left_block_item" href="#">Counts</a>
+  <a class="btn btn-dark" id="left_block_item" href="{% url 'engagement_app:count_landing' pk=typelocation.engagement.id %}">Counts</a>
+</li>
+<p></p>
+<li class="nav-item">
+  <a class="btn btn-dark" id="left_block_item" href="{% url 'engagement_app:application_landing' pk=typelocation.engagement.id %}">IT Applications</a>
 </li>
 
 {% endblock %}

@@ -2,11 +2,11 @@
 
 {% block body_block %}
 <h1>Delete Association </h1>
-<h4>Delete association of <span class='bold'>{{inventorytypemainlocation.type}}</span> with <span class='bold'>{{inventorytypemainlocation.mainlocation}}</span>?</h4>
+<h4>Delete association of <span class='bold'>{{inventoryclasscontrol.control}}</span> with <span class='bold'>{{inventoryclasscontrol.inventoryclass}}</span>?</h4>
 <form method="post">
   {% csrf_token %}
   <input type="submit" class="btn btn-danger" value="Delete">
-  <a class="btn btn-light" href="{% url 'location_app:mainlocation_detail' pk=inventorytypemainlocation.mainlocation.pk %} ">Cancel</a>
+  <a class="btn btn-light" href="{% url 'inventory_app:inventoryclass_detail' pk=inventoryclasscontrol.inventoryclass.pk %} ">Cancel</a>
 
 </form>
 

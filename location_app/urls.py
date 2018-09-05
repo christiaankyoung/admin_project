@@ -18,6 +18,7 @@ urlpatterns = [
     #Main Location info
     path('<int:pk>,main-type-associate/',views.MainTypeCreateView.as_view(),name='main-type_associate'),
     path('<int:pk>,main-type-associate/unassociate/',views.MainTypeDeleteView.as_view(),name='main-type_unassociate'),
+    path('<int:pk>,type-main-associate/',views.TypeMainCreateView.as_view(),name='type-main_associate'),
     #engagemant main location views
     path('mainlocation/engagement/<int:pk>/',views.MainLocationEngagementDetailView.as_view(),name='engagement_location_detail'),
     #Sub One urls

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block body_block %}
+<h1>
+  {% if not form.instance.pk %}
+  Associate {{mainlocation_called}} with {{inventorytype_name}}
+  {% else %}
+  Update Association of {{inventorytype_name}} to {{mainlocation_called}}
+  {% endif %}
+</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {% for error in form.errors %}
+      {% if error == "__all__" %}
+      <div class="container">
+          <ul>
+            <li>This Inventory Type is already associated with this {{mainlocation_called}}</li>
+          </ul>
+      </div>
+      {% endif %}
+    {% endfor %}
+
+
+    <p class="hidden">
+      {{ form.type }}
+      {{ form.type.errors }}
+    </p>
+
+    <p>
+      <span class="bold" > {{mainlocation_called}}:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+      <div class="container">
+
+      {% render_field form.subonelocation class="form-control" placeholder=mainlocation_called %}
+      {{ form.type.subonelocation }}
+    </div>
+    </p>
+
+        <p>
+          <span class="bold" > Year End Balance:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+          <div class="container">
+
+          {% render_field form.balance class="form-control" placeholder=form.balance.label %}
+          {{ form.balance.errors }}
+        </div>
+        </p>
+
+        <p>
+          <span class="bold" > Frequency All Inventory is Counted?</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+          <div class="container">
+
+          {% render_field form.frequency class="form-control" placeholder="Frequency Counted" %}
+          {{ form.frequency.errors }}
+        </div>
+        </p>
+
+
+        <p>
+          <span class="bold" > How Inventory is Counted?</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+          <div class="container">
+
+          {% render_field form.cc_type class="form-control" placeholder="How is inventory counted?" %}
+          {{ form.cc_type.errors }}
+        </div>
+        </p>
+
+
+        <p>
+          <span class="bold" > Unit of Measurement When Counting:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+          <div class="container">
+
+          {% render_field form.uom class="form-control" placeholder="Unit of Measurement" %}
+          {{ form.uom.errors }}
+        </div>
+        </p>
+<p></p>
+    <input type="submit" class='btn btn-primary' value="Submit">
+    <a class="btn btn-light" id="cancel-delete" href="{% url 'inventory_app:inventorytype_detail' pk=inventorytype_id %} ">Cancel</a>
+  </form>
+
+
+{% endblock %}

@@ -7,12 +7,19 @@
   <h3>{{inventorytype.name}}</h3>
     <a class='btn btn-light btn-block' id="create" href="{% url 'inventory_app:inventorytype_update' pk=inventorytype.pk %}">Update</a>
     <a class='btn btn-danger btn-block' id="create" href=" {% url 'inventory_app:inventorytype_delete' pk=inventorytype.pk %} ">Delete</a>
+<p></p>
     <h4>Location Actions:</h4>
-      <a class="btn btn-light btn-block" id="create" href="#">Associate Location Type(s)</a>
-      <a class='btn btn-light btn-block' id="create" href=" # ">Create {{inventoryclass.engagement.locationnames.subonelocation_name}}</a>
+      <a class="btn btn-light btn-block" id="create" href=" {% url 'inventory_app:maintype_inventory_associate' pk=inventorytype.pk %}">Associate to {{inventorytype.classification.engagement.locationnames.mainlocation_name}}</a>
+      <a class='btn btn-light btn-block' id="create" href=" {% url 'inventory_app:subonetype_inventory_associate' pk=inventorytype.pk %}">Associate to {{inventorytype.classification.engagement.locationnames.subonelocation_name}}</a>
       <p></p>
-    <h4>Control Actions:</h4>
-      <a class="btn btn-light btn-block" id="create" href="{% url 'controls_app:inventorytypecontrol_associate' pk=inventorytype.id %}">Associate Control</a>
+      <h4>Control Actions:</h4>
+        <a class="btn btn-light btn-block" id="create" href="{% url 'controls_app:inventorytypecontrol_associate' pk=inventorytype.id %}">Associate Control</a>
+        <p></p>
+    <h4>IT Apps:</h4>
+      <p><a type="button" class='btn btn-light btn-block' id="create" href="{% url 'it_app:inventorytypeapplication_associate' pk=inventorytype.id %}">Associate IT App</a></p>
+      <p> </p>
+      <p> </p>
+
 
 {% endblock %}
 {% block breadcrumblink_block %}

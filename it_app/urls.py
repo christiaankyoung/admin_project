@@ -16,4 +16,8 @@ urlpatterns = [
 #mainlocation application urls
     path('<int:pk>/createmainlocationapplication/',views.MainLocationApplicationCreateView.as_view(),name='mainlocationapplication_associate'),
     path('<int:pk>/deletemainlocationapplication/',views.MainLocationApplicationDeleteView.as_view(),name='mainlocationapplication_unassociate'),
+
+#inventory type application urls
+    path('<int:pk>/createinventorytypeapplication/',views.InventoryTypeApplicationCreateView.as_view(),name='inventorytypeapplication_associate'),
+    path('<int:pk>/deleteinventorytypeapplication/',views.InventoryTypeApplicationDeleteView.as_view(),name='inventorytypeapplication_unassociate'),
 ]
