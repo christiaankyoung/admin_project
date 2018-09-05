@@ -71,17 +71,6 @@ control detail
   </div>
 </div>
   {% endif %}
-{{controls_in_controltypes}}
-{{control_types}}
-  {% for controltype in control_types %}
-    <ul>
-      <li>{{controltype.control_type}}
-          {% for control in engagement.control.all %}
 
-          {% endfor %}
-      </li>
-    </ul>
-
-  {% endfor %}
 
 {% endblock %}

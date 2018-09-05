@@ -1,0 +1,151 @@
+{% extends "count_app/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block left_block %}
+<h3>{{control.ref}}</h3>
+  <a class='btn btn-light btn-block' id="create" href="{% url 'control_app:control_update' en_pk=control.engagement.id pk=control.pk %}">Update</a>
+  <a class='btn btn-danger btn-block' id="create" href="{% url 'control_app:control_delete' pk=control.pk %}">Delete</a>
+  <p></p>
+<h4>Location Actions:</h4>
+  <a class="btn btn-light btn-block" id="create" href="{% url 'location_app:controlmainlocation_associate' pk=control.id %}">Associate to {{control.engagement.locationnames.mainlocation_name}}</a>
+  <a class='btn btn-light btn-block' id="create" href="{% url 'location_app:controlsubonelocation_associate' pk=control.id %}">Associate to {{control.engagement.locationnames.subonelocation_name}}</a>
+  <p></p>
+<h4>Inventory Actions:</h4>
+  <a class="btn btn-light btn-block" id="create" href=" {% url 'inventory_app:controlinventoryclass_associate' pk=control.id %} ">Associate to Inventory Class</a>
+  <a class="btn btn-light btn-block" id="create" href="{% url 'inventory_app:controlinventorytype_associate' pk=control.id %}">Associate to Inventory Type</a>
+  <p></p>
+<h4>IT Application:</h4>
+  <a class="btn btn-light btn-block" id="create" href="#">Associate to IT Application</a>
+  <a class="btn btn-light btn-block" id="create" href="#">Associate to IT Report</a>
+  <p></p>
+<h4>Count Actions:</h4>
+  <a class="btn btn-light btn-block" id="create" href="#">Associate to Inventory Count</a>
+
+{% endblock %}
+{% block breadcrumblink_block %}
+
+  <li class="breadcrumb-item"><a href="#">Controls</a></li>
+  <li class="breadcrumb-item active" aria-current="page">{{control.ref}}</li>
+{% endblock %}
+
+
+{% block body_block %}
+
+  <div class="container">
+    <h1>Details for {{control.ref}}:</h1>
+
+    <div class="container">
+        <div class="detail_header">
+          <p>{{control.ref}}</p>
+        </div>
+      </div>
+
+      <div class="container" id="detail_box">
+
+            <h3>Details:</h3>
+            <div class="container" id="detail_box_detail">
+              <span class="bold">Control Reference:</span> {{control.ref}}
+              <p></p>
+              <div class="">
+                <span class="bold">Control Name:</span>
+                  <div class="container">
+                    {{control.name}}
+                  </div>
+              </div>
+              <p></p>
+              <div class="">
+                <span class="bold">Control Description:</span>
+                  <div class="container">
+                    {{control.description}}
+                  </div>
+              </div>
+              <p></p>
+              <span class="bold">Control Frequency:</span> {{control.frequency}}
+              <p></p>
+              <span class="bold">Control Type:</span> {{control.control_type}}
+              <p></p>
+              <span class="bold">Configurable?:</span> {% if control.configurable %} Yes {% else %} No {% endif %}
+              <p></p>
+            </div>
+      </div>
+        <div class="container">
+          <ul>
+<!-- All Locations Related to this control-->
+            <li>
+              <div class="controllocations">
+                <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#locations" role="button" aria-expanded="false" aria-controls="collapse">Locations:</a>
+                  <div class="collapse multi-collapse" id="locations">
+                    <ul>
+                      <li>
+
+                        <div class="locationsubs">
+<!--MainLocation header-->
+
+                            <a class='btn btn-dark' data-toggle="collapse" id="prt_detail_btn" href="#mainbtn{{control.controlmainlocation.id}}" role="button" aria-expanded="false" aria-controls="collapse">{{control.engagement.locationnames.mainlocation_name}}:</a>
+                            <a href=" {% url 'engagement_app:engagement_mainlocation_detail' pk=control.engagement.pk %} "> <img id="dashboard" src="{% static "images/list_view_black.png" %}"  alt="detail"></a>
+          <!--Start of the Main location header button-->
+          <div class="collapse multi-collapse" id="mainbtn{{typelocation.id}}">
+                        {% if control.controlmainlocation.all %}
+                              {% for controlmainlocation in control.controlmainlocation.all %}
+                                <ul>
+                                  <li>
+                                    <a class='btn btn-light' data-toggle="collapse" id="list_btn" href="#main{{mainlocation.id}}" role="button" aria-expanded="false" aria-controls="collapse">{{controlmainlocation.mainlocation}}</a>
+                                    <a href=" # "> <img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail"></a>
+                                  </li>
+                                </ul>
+                              {% endfor %}
+                          {% else %}
+                          <div class="container">
+                            <p></p>
+                            <div class="jumbotron">
+                              <h3>No {{control.engagement.locationnames.mainlocation_name}}(s) Associated With {{control.ref}}</h3>
+                              <p>To associate a {{control.engagement.locationnames.mainlocation_name}}:</p>
+                              <a class="btn btn-dark" href="#">Associate {{control.engagement.locationnames.mainlocation_name}}</a>
+                            </div>
+                          </div>
+                        {% endif %}
+                      </div>
+
+
+                        </div>
+                      </li>
+
+<!--Subone locations-->
+              <li>
+                <div class="container">
+                <div class="locationsubs">
+                <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#locationsub" role="button" aria-expanded="false" aria-controls="collapse">{{control.engagement.locationnames.subonelocation_name}}(s):</a>
+                  <div class="collapse multi-collapse" id="locationsub">
+                    {% if control.controlsubonelocation.all %}
+                        <div class="detail_list">
+                          {% for  controllocation in control.controlsubonelocation.all  %}
+                            <ul>
+                              <li>
+                                <a class='btn btn-secondary' id="detail_btn" href=" # ">{{controlsubonelocation.subonelocation.name}}</a>
+                              </li>
+                            </ul>
+                          {% endfor %}
+                        </div>
+                    {% else %}
+                      <div class="container">
+                        <p></p>
+                        <div class="jumbotron">
+                          <h3>No {{control.engagement.locationnames.subonelocation_name}}(s) Associated With {{control.ref}}</h3>
+                          <p>To associate a {{control.engagement.locationnames.subonelocation_name}}:</p>
+                          <a class="btn btn-dark" href="#">Associate {{control.engagement.locationnames.subonelocation_name}}</a>
+                        </div>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+                </div>
+              </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+            </ul>
+          </div>
+        </div>
+
+{% endblock %}

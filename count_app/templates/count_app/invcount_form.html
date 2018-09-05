@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block body_block %}
+<h1>
+  {% if not form.instance.pk %}
+  Create Count for {{engagement_name}}
+  {% else %}
+  Update Count for {{engagement_name}}
+  {% endif %}
+
+</h1>
+
+  <form method="POST" id="hideerror_form">
+    {% csrf_token %}
+
+    {% for error in form.errors %}
+      {% if error == "__all__" %}
+      <div class="container">
+          <ul>
+            <li>This Count Reference Already Exsists for {{engagement_name}}</li>
+          </ul>
+      </div>
+      {% endif %}
+    {% endfor %}
+
+    <p>
+      {{ form.engagement }}
+      {{ form.engagement.errors }}
+    </p>
+    <p></p>
+    <p>
+      <span class="bold" > Count Reference:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+      <div class="container">
+
+      {% render_field form.ref class="form-control" placeholder=form.ref.label %}
+      {{ form.ref.errors }}
+    </div>
+    </p>
+    <p>
+      <span class="bold" > Location and Inventory Type Counted:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+    <div class="container">
+      {% render_field form.inventorytypemainlocation class="form-control" placeholder="Location and Inventory Type" %}
+      {{ form.inventorytypemainlocation.errors }}
+    </div>
+  </p>
+  <p>
+    <span class="bold" > Related Control:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+  <div class="container">
+    {% render_field form.control class="form-control" placeholder="Related Control" %}
+    {{ form.control.errors }}
+  </div>
+</p>
+    <p>
+      <span class="bold" > Date of Count:</span><a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+        <div class="container">
+          {% render_field form.date class="form-control" placeholder='MM.DD.YY' %}
+          {{ form.date.errors }}
+        </div>
+  </p>
+  <p>
+    <span class="bold" > Blind Count?:</span><a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+      <div class="container" id="checkbox">
+        {% render_field form.blindcount class="form-control" %}
+        {{ form.blindcount.errors }}
+      </div>
+  </p>
+
+  <input type="submit" class='btn btn-primary' value="Submit">
+    <a class="btn btn-light" id="cancel-delete" href="{% url 'engagement_app:engagement_landing' pk=engagement_id %} ">Cancel</a>
+
+  </form>
+
+
+{% endblock %}

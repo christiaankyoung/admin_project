@@ -273,7 +273,7 @@
                             <div class="jumbotron">
                               <h3>No Counts Associated With {{mainlocation.name}}</h3>
                               <p>To create an inventory count:</p>
-                              <a class='btn btn-dark' href=" {% url 'count_app:count_create' %} ">Create Count</a>
+                              <a class='btn btn-dark' href=" {% url 'count_app:count_create' pk=mainlocation.engagement.id %} ">Create Count</a>
                             </div>
                           </div>
                         {% endif %}

@@ -2,8 +2,8 @@
 
 {% block left_block %}
 
-<h3>Controls:</h3>
-  <p><a type="button" class='btn btn-block btn-dark' id="create" href="#">Create Control</a></p>
+<h3>Counts:</h3>
+  <p><a type="button" class='btn btn-block btn-dark' id="create" href=" {% url 'count_app:count_create' pk=engagement.id %} ">Create Count</a></p>
   <p></p>
   <p></p>
 {% endblock %}
@@ -15,15 +15,57 @@
 
 {% block body_block %}
   <div class="container">
-      <h1>Control Options for {{engagement.name}}:</h1>
+      <h1>Count Options for {{engagement.name}}:</h1>
       <h4>Lists:</h4>
       <div class="engagement_list">
         <ul>
           <li>
             <a class="btn btn-dark" id="engagement_list" href=" {% url 'engagement_app:engagement_count_detail' pk=engagement.id %} ">All Counts</a>
           </li>
+          <p></p>
+          <h5>Location:</h5>
           <li>
-            <a class="btn btn-dark" id="engagement_list" href="#">Count by Location</a>
+            <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#locations" role="button" aria-expanded="false" aria-controls="collapse">Counts by Location:</a>
+              <div class="collapse multi-collapse" id="locations">
+                Coming soon!
+              </div>
+          </li>
+          <p></p>
+          <h5>Inventory:</h5>
+          <li>
+            <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#inventoryclass" role="button" aria-expanded="false" aria-controls="collapse">Counts by Inventory Class:</a>
+              <div class="collapse multi-collapse" id="inventoryclass">
+                Coming soon!
+              </div>
+          </li>
+          <li>
+            <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#inventorytype" role="button" aria-expanded="false" aria-controls="collapse">Counts by Inventory Type:</a>
+              <div class="collapse multi-collapse" id="inventorytype">
+                Coming soon!
+              </div>
+          </li>
+          <p></p>
+          <h5>Controls:</h5>
+          <li>
+            <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#controls" role="button" aria-expanded="false" aria-controls="collapse">Counts by Control:</a>
+              <div class="collapse multi-collapse" id="controls">
+                Coming soon!
+              </div>
+          </li>
+          <p></p>
+          <h5>IT Applications:</h5>
+
+          <li>
+            <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#application" role="button" aria-expanded="false" aria-controls="collapse">Counts by IT Application:</a>
+              <div class="collapse multi-collapse" id="application">
+                Coming soon!
+              </div>
+          </li>
+          <li>
+            <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#report" role="button" aria-expanded="false" aria-controls="collapse">Counts by IT Report:</a>
+              <div class="collapse multi-collapse" id="report">
+                Coming soon!
+              </div>
           </li>
         </ul>
       </div>
@@ -32,7 +74,21 @@
 
   </div>
   <div class="container">
-
+<h4>Blind Counts:</h4>
+  <ul>
+    <li>
+      <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#blind" role="button" aria-expanded="false" aria-controls="collapse">Counts by Blind Counts:</a>
+        <div class="collapse multi-collapse" id="blind">
+          Coming soon!
+        </div>
+    </li>
+    <li>
+      <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#blindlocation" role="button" aria-expanded="false" aria-controls="collapse">Blind Counts by Location:</a>
+        <div class="collapse multi-collapse" id="blindlocation">
+          Coming soon!
+        </div>
+    </li>
+  </ul>
   </div>
 
 {% endblock %}

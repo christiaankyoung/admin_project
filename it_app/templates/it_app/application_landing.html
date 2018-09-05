@@ -22,9 +22,55 @@
           <li>
             <a class="btn btn-dark" id="engagement_list" href="{% url 'engagement_app:engagement_application_detail' pk=engagement.id %}">All IT Applications</a>
           </li>
+
+          <p></p>
+          <h5>Counts:</h5>
           <li>
-            <a class="btn btn-dark" id="engagement_list" href="#">IT Applications by Location</a>
+            <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#locations" role="button" aria-expanded="false" aria-controls="collapse">Counts by IT Application:</a>
+              <div class="collapse multi-collapse" id="locations">
+                Coming soon!
+              </div>
           </li>
+          <p></p>
+          <h5>Locations:</h5>
+          <li>
+            <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#location" role="button" aria-expanded="false" aria-controls="collapse">Location by IT Application:</a>
+              <div class="collapse multi-collapse" id="location">
+                Coming soon!
+              </div>
+          </li>
+          <p></p>
+          <h5>Inventory:</h5>
+          <li>
+            <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#inventoryclass" role="button" aria-expanded="false" aria-controls="collapse">Inventory Classes by IT Application :</a>
+              <div class="collapse multi-collapse" id="invemtoryclass">
+                Coming soon!
+              </div>
+          </li>
+          <p></p>
+          <li>
+            <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#controls" role="button" aria-expanded="false" aria-controls="collapse">Inventory Types by IT Application:</a>
+              <div class="collapse multi-collapse" id="controls">
+                Coming soon!
+              </div>
+          </li>
+          <p></p>
+          <h5>Controls:</h5>
+
+          <li>
+            <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#applicationcontrol" role="button" aria-expanded="false" aria-controls="collapse">Controls by IT Applications:</a>
+              <div class="collapse multi-collapse" id="applicationcontrol">
+                Coming soon!
+              </div>
+          </li>
+          <p></p>
+          <li>
+            <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#reportclass" role="button" aria-expanded="false" aria-controls="collapse">Control by IT Reports:</a>
+              <div class="collapse multi-collapse" id="reportclass">
+                Coming soon!
+              </div>
+          </li>
+          <p></p>
         </ul>
       </div>
 
@@ -32,7 +78,24 @@
 
   </div>
   <div class="container">
-
+    <h4>IT Risk 1:</h4>
+      <ul>
+        <li>
+          <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#blind" role="button" aria-expanded="false" aria-controls="collapse">IT Risk 1:</a>
+            <div class="collapse multi-collapse" id="blind">
+              Coming soon!
+            </div>
+        </li>
   </div>
-
+  <div class="container">
+    <h4>IT Risk 2:</h4>
+      <ul>
+        <li>
+          <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#frequency" role="button" aria-expanded="false" aria-controls="collapse">IT Risk 2:</a>
+            <div class="collapse multi-collapse" id="frequency">
+              Coming soon!
+            </div>
+        </li>
+        
+  </div>
 {% endblock %}

@@ -1,11 +1,11 @@
 {% extends "engagement_app/base.html" %}
 {% load static %}
 {% block title_block %}
-control detail
+count detail
 {% endblock%}
 {% block left_block %}
   <div class="left_block">
-  <p><a type="button" class='btn btn-block btn-dark' id="create" href="{% url 'control_app:control_create' pk=engagement.id %}">Create Control</a></p>
+  <p><a type="button" class='btn btn-block btn-dark' id="create" href="{% url 'count_app:count_create' pk=engagement.id %}">Create Count</a></p>
 
 
 </div>
@@ -13,7 +13,7 @@ control detail
 
 {% block breadcrumblink_block %}
   <li class="breadcrumb-item"><a href="{% url 'engagement_app:engagement_landing' pk=engagement.id %}">{{engagement.name}}</a></li>
-  <li class="breadcrumb-item active" aria-current="page">Controls</li>
+  <li class="breadcrumb-item active" aria-current="page">Counts</li>
 {% endblock %}
 
 {% block body_block %}
@@ -21,21 +21,21 @@ control detail
     <p>
       <div class="header_list">
         <span class="list_header">
-            Controls for {{engagement.name}}:
+            Counts for {{engagement.name}}:
           </span>
           </div>
             <button id="show_btn" class="btn btn-dark" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="">Show All</button>
-            <a id="show_btn" class="btn btn-dark" href="{% url 'engagement_app:engagement_mainlocation_detail' pk=engagement.id %}">Hide All</a>
+            <a id="show_btn" class="btn btn-dark" href="{% url 'engagement_app:engagement_count_detail' pk=engagement.id %}">Hide All</a>
 
     </p>
-{% if engagement.control.all %}
+{% if engagement.invcount.all %}
 
 <!-- Main location for-->
-      {% for control in engagement.control.all %}
+      {% for invcount in engagement.invcount.all %}
       <ul>
         <li>
-          <a class='btn btn-light' data-toggle="collapse" id="list_btn" href="#control{{forloop.counter}}" role="button" aria-expanded="false" aria-controls="collapse">{{control.ref}}</a>
-          <a class='dashboard' href="{% url 'control_app:control_detail' pk=control.id %}">
+          <a class='btn btn-light' data-toggle="collapse" id="list_btn" href="#count{{forloop.counter}}" role="button" aria-expanded="false" aria-controls="collapse">{{invcount.ref}}</a>
+          <a class='dashboard' href="{% url 'count_app:count_detail' pk=invcount.id %}">
             <img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail">
             </a>
 <!-- control discription-->
@@ -44,8 +44,8 @@ control detail
               <div class="jumbotron" id="control_dis">
 
                 <p>
-                  <span class="bold" >Control Name:</span>
-                  {{control.name}}
+                  <span class="bold" >Inventory Type and Location:</span>
+                  {{invcount.inventorytypemainlocation}}
                 </p>
               </div>
             </div>
@@ -61,12 +61,12 @@ control detail
     <div class="jumbotron">
 
       <span class="bold">
-        <p>No Controls for {{engagement.name}}</p>
+        <p>No Counts for {{engagement.name}}</p>
       </span>
-      <p>To Create Control:</p>
+      <p>To Create Count:</p>
 
       <div class="container">
-        <p><a type="button" class='btn btn-dark' href="{% url 'control_app:control_create' pk=engagement.id %}">Create Main Location</a></p>
+        <p><a type="button" class='btn btn-dark' href="{% url 'count_app:count_create' pk=engagement.id %}">Create Count</a></p>
       </div>
   </div>
 </div>

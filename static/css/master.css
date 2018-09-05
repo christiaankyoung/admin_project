@@ -290,3 +290,8 @@ li{
 .hidden{
   display: none;
 }
+
+#checkbox{
+  padding-right: 90%;
+  width: 120px;
+}

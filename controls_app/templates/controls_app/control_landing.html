@@ -22,9 +22,54 @@
           <li>
             <a class="btn btn-dark" id="engagement_list" href=" {% url 'engagement_app:engagement_control_detail' pk=engagement.id %} ">All Controls</a>
           </li>
+          <p></p>
+          <h5>Counts:</h5>
           <li>
-            <a class="btn btn-dark" id="engagement_list" href="#">Controls by Location</a>
+            <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#locations" role="button" aria-expanded="false" aria-controls="collapse">Counts by Contol:</a>
+              <div class="collapse multi-collapse" id="locations">
+                Coming soon!
+              </div>
           </li>
+          <p></p>
+          <h5>Locations:</h5>
+          <li>
+            <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#location" role="button" aria-expanded="false" aria-controls="collapse">Location by Control:</a>
+              <div class="collapse multi-collapse" id="location">
+                Coming soon!
+              </div>
+          </li>
+          <p></p>
+          <h5>Inventory:</h5>
+          <li>
+            <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#inventoryclass" role="button" aria-expanded="false" aria-controls="collapse">Inventory Classes by Control :</a>
+              <div class="collapse multi-collapse" id="invemtoryclass">
+                Coming soon!
+              </div>
+          </li>
+          <p></p>
+          <li>
+            <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#controls" role="button" aria-expanded="false" aria-controls="collapse">Inventory Types by Control:</a>
+              <div class="collapse multi-collapse" id="controls">
+                Coming soon!
+              </div>
+          </li>
+          <p></p>
+          <h5>IT Applications:</h5>
+
+          <li>
+            <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#applicationcontrol" role="button" aria-expanded="false" aria-controls="collapse">IT Applications by Control:</a>
+              <div class="collapse multi-collapse" id="applicationcontrol">
+                Coming soon!
+              </div>
+          </li>
+          <p></p>
+          <li>
+            <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#reportclass" role="button" aria-expanded="false" aria-controls="collapse">IT Reports by Control:</a>
+              <div class="collapse multi-collapse" id="reportclass">
+                Coming soon!
+              </div>
+          </li>
+          <p></p>
         </ul>
       </div>
 
@@ -32,7 +77,40 @@
 
   </div>
   <div class="container">
+    <h4>Control Type:</h4>
+      <ul>
+        <li>
+          <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#blind" role="button" aria-expanded="false" aria-controls="collapse">Controls by Control Type:</a>
+            <div class="collapse multi-collapse" id="blind">
+              Coming soon!
+            </div>
+        </li>
+        <li>
+          <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#blindlocation" role="button" aria-expanded="false" aria-controls="collapse">Control Type by Location:</a>
+            <div class="collapse multi-collapse" id="blindlocation">
+              Coming soon!
+            </div>
+        </li>
 
   </div>
+  <div class="container">
+    <h4>Control Frequency:</h4>
+      <ul>
+        <li>
+          <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#frequency" role="button" aria-expanded="false" aria-controls="collapse">Controls by Frequency:</a>
+            <div class="collapse multi-collapse" id="frequency">
+              Coming soon!
+            </div>
+        </li>
+        <li>
+          <a class='btn btn-dark' id="engagement_list" data-toggle="collapse" href="#frequencylocation" role="button" aria-expanded="false" aria-controls="collapse">Control Frequency by Location:</a>
+            <div class="collapse multi-collapse" id="frequencylocation">
+              Coming soon!
+            </div>
+        </li>
+
+  </div>
+
+
 
 {% endblock %}

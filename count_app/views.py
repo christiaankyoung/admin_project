@@ -20,28 +20,41 @@ class CountDetailView(DetailView):
     model = models.MainLocation
     template_name = 'count_app/count_detail.html'
 
-    #classes = MainLocation.engagement.inventoryclass.all()
 
-    #def get_context_data(self,**kwargs):
-        #context  = super().get_context_data(**kwargs)
-        #context['classes'] = classes
-        #return context
+class CountCreateForm(ModelForm):
+
+    class Meta:
+        model = models.InvCount
+        fields = ('inventorytypemainlocation','ref','engagement','date','blindcount','control')
+
+    def __init__ (self,*args,**kwargs):
+        engagement= kwargs.pop('engagement')
+        inventorytypes = []
+        super(ModelForm, self).__init__(*args,**kwargs)
+        controls = engagement.control.all()
+        queryset=models.Control.objects.filter(pk__in=[i.id for i in controls])
+        self.fields['control'].queryset = queryset
+
 
 class CountCreateView(CreateView):
     model = models.InvCount
-    fields = ('name','engagement')
+    form_class= CountCreateForm
 
     def get_initial(self):
         self.engagement = get_object_or_404(Engagement, id=self.kwargs.get('pk'))
         return {'engagement':self.engagement}
 
+    def get_form_kwargs(self):
+        kwargs = super(CountCreateView,self).get_form_kwargs()
+        engagement = get_object_or_404(Engagement, id=self.kwargs.get('pk'))
+        kwargs['engagement']=engagement
+        return kwargs
+
     def get_context_data(self,**kwargs):
         context  = super().get_context_data(**kwargs)
-        context['mainlocation_name'] = self.engagement.locationnames.mainlocation_name
-        context['engagement_name'] = self.engagement.name
         context['engagement_id'] = self.engagement.id
+        context['engagement_name'] = self.engagement.name
         return context
-
 
 
 class CountUpdateView(UpdateView):
