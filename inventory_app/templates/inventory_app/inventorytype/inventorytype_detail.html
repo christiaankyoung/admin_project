@@ -44,43 +44,219 @@
 
             <h3>Details:</h3>
             <div class="container" id="detail_box_detail">
-              <p>
-
+              <div>
                   <span class="bold">Name:</span>
-
                   {{inventorytype.name}}
-              </p>
+              </div>
+              <p></p>
+              <div>
+                  <span class="bold">Description:</span>
+                  <div class="container">
+
+                  {{inventorytype.description}}
+                </div>
+              </div>
+              <p></p>
             </div>
       </div>
       <div class="container">
-        <div class="locationtypes">
+        <ul>
+          <li>
+
           <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#locations" role="button" aria-expanded="false" aria-controls="collapse">Locations:</a>
             <div class="collapse multi-collapse" id="locations">
+              <div class="container">
               {% if inventorytype.inventorytypemainlocation.all %}
-                  <div class="detail_list">
-                    {% for  inventorytypemainlocation in inventorytype.inventorytypemainlocation.all %}
-                      <ul>
-                        <li>
-                            <a class='btn btn-secondary' id="detail_btn" href=" # ">{{inventorytypemainlocation.mainlocation}}</a>
-                            <span class="btn btn-primary" id="money_btn" > {{inventorytypemainlocation.balance |intcomma}}</span>
-                          </li>
-                        </ul>
-                    {% endfor %}
+
+                <a class='btn btn-light' id="prt_detail_btn" data-toggle="collapse" href="#mainlocations" role="button" aria-expanded="false" aria-controls="collapse">{{inventorytype.classification.engagement.locationnames.mainlocation_name}}(s):</a>
+                  <a href=" {% url 'engagement_app:engagement_mainlocation_detail' pk=inventorytype.classification.engagement.pk %} "> <img id="dashboard" src="{% static "images/list_view_black.png" %}"  alt="detail"></a>
+                  <div class="collapse multi-collapse" id="mainlocations">
+                    <div class="detail_list">
+                            {% for  inventorytypemainlocation in inventorytype.inventorytypemainlocation.all  %}
+                              <ul>
+                                <li>
+                                    <a class='btn btn-secondary' id="prt_detail_btn" data-toggle="collapse" href="#location{{inventorytypemainlocation.id}}" role="button" aria-expanded="false" aria-controls="collapse">{{inventorytypemainlocation.mainlocation}}</a>
+                                    <span class="btn btn-primary" id="money_btn" > {{inventorytypemainlocation.balance |intcomma}}</span>
+                                    <a href=" {% url 'location_app:mainlocation_detail' pk=inventorytypemainlocation.mainlocation.id %}"> <img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail"></a>
+                                    <a class='unassociate' href=" {% url 'inventory_app:inventory_maintype_unassociate' pk=inventorytypemainlocation.id %} "><img id="unassociate" src="{% static "images/folder_delete_color.png" %}"  alt="Unassociate"></a>
+                                      <div class="collapse multi-collapse" id="location{{inventorytypemainlocation.id}}">
+                                        <div class="container">
+                                          <div class="container" id="control_dis">
+                                            <div class="jumbotron" id="control_dis">
+                                              <p>
+                                                <span class="bold" >Inventory Count Info:</span>
+                                                <div class="container">
+                                                <div class="container">
+                                                  Frequency Inventory Counted:<span class="bold" > {{inventorytypemainlocation.frequency}}</span>
+                                                </div>
+                                                <div class="container">
+                                                How the Inventory is Counted: <span class="bold" >{{inventorytypemainlocation.cc_type}}</span>
+                                                </div>
+                                                <div class="container">
+                                                Unit of Measurement: <span class="bold" >{{inventorytypemainlocation.uom}}</span>
+                                                </div>
+                                              </div>
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                  </li>
+                                </ul>
+                            {% endfor %}
+                      </div>
+                    </div>
+
+              {% endif %}
+              <div class="container">
+                {% if inventorytype.inventorytypesubonelocation.all %}
+
+                  <a class='btn btn-light' id="prt_detail_btn" data-toggle="collapse" href="#subonelocations" role="button" aria-expanded="false" aria-controls="collapse">{{inventorytype.classification.engagement.locationnames.subonelocation_name}}(s):</a>
+                    <a href=" {% url 'engagement_app:engagement_mainlocation_detail' pk=inventorytype.classification.engagement.pk %} "> <img id="dashboard" src="{% static "images/list_view_black.png" %}"  alt="detail"></a>
+                    <div class="collapse multi-collapse" id="subonelocations">
+                      <div class="detail_list">
+                              {% for  inventorytypesubonelocation in inventorytype.inventorytypesubonelocation.all  %}
+                                <ul>
+                                  <li>
+                                      <a class='btn btn-secondary' id="prt_detail_btn" data-toggle="collapse" href="#location{{inventorytypesubonelocation.id}}" role="button" aria-expanded="false" aria-controls="collapse">{{inventorytypesubonelocation.subonelocation}}</a>
+                                      <span class="btn btn-primary" id="money_btn" > {{inventorytypesubonelocation.balance |intcomma}}</span>
+                                      <a href=" {% url 'location_app:subonelocation_detail' pk=inventorytypesubonelocation.subonelocation.id ml_pk=inventorytypesubonelocation.subonelocation.mainlocation.id %}"> <img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail"></a>
+                                      <a class='unassociate' href=" {% url 'inventory_app:inventory_subonetype_unassociate' pk=inventorytypesubonelocation.id %} "><img id="unassociate" src="{% static "images/folder_delete_color.png" %}"  alt="Unassociate"></a>
+                                        <div class="collapse multi-collapse" id="location{{inventorytypesubonelocation.id}}">
+                                          <div class="container">
+                                            <div class="container" id="control_dis">
+                                              <div class="jumbotron" id="control_dis">
+                                                <p>
+                                                  <span class="bold" >Inventory Count Info:</span>
+                                                  <div class="container">
+                                                  <div class="container">
+                                                    Frequency Inventory Counted:<span class="bold" > {{inventorytypesubonelocation.frequency}}</span>
+                                                  </div>
+                                                  <div class="container">
+                                                  How the Inventory is Counted: <span class="bold" >{{inventorytypesubonelocation.cc_type}}</span>
+                                                  </div>
+                                                  <div class="container">
+                                                  Unit of Measurement: <span class="bold" >{{inventorytypesubonelocation.uom}}</span>
+                                                  </div>
+                                                </div>
+                                                </p>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </li>
+                                  </ul>
+                              {% endfor %}
+                        </div>
+                      </div>
+
+                {% endif %}
+              </div>
+            </div>
+            </div>
+            </li>
+            <!--Controls-->
+            <li>
+            <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#controls" role="button" aria-expanded="false" aria-controls="collapse">Controls:</a>
+              <div class="collapse multi-collapse" id="controls">
+                {% if inventorytype.inventorytypecontrol.all %}
+                  {% for inventorytypecontrol in inventorytype.inventorytypecontrol.all  %}
+                  <ul>
+                    <li>
+                      <a class='btn btn-secondary' id="detail_btn" data-toggle="collapse" href="#control{{forloop.counter}}" role="button" aria-expanded="false" aria-controls="collapse" >{{inventorytypecontrol.control}}</a>
+                      <a class='dashboard' href=" {% url 'control_app:control_detail' pk=inventorytypecontrol.control.id %} ">
+                        <img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail">
+                        </a>
+                        <a class='unassociate' href=" {% url 'controls_app:inventorytypecontrol_unassociate' pk=inventorytypecontrol.id %} ">
+                          <img id="unassociate" src="{% static "images/folder_delete_color.png" %}"  alt="Unassociate">
+                          </a>
+
+                        <div class="collapse multi-collapse" id="control{{forloop.counter}}">
+                          <div class="container">
+                            <div class="container" id="control_dis">
+                              <div class="jumbotron" id="control_dis">
+                                <p>
+                                  <span class="bold" >Description:</span>
+                                  {{inventorytypecontrol.description}}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </li>
+                  </ul>
+                  {% endfor %}
+                {% else %}
+                <div class="container">
+                  <p></p>
+                  <div class="jumbotron">
+                    <h3>No Controls Associated With {{inventorytype}}</h3>
+                    <p>To associate a control:</p>
+                    <a class='btn btn-dark' href=" {% url 'controls_app:inventorytypecontrol_associate' pk=inventorytype.id %} ">Associate Control</a>
                   </div>
+                </div>
+                {% endif %}
+              </div>
+              </li>
+              <!--IT Application-->
+              <li>
+                <a class='btn btn-dark' id="prt_detail_btn" data-toggle="collapse" href="#itapps" role="button" aria-expanded="false" aria-controls="collapse">IT Applications:</a>
+                  <div class="collapse multi-collapse" id="itapps">
+              {% if inventorytype.inventorytypeapplication.all %}
+                {% for inventorytypeapplication in inventorytype.inventorytypeapplication.all  %}
+                <ul>
+                  <li>
+                    <a class='btn btn-secondary' id="detail_btn" data-toggle="collapse" href="#itapp{{forloop.counter}}" role="button" aria-expanded="false" aria-controls="collapse" >{{inventorytypeapplication.application}}</a>
+                    <a class='dashboard' href=" {% url 'it_app:application_detail' pk=inventorytypeapplication.application.id %} ">
+                      <img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail">
+                      </a>
+                      <a class='unassociate' href=" {% url 'it_app:inventorytypeapplication_unassociate' pk=inventorytypeapplication.id %} ">
+                        <img id="unassociate" src="{% static "images/folder_delete_color.png" %}"  alt="Unassociate">
+                        </a>
+
+                      <div class="collapse multi-collapse" id="itapp{{forloop.counter}}">
+
+                        {% for report in inventorytypeapplication.application.report.all  %}
+                        <ul>
+                          <li>
+                            <a class='btn btn-secondary' id="detail_btn" data-toggle="collapse" href="#report{{report.id}}" role="button" aria-expanded="false" aria-controls="collapse" >{{report.name}}</a>
+                            <a class='dashboard' href=" {% url 'it_app:report_detail' pk=report.id %} ">
+                              <img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail">
+                              </a>
+                                <div class="collapse multi-collapse" id="report{{report.id}}">
+                                  <div class="container">
+                                    <div class="container" id="control_dis">
+                                      <div class="jumbotron" id="control_dis">
+                                        <p>
+                                          <span class="bold" >Description:</span>
+                                          {{report.description}}
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  </div>
+
+                            </li>
+                          </ul>
+                        {% endfor %}
+                      </div>
+                      </div>
+                  </li>
+                </ul>
+                {% endfor %}
               {% else %}
               <div class="container">
                 <p></p>
                 <div class="jumbotron">
-                  <h3>No Inventory Types Under {{inventoryclass.classification}}</h3>
-                  <p>To Create an Inventory Type:</p>
-                  <a class="btn btn-dark" href="{% url 'inventory_app:inventorytype_create' pk=inventorytype.classification.pk %}">Create Inventory Type</a>
+                  <h3>No IT Applications Associated With {{inventorytype}}</h3>
+                  <p>To associate a IT application:</p>
+                  <a class='btn btn-dark' href=" {% url 'it_app:inventorytypeapplication_associate' pk=inventorytype.id %} ">Associate Control</a>
                 </div>
               </div>
               {% endif %}
             </div>
-          </div>
-        </div>
-
+            </li>
+      </ul>
   </div>
 
 {% endblock %}

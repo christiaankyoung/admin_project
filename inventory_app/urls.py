@@ -22,6 +22,7 @@ urlpatterns = [
     path('<int:pk>/deleteinventorymaintype/',views.InventoryTypeMainLocationDeleteView.as_view(),name='inventory_maintype_unassociate'),
     path('<int:pk>/createinventorysubonetype/',views.InventoryTypeSubOneLocationCreateView.as_view(),name='inventory_subonetype_associate'),
     path('<int:pk>/createsubonetypeinventory/',views.SubOneLocationInventoryTypeCreateView.as_view(),name='subonetype_inventory_associate'),
+    path('<int:pk>/deleteinventorysubonetype/',views.InventoryTypeSubOneLocationDeleteView.as_view(),name='inventory_subonetype_unassociate'),
     #Control inventory class urls
     path('<int:pk>/createcontrolinventoryclass/',views.ControlInventoryClassCreateView.as_view(),name='controlinventoryclass_associate'),
 

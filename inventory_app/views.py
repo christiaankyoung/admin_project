@@ -339,3 +339,11 @@ class SubOneLocationInventoryTypeCreateView(CreateView):
         context['inventorytype_id'] = self.type.id
         context['mainlocation_called'] = self.type.classification.engagement.locationnames.subonelocation_name
         return context
+
+class InventoryTypeSubOneLocationDeleteView(DeleteView):
+    model = models.InventoryTypeSubOneLocation
+    template_name = 'inventory_app/inventorytypesubonelocation/inventorytypesubonelocation_confirm_delete.html'
+
+    def get_success_url(self):
+        inventorytype = get_object_or_404(models.InventoryTypeSubOneLocation, id=self.kwargs.get('pk')).inventorytype
+        return inventorytype.get_absolute_url()
