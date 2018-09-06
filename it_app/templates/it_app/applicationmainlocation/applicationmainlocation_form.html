@@ -1,0 +1,41 @@
+{% extends "it_app\mainlocationapplication\base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+    {% block reliance_block %}
+    <h1>
+      {% if not form.instance.pk %}
+      Associate {{mainlocation_called}} With {{mainlocation_name}}
+      {% else %}
+      Update Association With {{mainlocation_name}}
+      {% endif %}
+    </h1>
+      <form method="POST" id="hideerror_form">
+        {% csrf_token %}
+
+        {% for error in form.errors %}
+          {% if error == "__all__" %}
+          <div class="container">
+              <ul>
+                <li>This {{mainlocation_called}} is already associated with {{mainlocation_name}}</li>
+              </ul>
+          </div>
+          {% endif %}
+        {% endfor %}
+    <p class="hidden">
+      {{ form.application }}
+    </p>
+    {{ form.application.errors }}
+    <p></p>
+    <p>
+      <span class="bold" > {{mainlocation_called}}:</span> <a href="#"> <img id="info_bulb" src="{% static "images/idea_clear.png" %}" alt="info"> </a>
+      <div class="container">
+
+      {% render_field form.mainlocation class="form-control" placeholder=mainlocation_called %}
+      {{ form.mainlocation.errors }}
+    </div>
+    </p>
+    {% endblock %}
+
+    {% block cancel_btnblock %}
+        <a class="btn btn-light" id="cancel-delete" href="{% url 'location_app:mainlocation_detail' pk=mainlocation_id %} ">Cancel</a>
+      {% endblock %}

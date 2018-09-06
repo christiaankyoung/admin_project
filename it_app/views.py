@@ -111,7 +111,7 @@ class ReportDeleteView(DeleteView):
     def get_success_url(self):
         application = get_object_or_404(models.Report, id=self.kwargs.get('pk')).application
         return application.get_absolute_url()
-
+#mainlocation application views
 class MainLocationApplicationForm(ModelForm):
 
     class Meta:
@@ -198,3 +198,38 @@ class InventoryTypeApplicationDeleteView(DeleteView):
     def get_success_url(self):
         inventorytype = get_object_or_404(models.InventoryTypeApplication, id=self.kwargs.get('pk')).inventorytype
         return inventorytype.get_absolute_url()
+# application mainlocation views
+class ApplicationMainLocationForm(ModelForm):
+
+    class Meta:
+        model = models.MainLocationApplication
+        fields = ('mainlocation','application','description')
+
+    def __init__ (self,*args,**kwargs):
+        application= kwargs.pop('application')
+        super(ModelForm, self).__init__(*args,**kwargs)
+        mainlocations = application.engagement.mainlocation.all()
+        queryset=models.MainLocation.objects.filter(pk__in=[i.id for i in mainlocations])
+        self.fields['mainlocation'].queryset = queryset
+
+class ApplicationMainLocationCreateView(CreateView):
+    model = models.MainLocationApplication
+    template_name = 'it_app\applicationmainlocation\applicationmainlocation_form.html'
+    form_class= ApplicationMainLocationForm
+
+    def get_initial(self):
+        self.application = get_object_or_404(Application, id=self.kwargs.get('pk'))
+        return {'application':self.application}
+
+    def get_form_kwargs(self):
+        kwargs = super(ApplicationMainLocationCreateView,self).get_form_kwargs()
+        application = get_object_or_404(Application, id=self.kwargs.get('pk'))
+        kwargs['application']=application
+        return kwargs
+
+    def get_context_data(self,**kwargs):
+        context  = super().get_context_data(**kwargs)
+        context['mainlocation_name'] = self.application.name
+        context['mainlocation_id'] = self.application.id
+        context['mainlocation_called'] = self.application.engagement.locationnames.mainlocation_name
+        return context

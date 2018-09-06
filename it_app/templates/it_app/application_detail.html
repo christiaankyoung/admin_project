@@ -11,10 +11,13 @@
 
     <p></p>
 <h4>Location Actions:</h4>
-  <a class="btn btn-light btn-block" id="create" href="#">Associate to {{control.engagement.locationnames.mainlocation_name}}</a>
-  <a class='btn btn-light btn-block' id="create" href="#">Associate to {{control.engagement.locationnames.subonelocation_name}}</a>
+  <a class="btn btn-light btn-block" id="create" href="#">Associate to {{application.engagement.locationnames.mainlocation_name}}</a>
+  <a class='btn btn-light btn-block' id="create" href="#">Associate to {{application.engagement.locationnames.subonelocation_name}}</a>
   <p></p>
-  <h4>Control Actions:</h4>
+<h4>Inventory Actions:</h4>
+    <a class="btn btn-light btn-block" id="create" href="#">Associate to Inventory Type</a>
+    <p></p>
+<h4>Control Actions:</h4>
     <a class="btn btn-light btn-block" id="create" href="#">Associate to Control</a>
     <p></p>
 
@@ -22,7 +25,7 @@
 {% endblock %}
 {% block breadcrumblink_block %}
 
-  <li class="breadcrumb-item"><a href="#">IT Applications</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'engagement_app:engagement_application_detail' pk=application.engagement.id %}">IT Applications</a></li>
   <li class="breadcrumb-item active" aria-current="page">{{application.name}}</li>
 {% endblock %}
 

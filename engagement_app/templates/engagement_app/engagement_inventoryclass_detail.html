@@ -47,8 +47,8 @@ Inventory Class detail
               <ul>
                 <li>
                   <a class='btn btn-light' data-toggle="collapse" id="list_btn" href="#type{{inventorytype.id}}" role="button" aria-expanded="false" aria-controls="collapse">{{inventorytype.name}}</a>
-                  
-                  <a class='dashboard' href="#">
+
+                  <a class='dashboard' href="{% url 'engagement_app:inventory_app:inventorytype_detail' pk=inventorytype.id %}">
                     <img id="dashboard" src="{% static "images/notepad_view_black.png" %}"  alt="detail">
                     </a>
 <!--  Inventory sub type for-->
